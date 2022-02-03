@@ -38,18 +38,18 @@
             <img src="/images/register.jpg" alt="register picture" draggable="false">
 
             <div class="input">
-                <input type="text" placeholder="Username" class="username">
-                <p><span>*</span> Username</p>
+                <input type="text" class="username">
+                <p data-text="Username" class="placeholder">Username</p>
             </div>
 
             <div class="input">
-                <input type="password" placeholder="Password" class="password">
-                <p><span>*</span> Password</p>
+                <input type="password" class="password">
+                <p data-text="Password" class="placeholder">Password</p>
             </div>
 
             <div class="input">
-                <input type="password" placeholder="Retry Password" class="retry-password">
-                <p><span>*</span> Retry Password</p>
+                <input type="password" class="retry-password">
+                <p data-text="Retry Password" class="placeholder">Retry Password</p>
             </div>
 
             <button class="profile">Select A Profile</button>
