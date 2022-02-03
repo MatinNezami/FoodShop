@@ -1,0 +1,171 @@
+@font-face {
+    font-family: plex-sans;
+    src: url("/fonts/ibm-plex-sans.woff2");
+}
+
+:root {
+    --animate: all 170ms ease-in 0s;
+    --link-hover-color: linear-gradient(to right bottom, #00c4f0, #006e92);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: plex-sans;
+}
+
+a {
+    text-decoration: none;
+    color: #000;
+    font-size: 20px;
+}
+
+.center-item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.menu-item {
+    width: 100px;
+    height: 13px;
+    fill: #FFF;
+    rx: 6.5px;
+    ry: 6.5px;
+}
+
+.close-item {
+    stroke: #FFF;
+    stroke-linecap: round;
+    stroke-width: 10;
+}
+
+header nav {
+    width: 100%;
+    padding: 20px 28px;
+    justify-content: space-between !important;
+    color: #FFF;
+}
+
+header nav a {
+    color: #FFF;
+}
+
+.links {
+    gap: 20px;
+    width: max-content;
+}
+
+.links p {
+    display: inline-block;
+    width: inherit;
+}
+
+header nav .open {
+    display: none;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+}
+
+header nav .animate {
+    display: block;
+    width: 0;
+    height: 5px;
+    transition: var(--animate);
+    background-image: var(--link-hover-color);
+}
+
+header nav a:hover .animate {
+    width: 100%;
+}
+
+.account {
+    gap: 10px;
+}
+
+.account svg {
+    width: 25px;
+    height: 25px;
+    margin-bottom: 2px;
+}
+
+.search {
+    width: 90%;
+    position: absolute;
+    top: 130px;
+    left: 50%;
+    transform: translateX(-50%);
+    height: 50px;
+    border-radius: 5px;
+    padding: 5px;
+    background-color: #FFF7;
+}
+
+.search div {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+    border-radius: 5px;
+}
+
+.search input {
+    border: none;
+    outline: none;
+    width: 100%;
+    height: 100%;
+    padding: 0 50px 0 20px;
+    font-size: 23px;
+}
+
+input[type=search]::-webkit-search-cancel-button {
+    display: none;
+}
+
+.search svg {
+    width: 35px;
+    height: 35px;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 10px;
+    cursor: pointer;
+}
+
+aside.menu {
+    width: 260px;
+    height: 100%;
+    position: fixed;
+    background-color: #000A;
+    z-index: 2;
+    left: -260px;
+    top: 0;
+    transition: var(--animate);
+}
+
+aside.menu .links {
+    width: 100%;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 20px 0 0 30px;
+}
+
+aside.menu a {
+    color: #FFF;
+}
+
+aside.menu .links a:hover {
+    color: transparent;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-image: var(--link-hover-color);
+}
+
+aside.menu .links svg {
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+}

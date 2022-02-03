@@ -1,0 +1,13 @@
+@media screen and (max-width: 500px) {
+    .aside-products-box {
+        display: none;
+    }
+
+    header nav .links {
+        display: none !important;
+    }
+
+    header nav .open {
+        display: block !important;
+    }
+}
