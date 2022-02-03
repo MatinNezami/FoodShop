@@ -1,4 +1,19 @@
-<?php require_once "../share/component.php" ?>
+<?php
+    
+    require_once "../share/component.php";
+
+    function profile (int $index) {
+        $length = $index + 3;
+        for ($index; $index <= $length; $index++) {
+            if ($index % 2 == 0)
+                echo '<img src="/images/profile/profile' . $index . '.jpeg" alt="profile" draggable="false"></div>';
+
+            else
+                echo '<div class="center-item"><img src="/images/profile/profile' . $index . '.jpeg" alt="profile" draggable="false">';
+        }
+    }
+
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -36,6 +51,24 @@
                 <input type="password" placeholder="Retry Password" class="retry-password">
                 <p><span>*</span> Retry Password</p>
             </div>
+
+            <button class="profile">Select A Profile</button>
+
+            <div class="profile-images center-item">
+                <div class="center-item">
+                    <?php profile(1) ?>
+                </div>
+
+                <div class="center-item">
+                    <?php profile(5) ?>
+                </div>
+            </div>
+
+            <input type="file" id="custom-profile">
+
+            <img src="" alt="custom profile" draggable="false" id="custom-profile-image">
+
+            <label for="custom-profile" class="center-item">Select A Custom Profile</label>
         </div>
     </main>
 

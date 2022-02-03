@@ -1,5 +1,9 @@
 const $ = document;
 
+function isExists (selector) {
+    return $.select(selector);
+}
+
 (_ => {
    
     function event (...args) {
