@@ -1,4 +1,4 @@
-const asideProducts = document.querySelectorAll(".aside-product");
+const asideProducts = $.select(".aside-product");
 
 function showProducts () {
     if (window.innerWidth <= 500)

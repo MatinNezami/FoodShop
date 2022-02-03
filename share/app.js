@@ -1,15 +1,14 @@
-const headerMenu = document.querySelector("aside.menu");
-
+$.select("aside.menu", "menu");
 
 function closeMenu () {
-    headerMenu.style.left = "-260px";
-    document.body.style.overflow = "visible";
+    $.menu.style.left = "-260px";
+    $.body.style.overflow = "visible";
 }
 
 function openMenu () {
-    headerMenu.style.left = 0;
-    document.body.style.overflow = "hidden";
+    $.menu.style.left = 0;
+    $.body.style.overflow = "hidden";
 }
 
-document.querySelector(".menu .close").addEventListener("click", closeMenu);
-document.querySelector("header nav .open").addEventListener("click", openMenu);
+$.select(".menu .close").event("click", closeMenu);
+$.select("header nav .open").event("click", openMenu);
