@@ -1,3 +1,5 @@
+const $ = document;
+
 (_ => {
    
     function event (...args) {
@@ -45,10 +47,10 @@
 
     
     function select(selector, name = undefined) {
-        let elms = document.querySelectorAll(selector);
+        let elms = $.querySelectorAll(selector);
            
-        if (typeof name == "string" && !(name in document))
-            elms.length > 1? document[name] = elms: document[name] = elms[0];
+        if (typeof name == "string" && !(name in $))
+            elms.length > 1? $[name] = elms: $[name] = elms[0];
            
         return elms.length > 1? elms: elms[0];
     }

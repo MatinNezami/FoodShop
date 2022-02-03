@@ -1,11 +1,10 @@
 function focus () {
-    const label = this.parentNode.querySelector("label");
+    const label = this.parentNode.querySelector("p");
 
     label.style.top = "-13px";
     label.style.left = "5px";
     label.style.transform = "none";
     label.style.fontSize = "18px";
-
     label.style.transition = null;
     
     setTimeout(() => {
@@ -17,7 +16,7 @@ function blur () {
     if (this.value)
         return null;
 
-    const label = this.parentNode.querySelector("label");
+    const label = this.parentNode.querySelector("p");
 
     label.style.transition = "all 170ms ease-in 0s";
 
@@ -29,7 +28,4 @@ function blur () {
 }
 
 
-document.querySelectorAll("main .input input").forEach(input => {
-    input.addEventListener("focus", focus);
-    input.addEventListener("blur", blur);
-});
+$.select(".input input").event("focus", focus, "blur", blur);

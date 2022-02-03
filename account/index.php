@@ -19,20 +19,22 @@
     </header>
 
     <main class="center-item">
-        <div class="center-item">
+        <div class="center-item" id="register-box">
+            <img src="/images/register.jpg" alt="register picture" draggable="false">
+
             <div class="input">
-                <input type="text" placeholder="Username" id="username">
-                <label for="username" class="label">Username</label>
+                <input type="text" placeholder="Username" class="username">
+                <p><span>*</span> Username</p>
             </div>
 
             <div class="input">
-                <input type="password" placeholder="Password" id="password">
-                <label for="password">Password</label>
+                <input type="password" placeholder="Password" class="password">
+                <p><span>*</span> Password</p>
             </div>
 
             <div class="input">
-                <input type="password" placeholder="Retry Password" id="retry-password">
-                <label for="retry-password">Retry Password</label>
+                <input type="password" placeholder="Retry Password" class="retry-password">
+                <p><span>*</span> Retry Password</p>
             </div>
         </div>
     </main>
