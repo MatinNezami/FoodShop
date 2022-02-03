@@ -69,6 +69,11 @@
             <img src="" alt="custom profile" draggable="false" id="custom-profile-image">
 
             <label for="custom-profile" class="center-item">Select A Custom Profile</label>
+
+            <div class="control center-item">
+                <button class="login">Login</button>
+                <button class="submit">Submit</button>
+            </div>
         </div>
     </main>
 
