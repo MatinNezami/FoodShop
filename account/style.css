@@ -83,6 +83,7 @@ main > div > label {
     position: absolute;
     border-radius: 10px;
     padding-left: 30px;
+    z-index: -1;
 }
 
 .input input::placeholder,
