@@ -8,10 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Account</title>
 
-    <link rel="stylesheet" type="text/css" href="../share/responsive.css">
-    <link rel="stylesheet" type="text/css" href="../share/style.css">
-
-    <link rel="stylesheet" type="text/css" href="./style.css">
+    <?php component::headFiles() ?>
 </head>
 
 <body>
