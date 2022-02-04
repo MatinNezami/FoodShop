@@ -92,7 +92,7 @@
 
     <div class="search">
         <div>
-            <input type="search" placeholder="Type to search...">
+            <input type="search" placeholder="Type to search..."  autocomplete="off">
 
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
                 <g fill="none" stroke="#000" stroke-width="4" stroke-linecap="round">

@@ -34,26 +34,31 @@
     </header>
 
     <main class="center-item">
-        <div class="center-item" id="register-box">
-            <img src="/images/register.jpg" alt="register picture" draggable="false">
+        <div class="center-item" id="signup-box">
+            <img src="/images/register.jpg" alt="signup picture" draggable="false">
 
             <div class="input">
-                <input type="text" class="username">
-                <p data-text="Username" class="placeholder">Username</p>
+                <input type="text" class="username" autocomplete="off">
+                <p data-text="Username" data-require class="placeholder">Username</p>
             </div>
 
             <div class="input">
-                <input type="password" class="password" data-type="password">
-                <p data-text="Password" class="placeholder">Password</p>
+                <input type="email" class="email" autocomplete="off">
+                <p data-text="Email" data-require class="placeholder">Email</p>
             </div>
 
             <div class="input">
-                <input type="password" class="retry-password" data-type="password">
-                <p data-text="Retry Password" class="placeholder">Retry Password</p>
+                <input type="password" class="password" data-type="password" autocomplete="off">
+                <p data-text="Password" data-require class="placeholder">Password</p>
+            </div>
+
+            <div class="input">
+                <input type="password" class="retry-password" data-type="password" autocomplete="off">
+                <p data-text="Retry Password" data-require class="placeholder">Retry Password</p>
             </div>
 
             <div class="show-password center-item">
-                <input type="checkbox">
+                <input type="checkbox" autocomplete="off">
                 <p>Show Password</p>
             </div>
 
@@ -77,6 +82,32 @@
 
             <div class="control center-item">
                 <button class="login">Login</button>
+                <button class="submit">Submit</button>
+            </div>
+        </div>
+
+        <div class="center-item" id="login-box">
+            <img src="/images/login.webp" alt="login picture" draggable="false">
+
+            <div class="input">
+                <input type="text" class="username" autocomplete="off">
+                <p data-text="Username" data-require class="placeholder">Username</p>
+            </div>
+
+            <div class="input">
+                <input type="password" class="password" data-type="password" autocomplete="off">
+                <p data-text="Password" data-require class="placeholder">Password</p>
+            </div>
+
+            <div class="show-password center-item">
+                <input type="checkbox" autocomplete="off">
+                <p>Show Password</p>
+            </div>
+
+            <button class="login-google">With Google</button>
+
+            <div class="control center-item">
+                <button class="signup">Sign Up</button>
                 <button class="submit">Submit</button>
             </div>
         </div>

@@ -38,6 +38,12 @@ main > div {
     flex-direction: column;
     padding: 20px 0;
     margin: 30px 0;
+
+    opacity: 0;
+    transition: opacity 230ms ease-in 0s;
+
+    /* display: none !important; */
+    /* then use */
 }
 
 main > div > * {
@@ -171,10 +177,21 @@ input[type=file] {
     border-radius: 10px;
 }
 
-.login {
+.login,
+.signup {
     background-color: #FFB400;
 }
 
 .submit {
     background-color: #7FB800;
+}
+
+.login-google {
+    background-color: #F6511D;
+}
+
+#login-box {display: none;}
+#signup-box {
+    display: flex ;
+    opacity: 1;
 }

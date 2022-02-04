@@ -1,6 +1,9 @@
 const profilesBox = $.select(".profile-images"),
     profileImages = $.select(".profile-images img");
 
+$.select("#login-box", "login");
+$.select("#signup-box", "signup");
+
 function focus () {
     const label = this.parentNode.select(".placeholder");
     
@@ -12,7 +15,7 @@ function focus () {
     
     setTimeout(_ => {
         label.style.zIndex = "2";
-        label.innerHTML = "<span>*</span> " + label.dataset.text;
+        typeof label.dataset.require == "string"? label.innerHTML = "<span>*</span> " + label.dataset.text: label.innerText = label.dataset.text;
     }, 170);
 }
 
@@ -94,9 +97,50 @@ uploadImage($.select("#custom-profile", "profile"), $.select("#custom-profile-im
 
 
 function password () {
-    $.select("input[data-type=password]").forEach(input => input.type = (
-        this.checked? "text": "password"
-    ));
+    this.parentNode.parentNode.querySelectorAll("input[data-type=password]").forEach(
+        input => input.type = this.checked? "text": "password"
+    );
 }
 
 $.select(".show-password input").event("change", password);
+
+
+
+
+
+
+
+
+// use function for prevent;
+function renderLoginBox () {
+    $.select("main > div").forEach(box => {
+        box.style.display = "none";
+        box.style.opacity = "0";
+    });
+
+    $.login.style.display = "flex";
+    
+    setTimeout(() => {
+        
+        
+        $.login.style.opacity = "1";
+    }, 10);
+}
+
+$.signup.select(".login").event("click", renderLoginBox);
+
+
+function renderSignupBox () {
+    $.select("main > div").forEach(box => {
+        box.style.display = "none";
+        box.style.opacity = "0";
+    });
+
+    $.signup.style.display = "flex";
+    
+    setTimeout(() => {
+        $.signup.style.opacity = "1";
+    }, 10);
+}
+
+$.login.select(".signup").event("click", renderSignupBox);
