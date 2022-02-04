@@ -50,8 +50,9 @@ function isExists (selector) {
     NodeList.prototype.event = allEvent;
 
     
-    function select(selector, name = undefined) {
-        let elms = $.querySelectorAll(selector);
+    function select (selector, name = undefined) {
+        let elms;
+        this instanceof Element?elms = this.querySelectorAll(selector) :elms = $.querySelectorAll(selector);
            
         if (typeof name == "string" && !(name in $))
             elms.length > 1? $[name] = elms: $[name] = elms[0];
@@ -60,5 +61,6 @@ function isExists (selector) {
     }
        
     Document.prototype.select = select;
+    Element.prototype.select = select;
    
 })();

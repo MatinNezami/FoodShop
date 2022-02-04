@@ -2,7 +2,7 @@ const profilesBox = $.select(".profile-images"),
     profileImages = $.select(".profile-images img");
 
 function focus () {
-    const label = this.parentNode.querySelector(".placeholder");
+    const label = this.parentNode.select(".placeholder");
     
     label.style.top = "-13px";
     label.style.left = "5px";
@@ -17,7 +17,7 @@ function focus () {
 }
 
 function blur () {
-    const label = this.parentNode.querySelector(".placeholder");
+    const label = this.parentNode.select(".placeholder");
 
     setTimeout(_ => {
         if (!this.value)
@@ -36,9 +36,15 @@ function blur () {
     label.style.fontSize = null;
 }
 
+$.select(".input input").event("focus", focus, "blur", blur);
+
+
 function focusToInput () {
     this.previousElementSibling.focus();
 }
+
+$.select(".placeholder").event("click", focusToInput);
+
 
 function profile () {
     profilesBox.style.maxHeight = "500px";
@@ -51,6 +57,10 @@ function selectProfile () {
 
     this.classList.add("selected");
 }
+
+$.select(".profile").event("click", profile);
+profileImages.event("click", selectProfile);
+
 
 function uploadImage (input, imageElm) {
     const reader = new FileReader();
@@ -80,8 +90,13 @@ function uploadImage (input, imageElm) {
     input.event("change", upload)
 }
 
-$.select(".input input").event("focus", focus, "blur", blur);
-$.select(".profile").event("click", profile);
-profileImages.event("click", selectProfile);
 uploadImage($.select("#custom-profile", "profile"), $.select("#custom-profile-image"));
-$.select(".placeholder").event("click", focusToInput);
+
+
+function password () {
+    $.select("input[data-type=password]").forEach(input => input.type = (
+        this.checked? "text": "password"
+    ));
+}
+
+$.select(".show-password input").event("change", password);

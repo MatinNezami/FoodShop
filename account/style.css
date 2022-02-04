@@ -57,7 +57,8 @@ main > div > img {
 
 .input,
 main button,
-main label {
+main label,
+.show-password {
     height: 45px;
     border-radius: 10px;
     width: 80%;
@@ -81,7 +82,7 @@ main label {
     font-size: 16px;
     position: absolute;
     border-radius: 10px;
-    padding-left: 30px;
+    padding: 0 10px 0 30px;
 }
 
 .placeholder {
@@ -96,6 +97,18 @@ main label {
     left: 30px;
     user-select: none;
     cursor: text;
+}
+
+.show-password {
+    justify-content: flex-start;
+    gap: 20px;
+    padding: 0 5px;
+}
+
+.show-password input {
+    width: 17px;
+    height: 17px;
+    cursor: pointer;
 }
 
 .profile-images {

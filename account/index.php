@@ -43,13 +43,18 @@
             </div>
 
             <div class="input">
-                <input type="password" class="password">
+                <input type="password" class="password" data-type="password">
                 <p data-text="Password" class="placeholder">Password</p>
             </div>
 
             <div class="input">
-                <input type="password" class="retry-password">
+                <input type="password" class="retry-password" data-type="password">
                 <p data-text="Retry Password" class="placeholder">Retry Password</p>
+            </div>
+
+            <div class="show-password center-item">
+                <input type="checkbox">
+                <p>Show Password</p>
             </div>
 
             <button class="profile">Select A Profile</button>
