@@ -31,7 +31,7 @@ button {
     cursor: pointer;
 }
 
-main > div {
+main > div.center-item {
     width: 500px;
     background: #FFF;
     border-radius: 8px;
@@ -42,8 +42,7 @@ main > div {
     opacity: 0;
     transition: opacity 230ms ease-in 0s;
 
-    /* display: none !important; */
-    /* then use */
+    display: none;
 }
 
 main > div > * {
@@ -88,7 +87,17 @@ main label,
     font-size: 16px;
     position: absolute;
     border-radius: 10px;
-    padding: 0 10px 0 30px;
+    padding: 0 10px 0 35px;
+}
+
+.input svg {
+    width: 25px;
+    height: 25px;
+    position: absolute;
+    left: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 2;
 }
 
 .placeholder {
@@ -188,10 +197,4 @@ input[type=file] {
 
 .login-google {
     background-color: #F6511D;
-}
-
-#login-box {display: none;}
-#signup-box {
-    display: flex ;
-    opacity: 1;
 }

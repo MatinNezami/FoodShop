@@ -44,7 +44,7 @@
             </svg>
 
             <p>
-                <a href="#">
+                <a href="/account?login">
                     <span>Log in</span>
                     <span class="animate"></span>
                 </a>
@@ -53,7 +53,7 @@
             <span>/</span>
 
             <p>
-                <a href="#">
+                <a href="/account?signup">
                     <span>Sign up</span>
                     <span class="animate"></span>
                 </a>

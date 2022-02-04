@@ -4,6 +4,16 @@ const profilesBox = $.select(".profile-images"),
 $.select("#login-box", "login");
 $.select("#signup-box", "signup");
 
+switch (flag) {
+    case "login":
+        renderLoginBox();
+        break;
+    
+    case "signup":
+        renderSignupBox();
+        break;
+}
+
 function focus () {
     const label = this.parentNode.select(".placeholder");
     
