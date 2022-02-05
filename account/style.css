@@ -59,7 +59,7 @@ main > div > img {
 }
 
 main > div > *:not(img) {
-    height: 45px;
+    height: 3rem;
     border-radius: 10px;
     width: 80%;
 }

@@ -32,6 +32,9 @@
 
             elseif (isset($_GET["signup"]))
                 echo "const flag = \"signup\"";
+
+            elseif (isset($_GET["information"]))
+                echo "const flag = \"info\"";
         ?>
     </script>
 </head>

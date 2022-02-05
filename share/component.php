@@ -108,6 +108,8 @@
 
 ?>
 
+    <link rel="dns-prefetch" href="http://localhost">
+
     <link rel="stylesheet" type="text/css" href="/share/responsive.css">
     <link rel="stylesheet" type="text/css" href="/share/style.css">
 
