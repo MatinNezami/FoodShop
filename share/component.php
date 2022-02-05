@@ -8,7 +8,7 @@
     <nav class="center-item">
         <div class="links center-item">
             <p>
-                <a href="localhost">
+                <a href="/">
                     <span>Home</span>
                     <span class="animate"></span>
                 </a>
@@ -71,7 +71,7 @@
 
     <aside class="menu">
         <div class="links center-item">
-            <a href="localhost">Home</a>
+            <a href="/">Home</a>
             <a href="#">Products</a>
             <a href="#">Cart</a>
         </div>
