@@ -121,6 +121,20 @@
 <?php
 
         }
+
+        static function backToTop () {
+
+?>
+
+    <div class="center-item back-to-top">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+            <path d="M 15 70 50 30 85 70" stroke="#FFF" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        </svg>
+    </div>
+
+<?php
+
+        }
     }
 
 ?>

@@ -154,7 +154,10 @@
         </div>
     </main>
 
-    <?php component::asideMenu() ?>
+    <?php
+        component::asideMenu();
+        component::backToTop();
+    ?>
 
     <script type="text/javascript" src="../share/app.js"></script>
     <script type="text/javascript" src="./main.js"></script>

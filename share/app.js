@@ -15,3 +15,15 @@ function openMenu () {
 
 $.prevent.event("click", closeMenu);
 $.select("header nav .open").event("click", openMenu);
+
+
+function backToTop () {
+    const animate = setInterval(_ => {
+        window.scrollTo(0, window.scrollY - 10);
+
+        if (window.scrollY == 0)
+            clearInterval(animate);
+    }, 1);
+}
+
+$.select(".back-to-top").event("click", backToTop);

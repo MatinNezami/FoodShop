@@ -113,7 +113,10 @@
         </div>
     </main>
 
-    <?php component::asideMenu() ?>
+    <?php
+        component::asideMenu();
+        component::backToTop();
+    ?>
 
     <footer class="center-item">
         <img src="./images/post2.jpg" alt="background picture">
