@@ -155,8 +155,8 @@
     </main>
 
     <?php
-        component::asideMenu();
         component::backToTop();
+        component::asideMenu();
     ?>
 
     <script type="text/javascript" src="../share/app.js"></script>

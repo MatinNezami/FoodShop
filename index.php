@@ -114,8 +114,8 @@
     </main>
 
     <?php
-        component::asideMenu();
         component::backToTop();
+        component::asideMenu();
     ?>
 
     <footer class="center-item">
