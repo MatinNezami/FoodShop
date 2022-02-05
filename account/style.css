@@ -60,10 +60,7 @@ main > div > img {
     object-fit: cover;
 }
 
-.input,
-main button,
-main label,
-.show-password {
+main > div > *:not(img) {
     height: 45px;
     border-radius: 10px;
     width: 80%;
@@ -87,17 +84,7 @@ main label,
     font-size: 16px;
     position: absolute;
     border-radius: 10px;
-    padding: 0 10px 0 35px;
-}
-
-.input svg {
-    width: 25px;
-    height: 25px;
-    position: absolute;
-    left: 5px;
-    top: 50%;
-    transform: translateY(-50%);
-    z-index: 2;
+    padding: 0 10px 0 20px;
 }
 
 .placeholder {
@@ -109,7 +96,7 @@ main label,
     transform: translateY(-50%);
     background-color: #FFF;
     position: absolute;
-    left: 30px;
+    left: 15px;
     user-select: none;
     cursor: text;
 }
@@ -132,6 +119,7 @@ main label,
     overflow: hidden;
     margin-bottom: 0;
     transition: var(--animate);
+    height: max-content;
 }
 
 .profile-images > div {

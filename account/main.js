@@ -22,20 +22,10 @@ function focus () {
     label.style.transform = "none";
     label.style.fontSize = "18px";
     label.style.transition = null;
-    
-    setTimeout(_ => {
-        label.style.zIndex = "2";
-        typeof label.dataset.require == "string"? label.innerHTML = "<span>*</span> " + label.dataset.text: label.innerText = label.dataset.text;
-    }, 170);
 }
 
 function blur () {
     const label = this.parentNode.select(".placeholder");
-
-    setTimeout(_ => {
-        if (!this.value)
-            label.innerHTML = label.dataset.text;
-    }, 170);
     
     if (this.value)
         return null;
