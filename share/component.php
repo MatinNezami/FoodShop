@@ -71,16 +71,13 @@
 
     <aside class="menu">
         <div class="links center-item">
-            <svg class="close" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">            
-                <line class="close-item" x1="10" y1="10" x2="90" y2="90"/>
-                <line class="close-item" x1="90" y1="10" x2="10" y2="90"/>
-            </svg>
-
             <a href="#">Home</a>
             <a href="#">Products</a>
             <a href="#">Cart</a>
         </div>
     </aside>
+
+    <div id="prevent"></div>
 
 <?php
 

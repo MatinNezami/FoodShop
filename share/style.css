@@ -139,8 +139,8 @@ aside.menu {
     width: 260px;
     height: 100%;
     position: fixed;
-    background-color: #000A;
-    z-index: 2;
+    background-color: #000D;
+    z-index: 3;
     left: -260px;
     top: 0;
     transition: var(--animate);
@@ -164,8 +164,11 @@ aside.menu .links a:hover {
     background-image: var(--link-hover-color);
 }
 
-aside.menu .links svg {
-    width: 30px;
-    height: 30px;
-    cursor: pointer;
+#prevent {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+    top: 0;
+    left: 0;
 }

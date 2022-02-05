@@ -37,8 +37,8 @@
 </head>
 
 <body>
-    <!-- <img src="../images/account.jpg" alt="background picture"> -->
-    <div></div>
+    <img src="../images/account.jpg" alt="background picture">
+
     <header>
         <?php component::navbar() ?>
     </header>
