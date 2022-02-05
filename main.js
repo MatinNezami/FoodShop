@@ -1,7 +1,7 @@
 const asideProducts = $.select(".aside-product");
 
 function showProducts () {
-    if (window.innerWidth <= 500)
+    if (window.innerWidth <= 600)
         return null;
 
     asideProducts.forEach(elm => {

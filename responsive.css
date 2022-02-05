@@ -15,6 +15,12 @@
     }
 }
 
+@media screen and (max-width: 600px) {
+    .aside-products-box {
+        display: none;
+    }
+}
+
 @media screen and (max-width: 430px) {
     main {
         padding: 0 0 50px 0;
