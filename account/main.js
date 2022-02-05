@@ -105,6 +105,17 @@ function password () {
 $.select(".show-password input").event("change", password);
 
 
+function buttonDown () {
+    this.classList.add("clicked");
+}
+
+function buttonUp () {
+    this.classList.remove("clicked");
+}
+
+$.select("button").event("pointerdown", buttonDown, "pointerup", buttonUp, "pointerleave", buttonUp);
+$.select("label").event("pointerdown", buttonDown, "pointerup", buttonUp, "pointerleave", buttonUp);
+
 
 
 

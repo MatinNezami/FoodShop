@@ -75,7 +75,10 @@
                 <p>Show Password</p>
             </div>
 
-            <button class="profile">Select A Profile</button>
+            <button class="profile">
+                Select A Profile
+                <span class="effect-button"></span>
+            </button>
 
             <div class="profile-images center-item">
                 <div class="center-item">
@@ -91,11 +94,21 @@
 
             <img src="" alt="custom profile" draggable="false" id="custom-profile-image">
 
-            <label for="custom-profile" class="center-item">Select A Custom Profile</label>
+            <label for="custom-profile" class="center-item">
+                Select A Custom Profile
+                <span class="effect-button"></span>
+            </label>
 
             <div class="control center-item">
-                <button class="login">Login</button>
-                <button class="submit">Submit</button>
+                <button class="login">
+                    Login
+                    <span class="effect-button"></span>
+                </button>
+
+                <button class="submit">
+                    Submit
+                    <span class="effect-button"></span>
+                </button>
             </div>
         </div>
 
@@ -117,13 +130,26 @@
                 <p>Show Password</p>
             </div>
 
-            <button class="login-google">With Google</button>
+            <button class="login-google">
+                With Google
+                <span class="effect-button"></span>
+            </button>
 
-            <button class="forgot-password">Forgot Password</button>
+            <button class="forgot-password">
+                Forgot Password
+                <span class="effect-button"></span>
+            </button>
 
             <div class="control center-item">
-                <button class="signup">Sign Up</button>
-                <button class="submit">Submit</button>
+                <button class="signup">
+                    Sign Up
+                    <span class="effect-button"></span>
+                </button>
+
+                <button class="submit">
+                    Submit
+                    <span class="effect-button"></span>
+                </button>
             </div>
         </div>
     </main>
