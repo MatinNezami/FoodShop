@@ -8,7 +8,7 @@
     <nav class="center-item">
         <div class="links center-item">
             <p>
-                <a href="#">
+                <a href="localhost">
                     <span>Home</span>
                     <span class="animate"></span>
                 </a>
