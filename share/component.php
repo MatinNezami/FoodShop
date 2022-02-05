@@ -71,7 +71,7 @@
 
     <aside class="menu">
         <div class="links center-item">
-            <a href="#">Home</a>
+            <a href="localhost">Home</a>
             <a href="#">Products</a>
             <a href="#">Cart</a>
         </div>
