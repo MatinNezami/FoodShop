@@ -88,27 +88,43 @@
         </div>
 
 
-        <div class="aside-products-box">
-            <div class="left center-item">
-                <a href="#" class="aside-product left center-item">
-                    <div class="info center-item">
-                        <p>Sunglasses</p>
-                        <p>300000</p>
-                    </div>
-        
-                    <img src="./images/product7.jpg" alt="product picture">
-                </a>
+        <div class="effect-products-box">
+            <div class="desktop center-item">
+                <div class="left center-item">
+                    <a href="#" class="aside-product left center-item">
+                        <div class="info center-item">
+                            <p>Sunglasses</p>
+                            <p>300000</p>
+                        </div>
+            
+                        <img src="./images/product7.jpg" alt="product picture">
+                    </a>
+                </div>
+
+                <div class="right center-item">
+                    <a href="#" class="aside-product right center-item">
+                        <img src="./images/product8.jpg" alt="product picture">
+                        
+                        <div class="info center-item">
+                            <p>T Shirt</p>
+                            <p>60000</p>
+                        </div>
+                    </a>
+                </div>
             </div>
 
-            <div class="right center-item">
-                <a href="#" class="aside-product right center-item">
-                    <img src="./images/product8.jpg" alt="product picture">
-                    
-                    <div class="info center-item">
-                        <p>T Shirt</p>
-                        <p>60000</p>
-                    </div>
-                </a>
+            <div class="mobile center-item">
+                <div class="center-item">
+                    <a href="#" class="hide-product center-item">
+
+                    </a>
+                </div>
+
+                <div class="center-item">
+                    <a href="#" class="hide-product center-item">
+
+                    </a>
+                </div>
             </div>
         </div>
     </main>

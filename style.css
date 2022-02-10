@@ -31,7 +31,8 @@ footer {
     gap: 50px;
 }
 
-.product {
+.product,
+.hide-product {
     width: 280px;
     height: 280px;
     padding: 5px;
@@ -40,7 +41,8 @@ footer {
     position: relative;
 }
 
-.product .image {
+.product .image,
+.hide-product .image {
     width: 280px;
     height: 280px;
     overflow: hidden;
@@ -86,19 +88,35 @@ main .product:hover .image {
     height: 220px;
 }
 
-.aside-products-box {
+.effect-products-box {
     width: 100%;
+}
+
+.desktop,
+.mobile.center-item {
+    width: 100%;
+    height: 100%;
     flex-direction: column;
     gap: 20px;
-    display: flex;
     overflow: hidden;
 }
 
-.aside-products-box > .left {
+.mobile.center-item {
+    display: none;
+    overflow: visible;
+    gap: 30px;
+}
+
+.desktop > div,
+.mobile > div {
+    width: 100%;
+}
+
+.desktop > .left {
     justify-content: flex-start;
 }
 
-.aside-products-box > .right {
+.desktop > .right {
     justify-content: flex-end;
 }
 
@@ -124,7 +142,7 @@ main .product:hover .image {
 }
 
 .aside-product.show {
-    transform: translateX(0) !important;
+    transform: unset !important;
 }
 
 .aside-product img {
@@ -145,6 +163,17 @@ main .product:hover .image {
 
 .aside-product.right .info {
     left: 20px;
+}
+
+.hide-product {
+    transform: translateY(50px);
+    opacity: 0;
+    transition: var(--animate);
+}
+
+.hide-product.show {
+    transform: unset;
+    opacity: 1;
 }
 
 footer {

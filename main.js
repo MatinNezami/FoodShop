@@ -1,10 +1,8 @@
-const asideProducts = $.select(".aside-product");
+$.select(".aside-product", "asideProducts");
+$.select(".hide-product", "hideProducts");
 
 function showProducts () {
-    if (window.innerWidth <= 600)
-        return null;
-
-    asideProducts.forEach(elm => {
+    $[(window.innerWidth < 600? "hideProducts": "asideProducts")].forEach(elm => {
         const elmTop = elm.offsetParent.offsetTop + elm.parentNode.offsetTop + elm.offsetHeight / 2;
 
         if (window.scrollY + window.innerHeight / 2 >= elmTop)

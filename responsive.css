@@ -16,8 +16,12 @@
 }
 
 @media screen and (max-width: 600px) {
-    .aside-products-box {
+    .desktop {
         display: none;
+    }
+
+    .mobile.center-item {
+        display: flex;
     }
 }
 
