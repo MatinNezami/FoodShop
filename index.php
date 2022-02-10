@@ -116,13 +116,27 @@
             <div class="mobile center-item">
                 <div class="center-item">
                     <a href="#" class="hide-product center-item">
+                        <div class="image">
+                            <img src="./images/product16.jpg" alt="product picture">
 
+                            <div class="info center-item">
+                                <p>Nike</p>
+                                <p>300000</p>
+                            </div>
+                        </div>
                     </a>
                 </div>
 
                 <div class="center-item">
                     <a href="#" class="hide-product center-item">
+                        <div class="image">
+                            <img src="./images/product15.jpg" alt="product picture">
 
+                            <div class="info center-item">
+                                <p>Tennis Hat</p>
+                                <p>15000</p>
+                            </div>
+                        </div>
                     </a>
                 </div>
             </div>

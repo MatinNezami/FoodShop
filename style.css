@@ -29,6 +29,7 @@ footer {
     width: 100%;
     padding: 0 70px 0 70px;
     gap: 50px;
+    overflow-x: hidden;
 }
 
 .product,
@@ -50,7 +51,8 @@ footer {
     top: 5px;
 }
 
-.product .image img {
+.product .image img,
+.hide-product .image img {
     object-fit: cover;
     width: 280px;
     height: 280px;
@@ -171,9 +173,31 @@ main .product:hover .image {
     transition: var(--animate);
 }
 
+.hide-product .image {
+    top: unset;
+    position: relative;
+}
+
+.hide-product .info {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    bottom: 100%;
+    background-color: #2C8C99;
+    transition: var(--animate);
+    flex-direction: column;
+    gap: 15px;
+    z-index: 2;
+    left: 0;
+}
+
 .hide-product.show {
     transform: unset;
     opacity: 1;
+}
+
+.hide-product:hover .info {
+    bottom: 0;
 }
 
 footer {
