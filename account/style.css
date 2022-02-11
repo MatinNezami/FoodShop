@@ -109,6 +109,13 @@ main > div > *:not(img) {
     cursor: text;
 }
 
+.placeholder.active {
+    top: -13px;
+    left: 5px;
+    transform: none;
+    font-size: 20px;
+}
+
 .show-password {
     justify-content: flex-start;
     gap: 20px;

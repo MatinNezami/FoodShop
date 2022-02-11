@@ -7,36 +7,22 @@ $.select("#signup-box", "signup");
 switch (flag) {
     case "login":
         renderLoginBox();
-        break;
+    break;
     
     case "signup":
         renderSignupBox();
-        break;
+    break;
 }
 
 function focus () {
-    const label = this.parentNode.select(".placeholder");
-    
-    label.style.top = "-13px";
-    label.style.left = "5px";
-    label.style.transform = "none";
-    label.style.fontSize = "18px";
-    label.style.transition = null;
+    this.parentNode.select(".placeholder").classList.add("active");
 }
 
-function blur () {
-    const label = this.parentNode.select(".placeholder");
-    
+function blur () {    
     if (this.value)
         return null;
 
-
-    label.style.transition = "all 170ms ease-in 0s";
-    label.style.top = null;
-    label.style.left = null;
-    label.style.transform = null;
-    label.style.zIndex = null;
-    label.style.fontSize = null;
+    this.parentNode.select(".placeholder").classList.remove("active");
 }
 
 $.select(".input input").event("focus", focus, "blur", blur);
