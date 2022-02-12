@@ -74,15 +74,23 @@ main > div > img {
     object-fit: cover;
 }
 
-main > div > *:not(img) {
+main > div > *:not(img, form),
+main > div form > * {
     height: 3rem;
     border-radius: 10px;
+    width: 80%;
+}
+
+main > div form {
+    gap: 25px;
+    flex-direction: column;
     width: 80%;
 }
 
 .input {
     border: 2px solid #000;
     position: relative;
+    width: 100%;
 }
 
 .input input {

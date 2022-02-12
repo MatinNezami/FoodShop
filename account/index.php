@@ -48,25 +48,27 @@
         <div class="center-item" id="signup-box">
             <img src="/images/register.svg" alt="signup picture" draggable="false">
 
-            <div class="input">
-                <input type="text" class="username" autocomplete="off">
-                <p class="placeholder">Username</p>
-            </div>
+            <form action="" class="center-item">
+                <div class="input">
+                    <input type="text" name="username" autocomplete="off">
+                    <p class="placeholder">Username</p>
+                </div>
 
-            <div class="input">
-                <input type="email" class="email" autocomplete="off">
-                <p class="placeholder">Email</p>
-            </div>
+                <div class="input">
+                    <input type="email" name="email" autocomplete="off">
+                    <p class="placeholder">Email</p>
+                </div>
 
-            <div class="input">
-                <input type="password" class="password" data-type="password" autocomplete="off">
-                <p class="placeholder">Password</p>
-            </div>
+                <div class="input">
+                    <input type="password" name="password" data-type="password" autocomplete="off">
+                    <p class="placeholder">Password</p>
+                </div>
 
-            <div class="input">
-                <input type="password" class="retry-password" data-type="password" autocomplete="off">
-                <p class="placeholder">Retry Password</p>
-            </div>
+                <div class="input">
+                    <input type="password" name="retry-password" data-type="password" autocomplete="off">
+                    <p class="placeholder">Retry Password</p>
+                </div>
+            </form>
 
             <div class="show-password center-item">
                 <input type="checkbox" autocomplete="off">
@@ -113,15 +115,17 @@
         <div class="center-item" id="login-box">
             <img src="/images/login.svg" alt="login picture" draggable="false">
 
-            <div class="input">
-                <input type="text" class="username" autocomplete="off">
-                <p class="placeholder">Username</p>
-            </div>
+            <form action="" class="center-item">
+                <div class="input">
+                    <input type="text" name="username" autocomplete="off">
+                    <p class="placeholder">Username</p>
+                </div>
 
-            <div class="input">
-                <input type="password" class="password" data-type="password" autocomplete="off">
-                <p class="placeholder">Password</p>
-            </div>
+                <div class="input">
+                    <input type="password" name="password" data-type="password" autocomplete="off">
+                    <p class="placeholder">Password</p>
+                </div>
+            </form>
 
             <div class="show-password center-item">
                 <input type="checkbox" autocomplete="off">
