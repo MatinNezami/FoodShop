@@ -1,3 +1,18 @@
+(_ => {
+    if (window.innerWidth <= 520)
+        return null;
+
+    const img = new Image();
+
+    img.src = "/images/account.jpg";
+    img.draggable = "false";
+    img.alt = "background picture";
+
+    $.body.insertBefore(img, $.select("header"));
+
+})();
+
+
 const profilesBox = $.select(".profile-images"),
     profileImages = $.select(".profile-images img");
 

@@ -40,8 +40,6 @@
 </head>
 
 <body>
-    <img src="../images/account.jpg" alt="background picture">
-
     <header>
         <?php component::navbar() ?>
     </header>
