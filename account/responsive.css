@@ -1,5 +1,27 @@
 @media screen and (max-width: 456px) {
     main > div > *:not(img) {
-        width: 95%;
+        width: 90%;
+    }
+}
+
+@media screen and (max-width: 520px) {
+    main {
+        padding: 0;
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+
+    main > div.center-item {
+        width: 100%;
+        margin: unset;
+        padding: 70px 0 50px 0;
+        border-radius: unset;
+    }
+
+    header {
+        position: relative;
+        z-index: 1;
+        background-color: var(--button-color);
     }
 }

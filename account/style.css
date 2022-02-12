@@ -1,3 +1,6 @@
+:root {
+    --button-color: #2196F3;
+}
 body {
     background-color: #E0E0E0;
 }
@@ -51,10 +54,8 @@ main > div.center-item {
     flex-direction: column;
     padding: 20px 0;
     margin: 30px 0;
-
     opacity: 0;
     transition: opacity 230ms ease-in 0s;
-
     display: none;
 }
 
@@ -64,7 +65,7 @@ main > div > * {
 
 main > div > button,
 main label {
-    background-color: #2196F3;
+    background-color: var(--button-color);
 }
 
 main > div > img {

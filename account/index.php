@@ -48,7 +48,7 @@
 
     <main class="center-item">
         <div class="center-item" id="signup-box">
-            <img src="/images/register.jpg" alt="signup picture" draggable="false">
+            <img src="/images/register.svg" alt="signup picture" draggable="false">
 
             <div class="input">
                 <input type="text" class="username" autocomplete="off">
@@ -113,7 +113,7 @@
         </div>
 
         <div class="center-item" id="login-box">
-            <img src="/images/login.webp" alt="login picture" draggable="false">
+            <img src="/images/login.svg" alt="login picture" draggable="false">
 
             <div class="input">
                 <input type="text" class="username" autocomplete="off">
