@@ -26,7 +26,7 @@
                 </div>
     
                 <div class="info center-item">
-                    <p>Woman's Dress</p>
+                    <strong>Woman's Dress</strong>
                     <p>120000</p>
                 </div>
             </a>
@@ -37,7 +37,7 @@
                 </div>
     
                 <div class="info center-item">
-                    <p>Winter Hat</p>
+                    <strong>Winter Hat</strong>
                     <p>160000</p>
                 </div>
             </a>
@@ -48,7 +48,7 @@
                 </div>
     
                 <div class="info center-item">
-                    <p>Woman's Pants</p>
+                    <strong>Woman's Pants</strong>
                     <p>140000</p>
                 </div>
             </a>
@@ -59,7 +59,7 @@
                 </div>
     
                 <div class="info center-item">
-                    <p>Summer Hat</p>
+                    <strong>Summer Hat</strong>
                     <p>100000</p>
                 </div>
             </a>
@@ -70,7 +70,7 @@
                 </div>
     
                 <div class="info center-item">
-                    <p>Smart Watch</p>
+                    <strong>Smart Watch</strong>
                     <p>230000</p>
                 </div>
             </a>
@@ -81,7 +81,7 @@
                 </div>
     
                 <div class="info center-item">
-                    <p>Sport Shoe</p>
+                    <strong>Sport Shoe</strong>
                     <p>80000</p>
                 </div>
             </a>
@@ -93,7 +93,7 @@
                 <div class="left center-item">
                     <a href="#" class="aside-product left center-item">
                         <div class="info center-item">
-                            <p>Sunglasses</p>
+                            <strong>Sunglasses</strong>
                             <p>300000</p>
                         </div>
             
@@ -106,7 +106,7 @@
                         <img src="./images/product8.jpg" alt="product picture">
                         
                         <div class="info center-item">
-                            <p>T Shirt</p>
+                            <strong>T Shirt</strong>
                             <p>60000</p>
                         </div>
                     </a>
@@ -120,7 +120,7 @@
                             <img src="./images/product16.jpg" alt="product picture">
 
                             <div class="info center-item">
-                                <p>Nike</p>
+                                <strong>Nike</strong>
                                 <p>300000</p>
                             </div>
                         </div>
@@ -133,7 +133,7 @@
                             <img src="./images/product15.jpg" alt="product picture">
 
                             <div class="info center-item">
-                                <p>Tennis Hat</p>
+                                <strong>Tennis Hat</strong>
                                 <p>15000</p>
                             </div>
                         </div>
@@ -159,7 +159,7 @@
                 </div>
     
                 <div class="info center-item">
-                    <p>T Shirt</p>
+                    <strong>T Shirt</strong>
                     <p>50000</p>
                 </div>
             </a>
@@ -170,7 +170,7 @@
                 </div>
     
                 <div class="info center-item">
-                    <p>Man Shoe</p>
+                    <strong>Man Shoe</strong>
                     <p>320000</p>
                 </div>
             </a>
@@ -181,7 +181,7 @@
                 </div>
     
                 <div class="info center-item">
-                    <p>Sunglasses</p>
+                    <strong>Sunglasses</strong>
                     <p>20000</p>
                 </div>
             </a>
@@ -192,7 +192,7 @@
                 </div>
     
                 <div class="info center-item">
-                    <p>Woman's Shoe</p>
+                    <strong>Woman's Shoe</strong>
                     <p>90000</p>
                 </div>
             </a>
@@ -203,7 +203,7 @@
                 </div>
     
                 <div class="info center-item">
-                    <p>Scarf</p>
+                    <strong>Scarf</strong>
                     <p>18000</p>
                 </div>
             </a>
@@ -214,7 +214,7 @@
                 </div>
     
                 <div class="info center-item">
-                    <p>Gloves</p>
+                    <strong>Gloves</strong>
                     <p>8000</p>
                 </div>
             </a>
