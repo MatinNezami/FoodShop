@@ -141,6 +141,7 @@ main .product:hover .image {
     height: 200px;
     background-color: #FFF;
     transition: var(--animate);
+    position: relative;
 }
 
 .aside-product.show {
@@ -156,7 +157,6 @@ main .product:hover .image {
 .aside-product .info {
     position: absolute;
     z-index: -1;
-    display: none;
 }
 
 .aside-product.left .info {
