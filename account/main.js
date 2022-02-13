@@ -4,7 +4,7 @@
 
     const img = new Image();
 
-    img.src = "/images/account.jpg";
+    img.src = "/images/account.webp";
     img.draggable = "false";
     img.alt = "background picture";
 

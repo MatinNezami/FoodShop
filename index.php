@@ -13,7 +13,7 @@
 
 <body>
     <header>
-        <img src="./images/post1.jpg" alt="background picture">
+        <img src="./images/post1.webp" alt="background picture">
 
         <?php component::navbar() ?>
     </header>
@@ -22,7 +22,7 @@
         <div class="products-box center-item">
             <a href="#" class="product center-item">
                 <div class="image">
-                    <img src="./images/product1.jpg" alt="product picture">
+                    <img src="./images/product/1.webp" alt="product picture">
                 </div>
     
                 <div class="info center-item">
@@ -33,7 +33,7 @@
     
             <a href="#" class="product center-item">
                 <div class="image">
-                    <img src="./images/product2.webp" alt="product picture">
+                    <img src="./images/product/2.webp" alt="product picture">
                 </div>
     
                 <div class="info center-item">
@@ -44,7 +44,7 @@
     
             <a href="#" class="product center-item">
                 <div class="image">
-                    <img src="./images/product3.webp" alt="product picture">
+                    <img src="./images/product/3.webp" alt="product picture">
                 </div>
     
                 <div class="info center-item">
@@ -55,7 +55,7 @@
     
             <a href="#" class="product center-item">
                 <div class="image">
-                    <img src="./images/product4.jpg" alt="product picture">
+                    <img src="./images/product/4.webp" alt="product picture">
                 </div>
     
                 <div class="info center-item">
@@ -66,7 +66,7 @@
     
             <a href="#" class="product center-item">
                 <div class="image">
-                    <img src="./images/product5.jpeg" alt="product picture">
+                    <img src="./images/product/5.webp" alt="product picture">
                 </div>
     
                 <div class="info center-item">
@@ -77,7 +77,7 @@
     
             <a href="#" class="product center-item">
                 <div class="image">
-                    <img src="./images/product6.webp" alt="product picture">
+                    <img src="./images/product/6.webp" alt="product picture">
                 </div>
     
                 <div class="info center-item">
@@ -97,13 +97,13 @@
                             <p>300000</p>
                         </div>
             
-                        <img src="./images/product7.jpg" alt="product picture">
+                        <img src="./images/product/7.webp" alt="product picture">
                     </a>
                 </div>
 
                 <div class="right center-item">
                     <a href="#" class="aside-product right center-item">
-                        <img src="./images/product8.jpg" alt="product picture">
+                        <img src="./images/product/8.webp" alt="product picture">
                         
                         <div class="info center-item">
                             <strong>T Shirt</strong>
@@ -117,7 +117,7 @@
                 <div class="center-item">
                     <a href="#" class="hide-product center-item">
                         <div class="image">
-                            <img src="./images/product16.jpg" alt="product picture">
+                            <img src="./images/product/16.webp" alt="product picture">
 
                             <div class="info center-item">
                                 <strong>Nike</strong>
@@ -130,7 +130,7 @@
                 <div class="center-item">
                     <a href="#" class="hide-product center-item">
                         <div class="image">
-                            <img src="./images/product15.jpg" alt="product picture">
+                            <img src="./images/product/15.webp" alt="product picture">
 
                             <div class="info center-item">
                                 <strong>Tennis Hat</strong>
@@ -149,13 +149,13 @@
     ?>
 
     <footer class="center-item">
-        <img src="./images/post2.jpg" alt="background picture">
-        <img src="./images/post3.jpg" alt="background picture">
+        <img src="./images/post2.webp" alt="background picture">
+        <img src="./images/post3.webp" alt="background picture">
 
         <div class="products-box center-item">
             <a href="#" class="product center-item">
                 <div class="image">
-                    <img src="./images/product9.jpg" alt="product picture">
+                    <img src="./images/product/9.webp" alt="product picture">
                 </div>
     
                 <div class="info center-item">
@@ -166,7 +166,7 @@
     
             <a href="#" class="product center-item">
                 <div class="image">
-                    <img src="./images/product10.jpg" alt="product picture">
+                    <img src="./images/product/10.webp" alt="product picture">
                 </div>
     
                 <div class="info center-item">
@@ -177,7 +177,7 @@
     
             <a href="#" class="product center-item">
                 <div class="image">
-                    <img src="./images/product11.jpeg" alt="product picture">
+                    <img src="./images/product/11.webp" alt="product picture">
                 </div>
     
                 <div class="info center-item">
@@ -188,7 +188,7 @@
     
             <a href="#" class="product center-item">
                 <div class="image">
-                    <img src="./images/product12.webp" alt="product picture">
+                    <img src="./images/product/12.webp" alt="product picture">
                 </div>
     
                 <div class="info center-item">
@@ -199,7 +199,7 @@
     
             <a href="#" class="product center-item">
                 <div class="image">
-                    <img src="./images/product13.jpg" alt="product picture">
+                    <img src="./images/product/13.webp" alt="product picture">
                 </div>
     
                 <div class="info center-item">
@@ -210,7 +210,7 @@
     
             <a href="#" class="product center-item">
                 <div class="image">
-                    <img src="./images/product14.jpg" alt="product picture">
+                    <img src="./images/product/14.webp" alt="product picture">
                 </div>
     
                 <div class="info center-item">

@@ -6,10 +6,10 @@
         $length = $index + 3;
         for ($index; $index <= $length; $index++) {
             if ($index % 2 == 0)
-                echo '<img src="/images/profile/profile' . $index . '.jpeg" alt="profile" draggable="false"></div>';
+                echo '<img src="/images/profile/' . $index . '.webp" alt="profile" draggable="false"></div>';
 
             else
-                echo '<div class="center-item"><img src="/images/profile/profile' . $index . '.jpeg" alt="profile" draggable="false">';
+                echo '<div class="center-item"><img src="/images/profile/' . $index . '.webp" alt="profile" draggable="false">';
         }
     }
 
