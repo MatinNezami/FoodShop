@@ -1,5 +1,7 @@
-(_ => {
-    if (window.innerWidth <= 500)
+$.select("header", "header");
+
+function headerImage () {
+    if (window.innerWidth <= 500 || isExists("body > img"))
         return null;
 
     const img = new Image();
@@ -8,9 +10,14 @@
     img.draggable = "false";
     img.alt = "background picture";
 
-    $.body.insertBefore(img, $.select("header"));
+    $.body.insertBefore(img, $.header);
 
-})();
+    console.log("added");
+}
+
+headerImage();
+
+window.addEventListener("resize", headerImage);
 
 
 const profilesBox = $.select(".profile-images"),
