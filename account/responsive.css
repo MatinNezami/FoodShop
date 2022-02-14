@@ -4,7 +4,7 @@
     }
 }
 
-@media screen and (max-width: 520px) {
+@media screen and (max-width: 500px) {
     main {
         padding: 0;
         position: absolute;
@@ -20,8 +20,7 @@
     }
 
     header {
-        position: relative;
         z-index: 1;
-        background-color: var(--button-color);
+        position: relative;
     }
 }

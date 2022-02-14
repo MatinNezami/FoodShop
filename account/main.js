@@ -1,5 +1,5 @@
 (_ => {
-    if (window.innerWidth <= 520)
+    if (window.innerWidth <= 500)
         return null;
 
     const img = new Image();

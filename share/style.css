@@ -6,6 +6,7 @@
 :root {
     --animate: all 170ms ease-in 0s;
     --link-hover-color: linear-gradient(to right bottom, #00c4f0, #006e92);
+    --navbar-color: #2196F3;
 }
 
 * {
