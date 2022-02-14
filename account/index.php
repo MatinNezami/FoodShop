@@ -154,6 +154,22 @@
                 </button>
             </div>
         </div>
+
+        <div class="center-item" id="forgot-password-box">
+            <img src="/images/forgot-password.svg" alt="forgot-password" draggable="flase">
+
+            <form action="">
+                <div class="input">
+                    <input type="email" name="email" autocomplete="off">
+                    <p class="placeholder">Email</p>
+                </div>
+            </form>
+
+            <button class="submit">
+                Take My Password
+                <span class="effect-button"></span>
+            </button>
+        </div>
     </main>
 
     <?php

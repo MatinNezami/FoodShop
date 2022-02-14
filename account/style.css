@@ -14,7 +14,7 @@ body > img {
 
 main {
     width: 100%;
-    padding: 30px 10px 0 10px;
+    padding: 0 10px;
 }
 
 button {
@@ -205,4 +205,12 @@ input[type=file] {
 
 .login-google {
     background-color: #F6511D;
+}
+
+#forgot-password-box {
+    width: 450px;
+}
+
+#forgot-password-box img {
+    margin-bottom: 50px;
 }

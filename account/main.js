@@ -25,6 +25,8 @@ const profilesBox = $.select(".profile-images"),
 
 $.select("#login-box", "login");
 $.select("#signup-box", "signup");
+$.select("#forgot-password-box", "forgot");
+$.select("main > div", "mainBoxes");
 
 switch (flag) {
     case "login":
@@ -132,7 +134,7 @@ $.select("label").event("pointerdown", buttonDown, "pointerup", buttonUp, "point
 
 // use function for prevent;
 function renderLoginBox () {
-    $.select("main > div").forEach(box => {
+    $.mainBoxes.forEach(box => {
         box.style.display = "none";
         box.style.opacity = "0";
     });
@@ -150,7 +152,7 @@ $.signup.select(".login").event("click", renderLoginBox);
 
 
 function renderSignupBox () {
-    $.select("main > div").forEach(box => {
+    $.mainBoxes.forEach(box => {
         box.style.display = "none";
         box.style.opacity = "0";
     });
@@ -163,3 +165,19 @@ function renderSignupBox () {
 }
 
 $.login.select(".signup").event("click", renderSignupBox);
+
+
+function renderResetPasswordBox () {
+    $.mainBoxes.forEach(box => {
+        box.style.display = "none";
+        box.style.opacity = "0";
+    });
+
+    $.forgot.style.display = "flex";
+    
+    setTimeout(() => {
+        $.forgot.style.opacity = "1";
+    }, 10);
+}
+
+$.login.select(".forgot-password").event("click", renderResetPasswordBox);
