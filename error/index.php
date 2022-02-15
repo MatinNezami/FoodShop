@@ -15,7 +15,7 @@
     </header>
 
     <main class="center-item">
-        <img src="/images/404.svg" alt="not found" draggable="false">
+        <img src="/images/404.svg" loading="lazy" alt="not found" draggable="false">
 
         <h2>
             This Location Is not Exists Go To

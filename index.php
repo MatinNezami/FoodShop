@@ -11,7 +11,7 @@
 
 <body>
     <header>
-        <img src="./images/post1.webp" alt="background picture">
+        <img src="/images/post1.webp" alt="background picture">
 
         <?php component::navbar() ?>
     </header>
@@ -20,7 +20,7 @@
         <div class="products-box center-item">
             <a href="#" class="product center-item">
                 <div class="image">
-                    <img src="./images/product/1.webp" alt="product picture">
+                    <img src="/images/product/1.webp" loading="lazy" alt="product picture" draggable="false">
                 </div>
     
                 <div class="info center-item">
@@ -31,7 +31,7 @@
     
             <a href="#" class="product center-item">
                 <div class="image">
-                    <img src="./images/product/2.webp" alt="product picture">
+                    <img src="/images/product/2.webp" loading="lazy" alt="product picture" draggable="false">
                 </div>
     
                 <div class="info center-item">
@@ -42,7 +42,7 @@
     
             <a href="#" class="product center-item">
                 <div class="image">
-                    <img src="./images/product/3.webp" alt="product picture">
+                    <img src="/images/product/3.webp" loading="lazy" alt="product picture" draggable="false">
                 </div>
     
                 <div class="info center-item">
@@ -53,7 +53,7 @@
     
             <a href="#" class="product center-item">
                 <div class="image">
-                    <img src="./images/product/4.webp" alt="product picture">
+                    <img src="/images/product/4.webp" loading="lazy" alt="product picture" draggable="false">
                 </div>
     
                 <div class="info center-item">
@@ -64,7 +64,7 @@
     
             <a href="#" class="product center-item">
                 <div class="image">
-                    <img src="./images/product/5.webp" alt="product picture">
+                    <img src="/images/product/5.webp" loading="lazy" alt="product picture" draggable="false">
                 </div>
     
                 <div class="info center-item">
@@ -75,7 +75,7 @@
     
             <a href="#" class="product center-item">
                 <div class="image">
-                    <img src="./images/product/6.webp" alt="product picture">
+                    <img src="/images/product/6.webp" loading="lazy" alt="product picture" draggable="false">
                 </div>
     
                 <div class="info center-item">
@@ -95,13 +95,13 @@
                             <p>300000</p>
                         </div>
             
-                        <img src="./images/product/7.webp" alt="product picture">
+                        <img src="/images/product/7.webp" loading="lazy" alt="product picture" draggable="false">
                     </a>
                 </div>
 
                 <div class="right center-item">
                     <a href="#" class="aside-product right center-item">
-                        <img src="./images/product/8.webp" alt="product picture">
+                        <img src="/images/product/8.webp" loading="lazy" alt="product picture" draggable="false">
                         
                         <div class="info center-item">
                             <strong>T Shirt</strong>
@@ -115,7 +115,7 @@
                 <div class="center-item">
                     <a href="#" class="hide-product center-item">
                         <div class="image">
-                            <img src="./images/product/16.webp" alt="product picture">
+                            <img src="/images/product/16.webp" loading="lazy" alt="product picture" draggable="false">
 
                             <div class="info center-item">
                                 <strong>Nike</strong>
@@ -128,7 +128,7 @@
                 <div class="center-item">
                     <a href="#" class="hide-product center-item">
                         <div class="image">
-                            <img src="./images/product/15.webp" alt="product picture">
+                            <img src="/images/product/15.webp" loading="lazy" alt="product picture" draggable="false">
 
                             <div class="info center-item">
                                 <strong>Tennis Hat</strong>
@@ -147,13 +147,14 @@
     ?>
 
     <footer class="center-item">
-        <img src="./images/post2.webp" alt="background picture">
-        <img src="./images/post3.webp" alt="background picture">
+        <!-- work on this ===> javascript ===> add picture -->
+        <img src="/images/post2.webp" loading="lazy" alt="background picture" draggable="false">
+        <img src="/images/post3.webp" loading="lazy" alt="background picture" draggable="false">
 
         <div class="products-box center-item">
             <a href="#" class="product center-item">
                 <div class="image">
-                    <img src="./images/product/9.webp" alt="product picture">
+                    <img src="/images/product/9.webp" loading="lazy" alt="product picture" draggable="false">
                 </div>
     
                 <div class="info center-item">
@@ -164,7 +165,7 @@
     
             <a href="#" class="product center-item">
                 <div class="image">
-                    <img src="./images/product/10.webp" alt="product picture">
+                    <img src="/images/product/10.webp" loading="lazy" alt="product picture" draggable="false">
                 </div>
     
                 <div class="info center-item">
@@ -175,7 +176,7 @@
     
             <a href="#" class="product center-item">
                 <div class="image">
-                    <img src="./images/product/11.webp" alt="product picture">
+                    <img src="/images/product/11.webp" loading="lazy" alt="product picture" draggable="false">
                 </div>
     
                 <div class="info center-item">
@@ -186,7 +187,7 @@
     
             <a href="#" class="product center-item">
                 <div class="image">
-                    <img src="./images/product/12.webp" alt="product picture">
+                    <img src="/images/product/12.webp" loading="lazy" alt="product picture" draggable="false">
                 </div>
     
                 <div class="info center-item">
@@ -197,7 +198,7 @@
     
             <a href="#" class="product center-item">
                 <div class="image">
-                    <img src="./images/product/13.webp" alt="product picture">
+                    <img src="/images/product/13.webp" loading="lazy" alt="product picture" draggable="false">
                 </div>
     
                 <div class="info center-item">
@@ -208,7 +209,7 @@
     
             <a href="#" class="product center-item">
                 <div class="image">
-                    <img src="./images/product/14.webp" alt="product picture">
+                    <img src="/images/product/14.webp" loading="lazy" alt="product picture" draggable="false">
                 </div>
     
                 <div class="info center-item">

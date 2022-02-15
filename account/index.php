@@ -48,7 +48,7 @@
 
     <main class="center-item">
         <div class="center-item" id="signup-box">
-            <img src="/images/register.svg" alt="signup picture" draggable="false">
+            <img src="/images/register.svg" loading="lazy" alt="signup picture" draggable="false">
 
             <form action="" class="center-item">
                 <div class="input">
@@ -103,7 +103,7 @@
         </div>
 
         <div class="center-item" id="login-box">
-            <img src="/images/login.svg" alt="login picture" draggable="false">
+            <img src="/images/login.svg" loading="lazy" alt="login picture" draggable="false">
 
             <form action="" class="center-item">
                 <div class="input">
@@ -134,7 +134,7 @@
         </div>
 
         <div class="center-item" id="forgot-password-box">
-            <img src="/images/forgot-password.svg" alt="forgot-password" draggable="flase">
+            <img src="/images/forgot-password.svg" loading="lazy" alt="forgot-password" draggable="flase">
 
             <form action="">
                 <div class="input">
@@ -147,7 +147,7 @@
         </div>
 
         <div class="center-item" id="informations-box">
-            <img src="/images/profile/1.webp" alt="user profile" draggable="false">
+            <img src="/images/profile/1.webp" loading="lazy" alt="user profile" draggable="false">
             <h2>Hey <span>First Name Test Text</span></h2>
 
             <button class="logout">Log out</button>
