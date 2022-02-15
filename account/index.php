@@ -148,7 +148,7 @@
 
         <div class="center-item" id="informations-box">
             <img src="/images/profile/1.webp" alt="user profile" draggable="false">
-            <h2>Hey <span>First asdfklja;lsdjf;lajsflajsd;flja;lsdjfalkdjf</span></h2>
+            <h2>Hey <span>First Name Test Text</span></h2>
 
             <button class="logout">Log out</button>
 
