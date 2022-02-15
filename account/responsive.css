@@ -5,6 +5,10 @@
 }
 
 @media screen and (max-width: 500px) {
+    body {
+        background-color: #FFF;
+    }
+    
     main {
         padding: 0;
         position: absolute;
@@ -22,5 +26,9 @@
     header {
         z-index: 1;
         position: relative;
+    }
+
+    #informations-box img {
+        margin-top: 20px;
     }
 }
