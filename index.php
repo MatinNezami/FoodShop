@@ -219,7 +219,7 @@
         </div>
     </footer>
 
-    <script type="text/javascript" src="./share/app.js"></script>
+    <script type="text/javascript" src="/share/app.js"></script>
     <script type="text/javascript" src="./main.js"></script>
 </body>
 

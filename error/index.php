@@ -13,6 +13,22 @@
     <header>
         <?php component::navbar() ?>
     </header>
+
+    <main class="center-item">
+        <img src="/images/404.svg" alt="not found" draggable="false">
+
+        <h2>
+            This Location Is not Exists Go To
+            <a href="/">Home</a>
+        </h2>
+    </main>
+
+    <?php
+        component::backToTop();
+        component::asideMenu();
+    ?>
+
+    <script type="text/javascript" src="/share/app.js"></script>
 </body>
 
 </html>
