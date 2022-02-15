@@ -209,10 +209,32 @@ input[type=file] {
     background-color: #F6511D;
 }
 
-#forgot-password-box {
+#forgot-password-box,
+#informations-box {
     width: 450px;
 }
 
 #forgot-password-box img {
     margin-bottom: 50px;
+}
+
+.logout {
+    background-color: #FF142F;
+}
+
+.change-info {
+    background-color: #2EC4B6;
+}
+
+#informations-box img {
+    border-radius: 50%;
+}
+
+#informations-box h2 {
+    text-align: center;
+    overflow: hidden;
+    white-space: pre;
+    text-overflow: ellipsis;
+    min-width: 90%;
+    width: 290px;
 }

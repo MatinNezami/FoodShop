@@ -27,6 +27,8 @@
 
     <script>
         <?php
+            # work on this code
+
             if (isset($_GET["login"]))
                 echo "const flag = \"login\"";
 
@@ -34,7 +36,7 @@
                 echo "const flag = \"signup\"";
 
             elseif (isset($_GET["information"]))
-                echo "const flag = \"info\"";
+                echo "const flag = \"information\"";
         ?>
     </script>
 </head>
@@ -145,12 +147,12 @@
         </div>
 
         <div class="center-item" id="informations-box">
-            <img src="images/profile/1.webp" alt="user profile" draggable="false">
-            <h2>Hey <p>First Name</p></h2>
+            <img src="/images/profile/1.webp" alt="user profile" draggable="false">
+            <h2>Hey <span>First asdfklja;lsdjf;lajsflajsd;flja;lsdjfalkdjf</span></h2>
 
             <button class="logout">Log out</button>
 
-            <button>Change Informations</button>
+            <button class="change-info">Change Informations</button>
         </div>
     </main>
 

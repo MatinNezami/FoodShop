@@ -1,7 +1,10 @@
 $.select("header", "header");
+
 $.select("#login-box", "login");
 $.select("#signup-box", "signup");
 $.select("#forgot-password-box", "forgot");
+$.select("#informations-box", "information");
+
 $.select("main > div", "mainBoxes");
 $.select(".input input", "inputs");
 
@@ -9,15 +12,7 @@ const profilesBox = $.select(".profile-images"),
     profileImages = $.select(".profile-images img");
 
 
-switch (flag) {
-    case "login":
-        showBox($.login);
-    break;
-       
-    case "signup":
-        showBox($.signup);
-    break;
-}
+showBox($[flag]);
 
 
 function inputValue (input) {
