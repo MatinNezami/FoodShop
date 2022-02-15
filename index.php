@@ -1,4 +1,4 @@
-<?php require_once "/share/component.php" ?>
+<?php require_once "./share/component.php" ?>
 
 <!DOCTYPE html>
 <html lang="en">

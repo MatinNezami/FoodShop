@@ -1,6 +1,6 @@
 <?php
     
-    require_once "/share/component.php";
+    require_once "../share/component.php";
 
     function profile (int $index) {
         $length = $index + 3;
