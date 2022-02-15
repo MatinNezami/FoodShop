@@ -1,4 +1,32 @@
 $.select("header", "header");
+$.select("#login-box", "login");
+$.select("#signup-box", "signup");
+$.select("#forgot-password-box", "forgot");
+$.select("main > div", "mainBoxes");
+$.select(".input input", "inputs");
+
+const profilesBox = $.select(".profile-images"),
+    profileImages = $.select(".profile-images img");
+
+
+switch (flag) {
+    case "login":
+        renderLoginBox();
+    break;
+       
+    case "signup":
+        renderSignupBox();
+    break;
+}
+
+
+function inputValue (input) {
+    if (input.value)
+        input.parentNode.select(".placeholder").classList.add("active");
+}
+
+$.inputs.forEach(input => inputValue(input));
+
 
 function headerImage () {
     if (window.innerWidth <= 500 || isExists("body > img"))
@@ -11,32 +39,12 @@ function headerImage () {
     img.alt = "background picture";
 
     $.body.insertBefore(img, $.header);
-
-    console.log("added");
 }
 
 headerImage();
 
 window.addEventListener("resize", headerImage);
 
-
-const profilesBox = $.select(".profile-images"),
-    profileImages = $.select(".profile-images img");
-
-$.select("#login-box", "login");
-$.select("#signup-box", "signup");
-$.select("#forgot-password-box", "forgot");
-$.select("main > div", "mainBoxes");
-
-switch (flag) {
-    case "login":
-        renderLoginBox();
-    break;
-    
-    case "signup":
-        renderSignupBox();
-    break;
-}
 
 function focus () {
     this.parentNode.select(".placeholder").classList.add("active");
@@ -49,7 +57,7 @@ function blur () {
     this.parentNode.select(".placeholder").classList.remove("active");
 }
 
-$.select(".input input").event("focus", focus, "blur", blur);
+$.inputs.event("focus", focus, "blur", blur);
 
 
 function focusToInput () {

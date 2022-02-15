@@ -50,22 +50,22 @@
 
             <form action="" class="center-item">
                 <div class="input">
-                    <input type="text" name="username" autocomplete="off">
+                    <input type="text" name="username">
                     <p class="placeholder">Username</p>
                 </div>
 
                 <div class="input">
-                    <input type="email" name="email" autocomplete="off">
+                    <input type="email" name="email">
                     <p class="placeholder">Email</p>
                 </div>
 
                 <div class="input">
-                    <input type="password" name="password" data-type="password" autocomplete="off">
+                    <input type="password" name="password" data-type="password">
                     <p class="placeholder">Password</p>
                 </div>
 
                 <div class="input">
-                    <input type="password" name="retry-password" data-type="password" autocomplete="off">
+                    <input type="password" name="retry-password" data-type="password">
                     <p class="placeholder">Retry Password</p>
                 </div>
             </form>
@@ -117,12 +117,12 @@
 
             <form action="" class="center-item">
                 <div class="input">
-                    <input type="text" name="username" autocomplete="off">
+                    <input type="text" name="username">
                     <p class="placeholder">Username</p>
                 </div>
 
                 <div class="input">
-                    <input type="password" name="password" data-type="password" autocomplete="off">
+                    <input type="password" name="password" data-type="password">
                     <p class="placeholder">Password</p>
                 </div>
             </form>
@@ -160,7 +160,7 @@
 
             <form action="">
                 <div class="input">
-                    <input type="email" name="email" autocomplete="off">
+                    <input type="email" name="email">
                     <p class="placeholder">Email</p>
                 </div>
             </form>
