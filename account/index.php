@@ -1,6 +1,6 @@
 <?php
     
-    require_once "../share/component.php";
+    require_once "/share/component.php";
 
     function profile (int $index) {
         $length = $index + 3;
@@ -180,7 +180,7 @@
         component::asideMenu();
     ?>
 
-    <script type="text/javascript" src="../share/app.js"></script>
+    <script type="text/javascript" src="/share/app.js"></script>
     <script type="text/javascript" src="./main.js"></script>
 </body>
 
