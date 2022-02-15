@@ -100,7 +100,7 @@
             </label>
 
             <div class="control center-item">
-                <button class="login">
+                <button class="login" data-target-box="login">
                     Login
                     <span class="effect-button"></span>
                 </button>
@@ -137,13 +137,13 @@
                 <span class="effect-button"></span>
             </button>
 
-            <button class="forgot-password">
+            <button class="forgot-password" data-target-box="forgot">
                 Forgot Password
                 <span class="effect-button"></span>
             </button>
 
             <div class="control center-item">
-                <button class="signup">
+                <button class="signup" data-target-box="signup">
                     Sign Up
                     <span class="effect-button"></span>
                 </button>
@@ -169,6 +169,11 @@
                 Take My Password
                 <span class="effect-button"></span>
             </button>
+        </div>
+
+        <div class="center-item" id="informations-box">
+            <img src="images/profile/1.webp" alt="user profile" draggable="false">
+            <h2>Hey <p>First Name</p></h2>
         </div>
     </main>
 

@@ -11,11 +11,11 @@ const profilesBox = $.select(".profile-images"),
 
 switch (flag) {
     case "login":
-        renderLoginBox();
+        showBox($.login);
     break;
        
     case "signup":
-        renderSignupBox();
+        showBox($.signup);
     break;
 }
 
@@ -83,6 +83,7 @@ $.select(".profile").event("click", profile);
 profileImages.event("click", selectProfile);
 
 
+// work on this function
 function uploadImage (input, imageElm) {
     const reader = new FileReader();
 
@@ -135,57 +136,23 @@ $.select("button").event("pointerdown", buttonDown, "pointerup", buttonUp, "poin
 $.select("label").event("pointerdown", buttonDown, "pointerup", buttonUp, "pointerleave", buttonUp);
 
 
-
-
-
-
-
-// use function for prevent;
-function renderLoginBox () {
-    $.mainBoxes.forEach(box => {
+function showBox (targetBox) {
+    function hide (box) {
         box.style.display = "none";
         box.style.opacity = "0";
-    });
+    }
 
-    $.login.style.display = "flex";
-    
-    setTimeout(() => {
-        
-        
-        $.login.style.opacity = "1";
-    }, 10);
+    function show (box) {
+        box.style.display = "flex";
+
+        setTimeout(() => {
+            box.style.opacity = "1";
+        }, 10);
+    }
+
+    $.mainBoxes.forEach(box => hide(box));
+
+    targetBox instanceof Event? show($[this.dataset.targetBox]): show(targetBox);
 }
 
-$.signup.select(".login").event("click", renderLoginBox);
-
-
-function renderSignupBox () {
-    $.mainBoxes.forEach(box => {
-        box.style.display = "none";
-        box.style.opacity = "0";
-    });
-
-    $.signup.style.display = "flex";
-    
-    setTimeout(() => {
-        $.signup.style.opacity = "1";
-    }, 10);
-}
-
-$.login.select(".signup").event("click", renderSignupBox);
-
-
-function renderResetPasswordBox () {
-    $.mainBoxes.forEach(box => {
-        box.style.display = "none";
-        box.style.opacity = "0";
-    });
-
-    $.forgot.style.display = "flex";
-    
-    setTimeout(() => {
-        $.forgot.style.opacity = "1";
-    }, 10);
-}
-
-$.login.select(".forgot-password").event("click", renderResetPasswordBox);
+$.select("[data-target-box]").event("click", showBox);
