@@ -117,7 +117,6 @@
     <link rel="stylesheet" type="text/css" href="/share/style.css">
 
     <link rel="stylesheet" type="text/css" href="./style.css">
-    <link rel="stylesheet" type="text/css" href="./responsive.css">
 
     <script type="text/javascript" src="/share/config.js"></script>
 
