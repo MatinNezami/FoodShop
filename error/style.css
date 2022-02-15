@@ -1,0 +1,4 @@
+header > nav {
+    background-color: var(--navbar-color);
+    box-shadow: 0 0 6px -1px #000;
+}
