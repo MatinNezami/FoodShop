@@ -22,7 +22,9 @@ button {
     outline: none;
 }
 
-.effect-button {
+button::before,
+label::before {
+    content: "";
     position: absolute;
     width: 101%;
     left: 0;
@@ -31,7 +33,7 @@ button {
     background-color: #FFF3;
 }
 
-.clicked .effect-button {
+.clicked::before {
     top: unset;
     bottom: 0;
 }

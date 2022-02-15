@@ -75,10 +75,7 @@
                 <p>Show Password</p>
             </div>
 
-            <button class="profile">
-                Select A Profile
-                <span class="effect-button"></span>
-            </button>
+            <button class="profile">Select A Profile</button>
 
             <div class="profile-images center-item">
                 <div class="center-item">
@@ -94,21 +91,12 @@
 
             <img src="" alt="custom profile" draggable="false" id="custom-profile-image">
 
-            <label for="custom-profile" class="center-item">
-                Select A Custom Profile
-                <span class="effect-button"></span>
-            </label>
+            <label for="custom-profile" class="center-item">Select A Custom Profile</label>
 
             <div class="control center-item">
-                <button class="login" data-target-box="login">
-                    Login
-                    <span class="effect-button"></span>
-                </button>
+                <button class="login" data-target-box="login">Login</button>
 
-                <button class="submit">
-                    Submit
-                    <span class="effect-button"></span>
-                </button>
+                <button class="submit">Submit</button>
             </div>
         </div>
 
@@ -132,26 +120,14 @@
                 <p>Show Password</p>
             </div>
 
-            <button class="login-google">
-                With Google
-                <span class="effect-button"></span>
-            </button>
+            <button class="login-google">With Google</button>
 
-            <button class="forgot-password" data-target-box="forgot">
-                Forgot Password
-                <span class="effect-button"></span>
-            </button>
+            <button class="forgot-password" data-target-box="forgot">Forgot Password</button>
 
             <div class="control center-item">
-                <button class="signup" data-target-box="signup">
-                    Sign Up
-                    <span class="effect-button"></span>
-                </button>
+                <button class="signup" data-target-box="signup">Sign Up</button>
 
-                <button class="submit">
-                    Submit
-                    <span class="effect-button"></span>
-                </button>
+                <button class="submit">Submit</button>
             </div>
         </div>
 
@@ -165,15 +141,16 @@
                 </div>
             </form>
 
-            <button class="submit">
-                Take My Password
-                <span class="effect-button"></span>
-            </button>
+            <button class="submit">Take My Password</button>
         </div>
 
         <div class="center-item" id="informations-box">
             <img src="images/profile/1.webp" alt="user profile" draggable="false">
             <h2>Hey <p>First Name</p></h2>
+
+            <button class="logout">Log out</button>
+
+            <button>Change Informations</button>
         </div>
     </main>
 
