@@ -7,6 +7,8 @@
     <title>Template</title>
     
     <?php component::headFiles() ?>
+
+    <link rel="stylesheet" type="text/css" href="./responsive.css">
 </head>
 
 <body>
