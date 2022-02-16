@@ -149,11 +149,6 @@
     ?>
 
     <footer class="center-item">
-        <picture>
-            <source media="(max-width: 1068px)" srcset="/images/post3.webp">
-            <img src="/images/post2.webp" alt="background picture">
-        </picture>
-
         <div class="products-box center-item">
             <a href="#" class="product center-item">
                 <div class="image">
