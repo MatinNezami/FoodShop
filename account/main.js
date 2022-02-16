@@ -1,3 +1,5 @@
+$.select("header", "header");
+
 $.select("#login-box", "login");
 $.select("#signup-box", "signup");
 $.select("#forgot-password-box", "forgot");
@@ -19,6 +21,24 @@ function inputValue (input) {
 }
 
 $.inputs.forEach(input => inputValue(input));
+
+
+function headerImage () {
+    if (window.innerWidth <= 500 || isExists("body > img"))
+        return null;
+
+    const img = new Image();
+
+    img.src = "/images/account.webp";
+    img.draggable = "false";
+    img.alt = "background picture";
+
+    $.body.insertBefore(img, $.header);
+}
+
+headerImage();
+
+window.addEventListener("resize", headerImage);
 
 
 function focus () {

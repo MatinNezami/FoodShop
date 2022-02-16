@@ -2,19 +2,14 @@ body {
     background-color: #E0E0E0;
 }
 
-body picture {
+body > img {
     width: 100%;
     height: 100%;
     position: absolute;
     -webkit-mask-image: linear-gradient(#000, #0000);
+    object-fit: cover;
     filter: brightness(70%);
     z-index: -1;
-}
-
-body picture img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
 }
 
 main {
