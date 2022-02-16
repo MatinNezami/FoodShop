@@ -7,26 +7,11 @@
 
     <nav class="center-item">
         <div class="links center-item">
-            <p>
-                <a href="/">
-                    <span>Home</span>
-                    <span class="animate"></span>
-                </a>
-            </p>
-                        
-            <p>
-                <a href="#">
-                    <span>Products</span>
-                    <span class="animate"></span>
-                </a>
-            </p>
-            
-            <p>
-                <a href="#">
-                    <span>Cart</span>
-                    <span class="animate"></span>
-                </a>
-            </p>
+            <a href="/">Home</a>
+
+            <a href="#">Products</a>
+                 
+            <a href="#">Cart</a>
         </div>
 
         <svg class="open" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">                
@@ -34,6 +19,8 @@
             <rect class="menu-item" x="0" y="44"/>
             <rect class="menu-item" x="0" y="77"/>
         </svg>
+
+        <!-- check login for fetch profile from database -->
 
         <div class="account center-item">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
@@ -43,21 +30,15 @@
                 </g>
             </svg>
 
-            <p>
-                <a href="/account?login">
-                    <span>Log in</span>
-                    <span class="animate"></span>
-                </a>
-            </p>
+            <a href="/account?information">
+                <img src="/images/profile/2.webp" alt="profile image" draggable="false">
+            </a>
+
+            <a href="/account?login">Log in</a>
 
             <span>/</span>
 
-            <p>
-                <a href="/account?signup">
-                    <span>Sign up</span>
-                    <span class="animate"></span>
-                </a>
-            </p>
+            <a href="/account?signup">Sign up</a>
         </div>
     </nav>
 

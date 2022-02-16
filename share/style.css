@@ -50,8 +50,11 @@ header nav {
     color: #FFF;
 }
 
-header nav a {
+header nav a:not([href=\/account\?information]),
+header nav span {
     color: #FFF;
+    position: relative;
+    top: -3px;
 }
 
 .links {
@@ -66,31 +69,36 @@ header nav a {
 
 header nav .open {
     display: none;
-    width: 30px;
-    height: 30px;
+}
+
+header nav img,
+header nav svg {
+    width: 35px;
+    height: 35px;
     cursor: pointer;
 }
 
-header nav .animate {
+header nav img {
+    border-radius: 50%;
+}
+
+header nav a:not([href=\/account\?information])::before {
+    content: "";
     display: block;
     width: 0;
     height: 5px;
+    position: absolute;
+    bottom: -5px;
     transition: var(--animate);
     background-image: var(--link-hover-color);
 }
 
-header nav a:hover .animate {
+header nav a:hover::before {
     width: 100%;
 }
 
 .account {
     gap: 10px;
-}
-
-.account svg {
-    width: 25px;
-    height: 25px;
-    margin-bottom: 2px;
 }
 
 .search {
