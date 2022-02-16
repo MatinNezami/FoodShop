@@ -15,7 +15,10 @@
     <header>
         <img src="/images/post1.webp" alt="background picture">
 
-        <?php component::navbar() ?>
+        <?php
+            component::navbar();
+            component::search();    
+        ?>
     </header>
 
     <main class="center-item">
