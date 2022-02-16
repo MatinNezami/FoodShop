@@ -147,9 +147,10 @@
     ?>
 
     <footer class="center-item">
-        <!-- work on this ===> javascript ===> add picture -->
-        <img src="/images/post2.webp" loading="lazy" alt="background picture" draggable="false">
-        <img src="/images/post3.webp" loading="lazy" alt="background picture" draggable="false">
+        <picture>
+            <source media="(max-width: 1108px)" srcset="/images/post3.webp">
+            <img src="/images/post2.webp" alt="background picture">
+        </picture>
 
         <div class="products-box center-item">
             <a href="#" class="product center-item">

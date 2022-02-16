@@ -1,17 +1,7 @@
-@media screen and (max-width: 1108px) {
-    footer > img:first-of-type {
-        display: none;
-    }
-
-    footer > img:last-of-type {
-        display: block;
-    }
-}
-
 @media screen and (max-width: 748px) {
     main,
     footer {
-        padding: 5px 0 5px 0;
+        padding: 5px 0;
     }
 }
 
