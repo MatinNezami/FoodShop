@@ -42,6 +42,11 @@
 </head>
 
 <body>
+    <picture>
+        <source media="(max-width: 500px)" srcset="">
+        <img src="/images/account.webp" alt="background picture" draggable="false">
+    </picture>
+
     <header>
         <?php component::navbar() ?>
     </header>
