@@ -24,6 +24,7 @@
     <?php component::headFiles() ?>
 
     <link rel="stylesheet" type="text/css" href="./responsive.css">
+    <script async type="text/javascript" src="./validate.js"></script>
 
     <script>
         <?php
@@ -155,6 +156,8 @@
             <button class="change-info">Change Informations</button>
         </div>
     </main>
+
+    <p id="err-tooltip"></p>
 
     <?php
         component::backToTop();
