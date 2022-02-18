@@ -53,24 +53,31 @@
 
             <form action="" class="center-item">
                 <div class="input">
-                    <input type="text" name="username">
+                    <input type="text" name="first-name">
+                    <p class="placeholder">First Name</p>
+                </div>
+
+                <div class="input">
+                    <input type="text" name="username" required>
                     <p class="placeholder">Username</p>
                 </div>
 
                 <div class="input">
-                    <input type="email" name="email">
+                    <input type="email" name="email" required>
                     <p class="placeholder">Email</p>
                 </div>
 
                 <div class="input">
-                    <input type="password" name="password" data-type="password">
+                    <input type="password" name="password" data-type="password" required>
                     <p class="placeholder">Password</p>
                 </div>
 
                 <div class="input">
-                    <input type="password" name="retry-password" data-type="password">
+                    <input type="password" name="retry-password" data-type="password" required>
                     <p class="placeholder">Retry Password</p>
                 </div>
+
+                <input type="hidden" name="type" value="register">
             </form>
 
             <div class="show-password center-item">
@@ -108,14 +115,16 @@
 
             <form action="" class="center-item">
                 <div class="input">
-                    <input type="text" name="username">
+                    <input type="text" name="username" required>
                     <p class="placeholder">Username</p>
                 </div>
 
                 <div class="input">
-                    <input type="password" name="password" data-type="password">
+                    <input type="password" name="password" data-type="password" required>
                     <p class="placeholder">Password</p>
                 </div>
+
+                <input type="hidden" name="type" value="login">
             </form>
 
             <div class="show-password center-item">
@@ -139,12 +148,16 @@
 
             <form action="">
                 <div class="input">
-                    <input type="email" name="email">
+                    <input type="email" name="email" required>
                     <p class="placeholder">Email</p>
                 </div>
+
+                <input type="hidden" name="type" value="reset-password">
             </form>
 
-            <button class="submit">Take My Password</button>
+            <div>
+                <button class="submit">Take My Password</button>
+            </div>
         </div>
 
         <div class="center-item" id="informations-box">

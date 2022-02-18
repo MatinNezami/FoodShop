@@ -1,5 +1,5 @@
 class Validate {
-    ok = false;
+    ok;
     inputs = {};
     emailRegex = /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/;
     errorTooltip = document.getElementById("err-tooltip");
@@ -7,7 +7,7 @@ class Validate {
     checkEmpty = input => input.value;
 
     simple = input => ({
-        status: new RegExp(`^.{${input.minLength},${input.maxLength}}$`).test(input.value)
+        status: new RegExp(`^.{${input.minLength? 5: null},${input.maxLength? 30: null}}$`).test(input.value)
     });
 
     email = input => ({
@@ -15,7 +15,7 @@ class Validate {
     });
 
     username = input => ({
-        status: new RegExp(`^[a-zA-Z0-9_]{${input.minLength},${input.maxLength}}$`).test(input.value)
+        status: new RegExp(`^[a-zA-Z0-9_]{${input.minLength? 5: null},${input.maxLength? 30: null}}$`).test(input.value)
     });
 
     retryPassword = (input, password) => ({
@@ -24,7 +24,7 @@ class Validate {
     });
 
     number (input) {
-        if (!(input.value >= +input.min && input.value <= +input.max))
+        if (!(+input.value >= (input.min? +input.min: 5) && +input.value <= (input.max? +input.max: 30)))
             return {
                 status: false,
                 message: "number out of range"
@@ -67,6 +67,7 @@ class Validate {
 
         switch (input.type) {
             case "number":
+            case "range":
                 return this.number(input);
 
             case "text":
@@ -74,37 +75,19 @@ class Validate {
 
             case "email":
                 return this.email(input);
+
+            default:
+                return {status: true};
         }
     }
 
-    position (input) {
-        let left = 0,
-            top = 0,
-            box = input;
-
-        while (box.offsetParent) {
-            if (!box.getBoundingClientRect)
-                break;
-
-            let dimension = box.getBoundingClientRect();
-            top += dimension.y;
-            left += dimension.x;
-
-            box = box.offsetParent;
-        }
-
-        return {
-            x: left,
-            y: top
-        };
-    }
      
     error (input, message) {
-        const dimension = this.position(input);
+        const dimension = input.getBoundingClientRect();
 
         this.errorTooltip.innerText = message;
-        this.errorTooltip.style.left = `${(dimension.x + input.offsetWidth / 2) - (this.errorTooltip.offsetWidth / 2)}px`;
-        this.errorTooltip.style.top = `${dimension.y + input.offsetHeight}px`;
+        this.errorTooltip.style.left = `${(dimension.x + input.offsetWidth / 2 + window.scrollX) - (this.errorTooltip.offsetWidth / 2)}px`;
+        this.errorTooltip.style.top = `${dimension.y + input.offsetHeight + window.scrollY}px`;
 
         this.errorTooltip.classList.add("active");
 
@@ -113,7 +96,7 @@ class Validate {
         }, 3000);
     }
 
-    validate () {
+    validate (form) {
         for (let input in this.inputs) {
             const empty = this.checkEmpty(this.inputs[input]),
                 validate = this.checkData(this.inputs[input]);
@@ -129,7 +112,7 @@ class Validate {
             }
         }
 
-        return true;
+        return new FormData(form);
     }
 
     constructor (form) {
@@ -137,6 +120,6 @@ class Validate {
             input => this.inputs[input.name] = input
         );
 
-        this.ok = this.validate();
+        this.data = this.validate(form);
     }
 }

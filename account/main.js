@@ -151,3 +151,15 @@ function showBox (targetBox) {
 }
 
 $.select("[data-target-box]").event("click", showBox);
+
+
+function submit () {
+    const validate = new Validate(this.parentNode.parentNode.select("form"));
+
+    if (!validate.data)
+        return null;
+
+    validate.data.forEach(value => console.log(value));
+}
+
+$.select(".submit").event("click", submit);
