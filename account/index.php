@@ -24,7 +24,6 @@
     <?php component::headFiles() ?>
 
     <link rel="stylesheet" type="text/css" href="./responsive.css">
-    <script async type="text/javascript" src="./validate.js"></script>
 
     <script>
         <?php
@@ -77,6 +76,8 @@
                     <p class="placeholder">Retry Password</p>
                 </div>
 
+                <input type="file" id="custom-profile">
+
                 <input type="hidden" name="type" value="register">
             </form>
 
@@ -96,8 +97,6 @@
                     <?php profile(5) ?>
                 </div>
             </div>
-
-            <input type="file" id="custom-profile">
 
             <img src="" alt="custom profile" draggable="false" id="custom-profile-image">
 
@@ -186,6 +185,7 @@
         component::asideMenu();
     ?>
 
+    <script async type="text/javascript" src="./validate.js"></script>
     <script type="text/javascript" src="/share/app.js"></script>
     <script type="text/javascript" src="./main.js"></script>
 </body>

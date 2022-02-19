@@ -153,13 +153,27 @@ function showBox (targetBox) {
 $.select("[data-target-box]").event("click", showBox);
 
 
-function submit () {
-    const validate = new Validate(this.parentNode.parentNode.select("form"));
+function submit (element) {
+    const validate = new Validate((element instanceof Event? this: element).parentNode.parentNode.select("form"))
 
     if (!validate.data)
         return null;
 
     validate.data.forEach(value => console.log(value));
+
+    // submit ajax ===> for signup
+    return true;
 }
 
-$.select(".submit").event("click", submit);
+$.select(".submit:not(#signup-box .submit)").event("click", submit);
+
+
+function signup () {
+    if (!(isExists(".selected") || $.profile.files[0]))
+        Validate.error(profilesBox, "Select A Profile");
+
+    else if (!submit(this))
+        return null;
+}
+
+$.signup.select(".submit").event("click", signup);
