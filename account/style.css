@@ -257,7 +257,7 @@ input[type=file] {
     text-transform: capitalize;
     border-radius: 7px;
     background-color: #FFF;
-    box-shadow: 0 0 12px -1px #000;
+    box-shadow: var(--tooltip-shadow);
     gap: 10px;
 }
 

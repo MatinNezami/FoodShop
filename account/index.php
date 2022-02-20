@@ -183,6 +183,7 @@
     <?php
         component::backToTop();
         component::asideMenu();
+        component::message();
     ?>
 
     <script async type="text/javascript" src="./validate.js"></script>

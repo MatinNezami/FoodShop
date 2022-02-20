@@ -1,5 +1,7 @@
 $.select("aside.menu", "menu");
 $.select("#prevent", "prevent");
+$.select("#message", "message");
+$.select("#message p", "messageText");
 
 function closeMenu () {
     $.menu.style.left = "-260px";
@@ -18,3 +20,18 @@ $.select("header nav .open").event("click", openMenu);
 
 
 $.select(".back-to-top").event("click", _ => scrollTo(0, 0));
+
+
+function message (message) {
+    if(!$.message)
+        return null;
+
+    if (!$.message.classList.contains("active")) {
+        $.messageText.innerText = message;
+        $.message.classList.add("active");
+    }
+
+    setTimeout (_ => {
+        $.message.classList.remove("active");
+    }, 3200);
+}

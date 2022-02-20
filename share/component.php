@@ -118,6 +118,20 @@
 <?php
 
         }
+
+        static function message () {
+
+?>
+
+    <div id="message">
+        <p>Test Text</p>
+        <div class="progress"></div>
+    </div>
+
+<?php
+
+        }
+
     }
 
 ?>
