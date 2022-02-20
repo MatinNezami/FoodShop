@@ -207,7 +207,7 @@ aside.menu .links a:hover {
 #message {
     position: fixed;
     top: 10px;
-    right: -290px;
+    right: -320px;
     width: 290px;
     background-color: #FFF;
     box-shadow: var(--tooltip-shadow);
@@ -215,7 +215,7 @@ aside.menu .links a:hover {
     z-index: 2;
     height: 40px;
     font-size: 20px;
-    transition: var(--animate);
+    transition: all 400ms cubic-bezier(1,-0.98,0,1.78) 0s;
     border
 }
 
