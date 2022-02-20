@@ -16,6 +16,10 @@
     font-family: plex-sans;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 a {
     text-decoration: none;
     color: #000;

@@ -17,13 +17,4 @@ $.prevent.event("click", closeMenu);
 $.select("header nav .open").event("click", openMenu);
 
 
-function backToTop () {
-    const animate = setInterval(_ => {
-        window.scrollTo(0, window.scrollY - 23);
-
-        if (window.scrollY == 0)
-            clearInterval(animate);
-    }, 1);
-}
-
-$.select(".back-to-top").event("click", backToTop);
+$.select(".back-to-top").event("click", _ => scrollTo(0, 0));
