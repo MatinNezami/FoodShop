@@ -154,27 +154,40 @@ function showBox (targetBox) {
 $.select("[data-target-box]").event("click", showBox);
 
 
-function submit (element) {
+// custom ajax for signup function
+function submit (element, data = false) {
     const validate = new Validate((element instanceof Event? this: element).parentNode.parentNode.select("form"))
 
     if (!validate.data)
         return null;
 
+    if (data)
+        return validate.data;
+
+
     validate.data.forEach(value => console.log(value));
 
     // submit ajax ===> for signup
-    return true;
 }
 
 $.select(".submit:not(#signup-box .submit)").event("click", submit);
 
 
+// gat image base64
 function signup () {
-    if (!(isExists(".selected") || $.profile.files[0]))
-        Validate.error(profilesBox, "Select A Profile");
+    const data = submit(this, true);
 
-    else if (!submit(this))
+    if (!data)
         return null;
+
+    if (!(isExists(".selected") || $.profile.files[0])) {
+        Validate.error(profilesBox, "Select A Profile");
+        return null;
+    }
+
+    data.forEach(value => console.log(value));
+
+    // submit ajax ===> for signup
 }
 
 $.signup.select(".submit").event("click", signup);
