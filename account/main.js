@@ -94,6 +94,7 @@ function uploadImage (input, imageElm) {
 
     function remove () {
         this.style.display = "none";
+        input.value = null;
         profileImages.event("click", selectProfile);
     }
 
