@@ -82,20 +82,21 @@ class Validate {
                 return {status: true};
         }
     }
-
      
     static error (element, message) {
         const dimension = element.getBoundingClientRect();
 
         $.errorMsg.innerText = message;
-        $.errorTooltip.style.left = `${(dimension.x + element.offsetWidth / 2 + window.scrollX) - ($.errorTooltip.offsetWidth / 2)}px`;
-        $.errorTooltip.style.top = `${dimension.y + element.offsetHeight + window.scrollY}px`;
+        $.errorTooltip.style.left = `${(dimension.x + element.offsetWidth / 2 + scrollX) - ($.errorTooltip.offsetWidth / 2)}px`;
+        $.errorTooltip.style.top = `${dimension.y + element.offsetHeight + scrollY}px`;
 
         $.errorTooltip.classList.add("active");
 
         setTimeout(() => {
             $.errorTooltip.classList.remove("active");
         }, 3000);
+
+        scrollTo(0, $.errorTooltip.getBoundingClientRect().y + scrollY / 2);
     }
 
     validate (form) {
