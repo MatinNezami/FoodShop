@@ -44,7 +44,7 @@ window.addEventListener("resize", headerImage);
 function focus () {
     const placeholder = this.parentNode.select(".placeholder");
 
-    if (this.required)
+    if (this.required && placeholder.innerHTML.search("span") < 0)
         setTimeout (_ => {
             placeholder.innerHTML = `<span>*</span> ${placeholder.innerText}`;
         }, 80);
