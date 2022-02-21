@@ -42,12 +42,24 @@ window.addEventListener("resize", headerImage);
 
 
 function focus () {
+    const placeholder = this.parentNode.select(".placeholder");
+
+    if (this.required)
+        setTimeout (_ => {
+            placeholder.innerHTML = `<span>*</span> ${placeholder.innerText}`;
+        }, 80);
+
     this.parentNode.select(".placeholder").classList.add("active");
 }
 
 function blur () {    
     if (this.value)
         return null;
+
+    if (this.required)
+        setTimeout (_ => {
+            this.parentNode.select(".placeholder span")?.remove();
+        }, 80);
 
     this.parentNode.select(".placeholder").classList.remove("active");
 }
@@ -141,7 +153,7 @@ function showBox (targetBox) {
     function show (box) {
         box.style.display = "flex";
 
-        setTimeout(() => {
+        setTimeout (_ => {
             box.style.opacity = "1";
         }, 10);
     }
