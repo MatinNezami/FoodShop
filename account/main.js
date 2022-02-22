@@ -49,7 +49,7 @@ function focus () {
             placeholder.innerHTML = `<span>*</span> ${placeholder.innerText}`;
         }, 80);
 
-    this.parentNode.select(".placeholder").classList.add("active");
+    placeholder.classList.add("active");
 }
 
 function blur () {    
@@ -66,12 +66,7 @@ function blur () {
 
 $.inputs.event("focus", focus, "blur", blur);
 
-
-function focusToInput () {
-    this.previousElementSibling.focus();
-}
-
-$.select(".placeholder").event("click", focusToInput);
+$.select(".placeholder").event("click", ev => ev.currentTarget.previousElementSibling.focus());
 
 
 function profile () {
