@@ -104,7 +104,10 @@ function uploadImage (input, imageElm) {
     const reader = new FileReader();
 
     function insert () {
-        imageElm.src = reader.result;
+        window.uploadSrc = reader.result.slice(reader.result.search(":") + 1, reader.result.search(";")) + ";";
+        window.uploadSrc += reader.result.slice(reader.result.search(",") + 1);
+
+        imageElm.src = blobURL(window.uploadSrc);
         imageElm.style.display = "block";
 
         if (isExists(".selected"))
