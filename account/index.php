@@ -2,6 +2,11 @@
     
     require_once "../share/component.php";
 
+    $connection = connection();
+
+    if ($connection)
+        echo "hello";
+
     function profile (int $index) {
         $length = $index + 3;
         for ($index; $index <= $length; $index++) {

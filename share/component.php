@@ -1,6 +1,6 @@
 <?php
 
-    trait component {
+    class component {
         static function navbar () {
 
 ?>
@@ -123,7 +123,7 @@
 ?>
 
     <div id="message">
-        <p>Test Text</p>
+        <p></p>
         <div class="progress"></div>
     </div>
 
