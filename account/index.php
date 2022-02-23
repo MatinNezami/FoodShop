@@ -1,21 +1,4 @@
-<?php
-    
-    require_once "../share/component.php";
-
-    $connection = connection();
-
-    function profile (int $index) {
-        $length = $index + 3;
-        for ($index; $index <= $length; $index++) {
-            if ($index % 2 == 0)
-                echo '<img src="/images/profile/' . $index . '.webp" alt="profile" draggable="false"></div>';
-
-            else
-                echo '<div class="center-item"><img src="/images/profile/' . $index . '.webp" alt="profile" draggable="false">';
-        }
-    }
-
-?>
+<?php require_once "../share/component.php"; ?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -91,13 +74,9 @@
             <button class="profile">Select A Profile</button>
 
             <div class="profile-images center-item">
-                <div class="center-item">
-                    <?php profile(1) ?>
-                </div>
-
-                <div class="center-item">
-                    <?php profile(5) ?>
-                </div>
+                <div class="center-item"></div>
+                
+                <div class="center-item"></div>
             </div>
 
             <img src="" alt="custom profile" draggable="false" id="custom-profile-image">

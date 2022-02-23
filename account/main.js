@@ -12,6 +12,45 @@ function blobURL (base64) {
     return URL.createObjectURL(new Blob([new Uint8Array(byte)], {type: type}));
 }
 
+
+const profileImages = [];
+
+(async function profiles () {
+
+    const request = await fetch("check.php?profiles");
+    
+    let parent = $.createElement("DIV");
+
+    if (!request.ok)
+        return alert("Not Found");
+
+    const response = JSON.parse(await request.text());
+
+    function set (data, i) {
+        const box = i < 4? $.querySelector(".profile-images > div:first-of-type"): $.select(".profile-images > div:last-of-type"),
+            img = $.createElement("IMG");
+
+        img.draggable = false;
+        img.alt = "profile";
+        img.src = blobURL(data.img);
+        img.dataset.name = data.key;
+        img.onclick = selectProfile;
+
+        parent.appendChild(img);
+        profileImages.push(img);
+
+        if (i % 2 != 0) {
+            parent.classList.add("center-item")
+            box.appendChild(parent);
+            parent = $.createElement("DIV");
+        }
+    }
+
+    response.status == 200? response.data.forEach(set): alert(response.message);
+
+})();
+
+
 $.select("header", "header");
 
 $.select("#login-box", "login");
@@ -23,7 +62,7 @@ $.select("main > div", "mainBoxes");
 $.select(".input input", "inputs");
 
 const profilesBox = $.select(".profile-images"),
-    profileImages = $.select(".profile-images img");
+    reader = new FileReader();
 
 
 showBox($[flag]);
@@ -96,13 +135,9 @@ function selectProfile () {
 }
 
 $.select(".profile").event("click", profile);
-profileImages.event("click", selectProfile);
 
 
-// work on this function
 function uploadImage (input, imageElm) {
-    const reader = new FileReader();
-
     function insert () {
         window.uploadSrc = reader.result.slice(reader.result.search(":") + 1, reader.result.search(";")) + ";";
         window.uploadSrc += reader.result.slice(reader.result.search(",") + 1);
@@ -113,13 +148,13 @@ function uploadImage (input, imageElm) {
         if (isExists(".selected"))
             $.select(".selected").classList.remove("selected");
 
-        profileImages.forEach(img => img.removeEventListener("click", selectProfile));
+        profileImages.forEach(img => img.onclick = null);
     }
 
     function remove () {
         this.style.display = "none";
         input.value = null;
-        profileImages.event("click", selectProfile);
+        profileImages.forEach(img => img.onclick = selectProfile);
     }
 
     imageElm.event("click", remove);
@@ -129,7 +164,7 @@ function uploadImage (input, imageElm) {
         reader.readAsDataURL(input.files[0]);
     }
 
-    input.event("change", upload)
+    input.event("change", upload);
 }
 
 uploadImage($.select("#custom-profile", "profile"), $.select("#custom-profile-image"));
