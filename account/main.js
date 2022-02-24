@@ -140,7 +140,7 @@ function selectProfile () {
 $.select(".profile").event("click", profile);
 
 
-function uploadImage (input, imageElm) {
+(function uploadImage (input, imageElm) {
     function insert () {
         window.uploadSrc = reader.result.slice(reader.result.search(":") + 1, reader.result.search(";")) + ";";
         window.uploadSrc += reader.result.slice(reader.result.search(",") + 1);
@@ -168,9 +168,7 @@ function uploadImage (input, imageElm) {
     }
 
     input.event("change", upload);
-}
-
-uploadImage($.select("#custom-profile", "profile"), $.select("#custom-profile-image"));
+})($.select("#custom-profile", "profile"), $.select("#custom-profile-image"));
 
 
 function password () {
