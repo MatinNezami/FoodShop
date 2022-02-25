@@ -12,24 +12,31 @@ function blobURL (base64) {
     return URL.createObjectURL(new Blob([new Uint8Array(byte)], {type: type}));
 }
 
+async function ajax (url, data, method) {
+    const request = data? await fetch(url, {
+        method: method,
+        body: data
+    }): await fetch(url);
+
+    if (!request.ok)
+        return message("not found");
+
+    return JSON.parse(await request.text());
+}
+
 
 const profileImages = [];
 window.src = {};
 
 (async function profiles () {
 
-    const request = await fetch("check.php?profiles");
+    const response = await ajax("check.php?profiles");
     
     let parent = $.createElement("DIV");
 
-    if (!request.ok)
-        return alert("Not Found");
-
-    const response = JSON.parse(await request.text());
-
     function set (data, i) {
         const box = i < 4? $.querySelector(".profile-images > div:first-of-type"): $.select(".profile-images > div:last-of-type"),
-            img = $.createElement("IMG");
+            img = new Image();
 
         img.draggable = false;
         img.alt = "profile";
@@ -49,7 +56,7 @@ window.src = {};
         }
     }
 
-    response.status == 200? response.data.forEach(set): alert(response.message);
+    response.status == 200? response.data.forEach(set): message(response.message);
 
 })();
 
@@ -229,7 +236,7 @@ function submit (element, data = false) {
 $.select(".submit:not(#signup-box .submit)").event("click", submit);
 
 
-function signup () {
+async function signup () {
     const data = submit(this, true),
         selected = isExists(".selected");
 
@@ -242,7 +249,10 @@ function signup () {
     }
 
     data.append("profile", window.uploadSrc?? window.src[selected.dataset.name]);
-    data.forEach(value => console.log(value));
+
+    const response = await ("check.php", data, "POST");
+
+    console.log(response);
 }
 
 $.signup.select(".submit").event("click", signup);
