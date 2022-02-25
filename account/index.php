@@ -61,7 +61,7 @@
                     <p class="placeholder">Retry Password</p>
                 </div>
 
-                <input type="file" id="custom-profile">
+                <input type="file" id="custom-profile" autocomplete="off">
 
                 <input type="hidden" name="type" value="register">
             </form>
