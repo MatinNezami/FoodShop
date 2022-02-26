@@ -1,45 +1,62 @@
 <?php
 
 	require_once "../share/component.php";
-	// require_once "../share/validate.php";
+	require_once "../share/validate.php";
 
 	$connection = connection();
 
 	if (!$connection)
-		die("{\"status\": 500, \"message\": \"database isn't connect\"}");
+		return "{\"status\": 500, \"message\": \"database isn't connect\"}";
 
 	function profiles () {
 		$query = $GLOBALS["connection"]->prepare("SELECT * FROM `profile`");
 
 		if (!$query->execute())
-			die("{\"status\": 500, \"message\": \"query isn't execute\"}");
+			return "{\"status\": 500, \"message\": \"query isn't execute\"}";
 
-		die("{\"status\": 200, \"data\": " . json_encode($query->fetchAll(PDO::FETCH_ASSOC)) . "}");
+		return ("{\"status\": 200, \"data\": " . json_encode($query->fetchAll(PDO::FETCH_ASSOC)) . "}");
 	}
 
 
 	function register ($data) {
-		// USE PROFILE AND CUSTOM VALIDATE;
-		// var_dump($data);
-
 		unset($data["profile"]);
 
 		$check = new Validate($data);
 
 		if (!$check->valid)
-			die("\"status\": 500, \"message\": \"" . $check->message . "\"");
+			return "{\"status\": 500, \"message\": \"" . $check->message . "\"}";
 
-		echo "check true";
+
+		return "{\"status\": 200, \"message\": \"signup success\"}";
 	}
 
 
 	if (isset($_GET["profiles"]))
-		profiles();
+		die(profiles());
 
 	if (isset($_POST["type"]))
 		switch ($_POST["type"]) {
 			case "register":
-				register($_POST);
+				die(register($_POST));
 		}
+
+
+
+
+
+
+
+
+
+		// $d = [
+		// 	"first-name" => "matin",
+		// 	"email" => "matin@gmail.com",
+		// 	"username" => "matinnez",
+		// 	"password" => "Hello912@",
+		// 	"retry-password" => "Hello912@"
+		// ];
+
+
+		// echo register($d);
 
 ?>

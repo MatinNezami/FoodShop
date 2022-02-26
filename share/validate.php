@@ -2,6 +2,7 @@
 
 	class Validate {
 		private $data;
+		public $patterns = [];
 		public $valid = false;
 		public $message = NULL;
 
@@ -12,14 +13,20 @@
 			];
 		}
 
-		function simple ($value) {
+		function simple ($key, $value) {
+			$min = in_array($key, $this->patterns)? $this->patterns[$key][0]: 5;
+			$max = in_array($key, $this->patterns)? $this->patterns[$key][1]: 30;
+
 			return [
-				"status" => preg_match("/^.{5,30}$/", $value)
+				"status" => preg_match("/^.{" . $min . "," . $max . "}$/", $value),
 			];
 		}
 
-		function number ($value) {
-			if (!($value >= 5 && $value <= 30))
+		function number ($key, $value) {
+			$min = in_array($key, $this->patterns)? $this->patterns[$key][0]: 5;
+			$max = in_array($key, $this->patterns)? $this->patterns[$key][1]: 30;
+
+			if (!($value >= $min && $value <= $max))
 	            return [
 	                "status" => false,
 	                "message" => "number out of range"
@@ -36,14 +43,20 @@
 	        ];
 		}
 
-		function username ($value) {
+		function username ($key, $value) {
+			$min = in_array($key, $this->patterns)? $this->patterns[$key][0]: 5;
+			$max = in_array($key, $this->patterns)? $this->patterns[$key][1]: 30;
+
 			return [
-				"status" => preg_match("/^(?=.{5,30}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$/", $value)
+				"status" => preg_match("/^(?=.{" . $min . "," . $max . "}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$/", $value)
 			];
 		}
 
-		function password ($value) {
-			if (!preg_match("/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,30}$/", $value))
+		function password ($key, $value) {
+			$min = in_array($key, $this->patterns)? $this->patterns[$key][0]: 8;
+			$max = in_array($key, $this->patterns)? $this->patterns[$key][1]: 30;
+
+			if (!preg_match("/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{" . $min . "," . $max . "}$/", $value))
 				return [
 					"status" => false,
 					"message" => "password is not strong"
@@ -75,24 +88,30 @@
 
 				case "number":
 				case "age":
-					return $this->number($val);
+					return $this->number($key, $val);
 
 				case "username":
-					return $this->username($val);
+					return $this->username($key, $val);
 
 				case "password":
-					return $this->password($val);
+					return $this->password($key, $val);
 
 				case "retry-password":
 					return $this->retryPassword($val);
 
 				default:
-					return $this->simple($val);
+					return $this->simple($key, $val);
 			}
 		}
 
-		function __construct ($data) {
+		function pattern ($patterns) {
+			foreach ($patterns as $pattern)
+				$this->patterns[$pattern[0]] = [$pattern[1], $pattern[2]];
+		}
+
+		function __construct ($data, ...$patterns) {
 			$this->data = $data;
+			$this->pattern($patterns);
 
 			foreach ($data as $key => $val) {
 				if (!$val) {
@@ -104,7 +123,7 @@
 				$valid = $this->check($key, $val);
 
 				$this->valid = $valid["status"];
-				$this->message = $valid["message"]?? "data isn't valid";
+				$this->message = $valid["message"]?? "informations isn't valid";
 
 				if (!$this->valid)
 					break;
