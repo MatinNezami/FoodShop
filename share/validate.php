@@ -18,7 +18,7 @@
 			$max = in_array($key, $this->patterns)? $this->patterns[$key][1]: 30;
 
 			return [
-				"status" => preg_match("/^.{" . $min . "," . $max . "}$/", $value),
+				"status" => preg_match("/^.{" . $min . "," . $max . "}$/", $value)
 			];
 		}
 
