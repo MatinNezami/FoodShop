@@ -21,46 +21,44 @@ async function ajax (url, data, method) {
     if (!request.ok)
         return message("not found");
 
-    // return JSON.parse(await request.text());
-
-    console.log(await request.text());
+    return JSON.parse(await request.text());
 }
 
 
 const profileImages = [];
 window.src = {};
 
-// (async function profiles () {
+(async function profiles () {
 
-//     const response = await ajax("check.php?profiles");
+    const response = await ajax("check.php?profiles");
     
-//     let parent = $.createElement("DIV");
+    let parent = $.createElement("DIV");
 
-//     function set (data, i) {
-//         const box = i < 4? $.querySelector(".profile-images > div:first-of-type"): $.select(".profile-images > div:last-of-type"),
-//             img = new Image();
+    function set (data, i) {
+        const box = i < 4? $.querySelector(".profile-images > div:first-of-type"): $.select(".profile-images > div:last-of-type"),
+            img = new Image();
 
-//         img.draggable = false;
-//         img.alt = "profile";
-//         img.src = blobURL(data.img);
-//         img.dataset.name = data.key;
-//         img.onclick = selectProfile;
+        img.draggable = false;
+        img.alt = "profile";
+        img.src = blobURL(data.img);
+        img.dataset.name = data.key;
+        img.onclick = selectProfile;
 
-//         window.src[data.key] = data.img;
+        window.src[data.key] = data.img;
 
-//         parent.appendChild(img);
-//         profileImages.push(img);
+        parent.appendChild(img);
+        profileImages.push(img);
 
-//         if (i % 2 != 0) {
-//             parent.classList.add("center-item")
-//             box.appendChild(parent);
-//             parent = $.createElement("DIV");
-//         }
-//     }
+        if (i % 2 != 0) {
+            parent.classList.add("center-item")
+            box.appendChild(parent);
+            parent = $.createElement("DIV");
+        }
+    }
 
-//     response.status == 200? response.data.forEach(set): message(response.message);
+    response.status == 200? response.data.forEach(set): message(response.message);
 
-// })();
+})();
 
 
 $.select("header", "header");
