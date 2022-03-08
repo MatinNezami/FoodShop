@@ -21,10 +21,10 @@
 	function register ($data) {
 		unset($data["profile"]);
 
-		$check = new Validate($data);
+		$check = new Validate($data, ["first-name", 5, 30, false]);
 
 		if (!$check->valid)
-			return "{\"status\": 500, \"message\": \"" . $check->message . "\"}";
+			return "{\"status\": 500, \"message\": \"" . str_replace("-", " ", $check->message) . "\"}";
 
 		// insert to the db
 

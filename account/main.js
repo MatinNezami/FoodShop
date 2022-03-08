@@ -236,6 +236,13 @@ function submit (element, data = false) {
 $.select(".submit:not(#signup-box .submit)").event("click", submit);
 
 
+function setInfo (data) {
+    $.information.select("img").src = blobURL(data.profile);
+    $.information.select("h2 span").innerText = data["first-name"]? null: "client";
+
+    showBox($.information);
+}
+
 async function signup () {
     const data = submit(this, true),
         selected = isExists(".selected");
@@ -252,7 +259,13 @@ async function signup () {
 
     const response = await ajax("check.php", data, "POST");
 
-    console.log(response);
+    let dataObj = {};
+
+    for (const item of data.entries())
+        dataObj[item[0]] = item[1];
+
+
+    response.status == 200? setInfo(dataObj): message(response.message);
 }
 
 $.signup.select(".submit").event("click", signup);

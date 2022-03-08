@@ -1,11 +1,18 @@
 <?php
-
+	
 	class Validate {
 		private $data;
 		public $patterns = [];
 		public $valid = false;
 		public $message = NULL;
 
+
+		function required ($key, $value) {
+			if (!isset($this->patterns[$key]))
+				return true;
+
+			return $this->patterns[$key][2]? $value: NULL;
+		}
 
 		function email ($value) {
 			return [
@@ -23,19 +30,21 @@
 		}
 
 		function number ($key, $value) {
-			$min = in_array($key, $this->patterns)? $this->patterns[$key][0]: 5;
-			$max = in_array($key, $this->patterns)? $this->patterns[$key][1]: 30;
+			$exists = isset($this->patterns[$key]);
+
+			$min = $exists? $this->patterns[$key][0]: 5;
+			$max = $exists? $this->patterns[$key][1]: 30;
 
 			if (!($value >= $min && $value <= $max))
 	            return [
 	                "status" => false,
-	                "message" => "number out of range"
+	                "message" => "$key out of range"
 	            ];
 
 	        if (!is_numeric($value))
 	        	return [
 	        		"status" => false,
-	        		"message" => "value isn't number"
+	        		"message" => "$key isn't number"
 	        	];
 
 	        return [
@@ -82,12 +91,26 @@
 		}
 
 		function check ($key, $val) {
+			$required = $this->required($key, $val);
+
+			if ($required === NULL && !$val)
+				return [
+					"status" => true
+				];
+
+			if (!$required && !$val)
+				return [
+					"status" => false,
+					"message" => "$key is required"
+				];
+
 			switch ($key) {
 				case "email":
 					return $this->email($val);
 
 				case "number":
 				case "age":
+				case "price":
 					return $this->number($key, $val);
 
 				case "username":
@@ -106,7 +129,7 @@
 
 		function pattern ($patterns) {
 			foreach ($patterns as $pattern)
-				$this->patterns[$pattern[0]] = [$pattern[1], $pattern[2]];
+				$this->patterns[$pattern[0]] = [$pattern[1], $pattern[2], $pattern[3]];
 		}
 
 		function __construct ($data, ...$patterns) {
@@ -114,16 +137,10 @@
 			$this->pattern($patterns);
 
 			foreach ($data as $key => $val) {
-				if (!$val) {
-					$this->valid = false;
-					$this->message = "$key is empty";
-					break;
-				}
-
 				$valid = $this->check($key, $val);
 
 				$this->valid = $valid["status"];
-				$this->message = $valid["message"]?? "informations isn't valid";
+				$this->message = $valid["message"]?? "$key isn't valid";
 
 				if (!$this->valid)
 					break;

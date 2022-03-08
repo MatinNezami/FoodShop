@@ -7,7 +7,7 @@
     --animate: all 170ms ease-in 0s;
     --link-hover-color: linear-gradient(to right bottom, #00c4f0, #006e92);
     --navbar-color: #2196F3;
-    --tooltip-shadow: 0 0 12px -1px #000;
+    --tooltip-shadow: rgba(0, 0, 0, 0.3) 0px 10px 30px 0px;
 }
 
 * {
