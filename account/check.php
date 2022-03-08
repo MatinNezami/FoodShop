@@ -18,6 +18,25 @@
 	}
 
 
+	function existsUser ($username, $email) {
+		$checkUsername = $GLOBALS["connection"]->prepare("SELECT `username` FROM `users` WHERE `username` = ?");
+		$checkUsername->bindValue(1, $username);
+
+		$checkEmail = $GLOBALS["connection"]->prepare("SELECT `email` FROM `users` WHERE `email` = ?");
+		$checkEmail->bindValue(1, $email);
+
+		$emailExec = $checkEmail->execute();
+
+		if (!$checkUsername->execute() && !$emailExec)
+			die("{\"status\": 500, \"message\": \"query isn't execute\"}");
+
+		if ($checkUsername->rowCount())
+			die("{\"status\": 500, \"message\": \"this username is exists\"}");
+
+		if ($checkEmail->rowCount())
+			die("{\"status\": 500, \"message\": \"this email is accepted\"}");
+	}
+
 	function register ($data) {
 		unset($data["profile"]);
 
@@ -26,7 +45,7 @@
 		if (!$check->valid)
 			return "{\"status\": 500, \"message\": \"" . str_replace("-", " ", $check->message) . "\"}";
 
-		// insert to the db
+		existsUser($data["username"], $data["email"]);
 
 		return "{\"status\": 200, \"message\": \"signup success\"}";
 	}

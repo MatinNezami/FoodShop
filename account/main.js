@@ -1,3 +1,5 @@
+"use strict";
+
 function blobURL (base64) {
     let point = base64.search(";");
     const type = base64.slice(0, point);
@@ -266,13 +268,14 @@ async function signup () {
 
     const response = await ajax("check.php", data, "POST");
 
-    let dataObj = {};
+    window.data = {};
+    window.resultAJAX = response;
 
     for (const item of data.entries())
-        dataObj[item[0]] = item[1];
+        window.data[item[0]] = item[1];
 
 
-    response.status == 200? setInfo(dataObj): message(response.message);
+    response.status == 200? setInfo(window.data): message(response.message);
 }
 
 $.signup.select(".submit").event("click", signup);
