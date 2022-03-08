@@ -67,8 +67,8 @@
             </form>
 
             <div class="show-password center-item">
-                <input type="checkbox" autocomplete="off">
-                <p>Show Password</p>
+                <input type="checkbox" id="show-password-signup" autocomplete="off">
+                <label for="show-password-signup">Show Password</label>
             </div>
 
             <button class="profile">Select A Profile</button>
@@ -108,8 +108,8 @@
             </form>
 
             <div class="show-password center-item">
-                <input type="checkbox" autocomplete="off">
-                <p>Show Password</p>
+                <input type="checkbox" id="show-password-login" autocomplete="off">
+                <label for="show-password-login">Show Password</p>
             </div>
 
             <button class="login-google">With Google</button>

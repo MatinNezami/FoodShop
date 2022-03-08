@@ -63,7 +63,7 @@ main > div > * {
 }
 
 main > div > button,
-main label {
+main > div > label {
     background-color: var(--navbar-color);
 }
 
