@@ -79,8 +79,15 @@ showBox($[flag]);
 
 
 function inputValue (input) {
-    if (input.value)
-        input.parentNode.select(".placeholder").classList.add("active");
+    const placeholder = input.parentNode.select(".placeholder");
+
+    if (!input.value)
+        return null;
+
+    placeholder.classList.add("active");
+
+    if (input.required)
+        placeholder.innerHTML = `<span>*</span> ${placeholder.innerText}`;
 }
 
 $.inputs.forEach(input => inputValue(input));
