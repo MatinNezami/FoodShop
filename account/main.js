@@ -269,7 +269,6 @@ async function signup () {
     const response = await ajax("check.php", data, "POST");
 
     window.data = {};
-    window.resultAJAX = response;
 
     for (const item of data.entries())
         window.data[item[0]] = item[1];

@@ -11,10 +11,10 @@
 	function profiles () {
 		$query = $GLOBALS["connection"]->prepare("SELECT * FROM `profile`");
 
-		if (!$query->execute())
-			return "{\"status\": 500, \"message\": \"query isn't execute\"}";
+		$query->execute() or
+			die("{\"status\": 500, \"message\": \"query isn't execute\"}");
 
-		return ("{\"status\": 200, \"data\": " . json_encode($query->fetchAll(PDO::FETCH_ASSOC)) . "}");
+		die("{\"status\": 200, \"data\": " . json_encode($query->fetchAll(PDO::FETCH_ASSOC)) . "}");
 	}
 
 
@@ -25,9 +25,7 @@
 		$checkEmail = $GLOBALS["connection"]->prepare("SELECT `email` FROM `users` WHERE `email` = ?");
 		$checkEmail->bindValue(1, $email);
 
-		$emailExec = $checkEmail->execute();
-
-		if (!$checkUsername->execute() && !$emailExec)
+		$checkEmail->execute() && $checkUsername->execute() or
 			die("{\"status\": 500, \"message\": \"query isn't execute\"}");
 
 		if ($checkUsername->rowCount())
@@ -43,11 +41,11 @@
 		$check = new Validate($data, ["first-name", 5, 30, false]);
 
 		if (!$check->valid)
-			return "{\"status\": 500, \"message\": \"" . str_replace("-", " ", $check->message) . "\"}";
+			die("{\"status\": 500, \"message\": \"" . str_replace("-", " ", $check->message) . "\"}");
 
 		existsUser($data["username"], $data["email"]);
 
-		return "{\"status\": 200, \"message\": \"signup success\"}";
+		die("{\"status\": 200, \"message\": \"signup success\"}");
 	}
 
 
@@ -57,7 +55,7 @@
 	if (isset($_POST["type"]))
 		switch ($_POST["type"]) {
 			case "register":
-				die(register($_POST));
+				register($_POST);
 		}
 
 ?>
