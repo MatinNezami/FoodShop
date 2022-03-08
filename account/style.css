@@ -23,7 +23,7 @@ button {
 }
 
 button::before,
-label::before {
+main > div > label::before {
     content: "";
     position: absolute;
     width: 101%;
@@ -104,7 +104,7 @@ main > div form {
 }
 
 .placeholder {
-    font-size: 16px;
+    font-size: 20px;
     transition: var(--animate);
     padding: 0 5px;
     top: 50%;
@@ -125,7 +125,7 @@ main > div form {
     top: -15px;
     left: 5px;
     transform: none;
-    font-size: 20px;
+    font-size: 16px;
 }
 
 .show-password {
