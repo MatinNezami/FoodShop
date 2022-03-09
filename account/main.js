@@ -247,7 +247,7 @@ $.select(".submit:not(#signup-box .submit)").event("click", submit);
 
 function setInfo (data) {
     $.information.select("img").src = blobURL(data.profile);
-    $.information.select("h2 span").innerText = data["first-name"]? data["first-name"]: "client";
+    $.information.select("h2 span").innerText = data["firstName"]? data["firstName"]: "client";
 
     showBox($.information);
 }

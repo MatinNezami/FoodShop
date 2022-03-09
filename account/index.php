@@ -37,7 +37,7 @@
 
             <form action="" class="center-item">
                 <div class="input">
-                    <input type="text" name="first-name">
+                    <input type="text" name="firstName">
                     <p class="placeholder">First Name</p>
                 </div>
 
