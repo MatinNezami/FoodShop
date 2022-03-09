@@ -18,7 +18,7 @@
         <img src="/images/404.svg" loading="lazy" alt="not found" draggable="false">
 
         <h2>
-            This Location Is not Exists Go To
+            This Location Is Not Exists Go To
             <a href="/">Home</a>
         </h2>
     </main>

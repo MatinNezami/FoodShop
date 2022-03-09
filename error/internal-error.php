@@ -18,8 +18,8 @@
         <img src="/images/500.svg" loading="lazy" alt="not found" draggable="false">
 
         <h2>
-            server error go to
-            <a href="/">home</a>
+            Oops Server Error Go To
+            <a href="/">Home</a>
         </h2>
     </main>
 
