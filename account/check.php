@@ -19,19 +19,19 @@
 
 
 	function existsUser ($username, $email) {
-		$checkUsername = $GLOBALS["connection"]->prepare("SELECT `username` FROM `users` WHERE `username` = ?");
-		$checkUsername->bindValue(1, $username);
+		$check = $GLOBALS["connection"]->prepare("SELECT `email`, `username` FROM `users` WHERE `email` = :email OR `username` = :username");
+		$check->bindParam(":email", $email);
+		$check->bindParam(":username", $username);
 
-		$checkEmail = $GLOBALS["connection"]->prepare("SELECT `email` FROM `users` WHERE `email` = ?");
-		$checkEmail->bindValue(1, $email);
-
-		$checkEmail->execute() && $checkUsername->execute() or
+		$check->execute() or
 			die("{\"status\": 500, \"message\": \"query isn't execute\"}");
 
-		if ($checkUsername->rowCount())
+		$data = $check->fetch(PDO::FETCH_ASSOC);
+
+		if ($data["username"] == $username)
 			die("{\"status\": 500, \"message\": \"this username is exists\"}");
 
-		if ($checkEmail->rowCount())
+		if ($data["email"] == $email)
 			die("{\"status\": 500, \"message\": \"this email is accepted\"}");
 	}
 
