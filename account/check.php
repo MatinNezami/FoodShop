@@ -7,7 +7,7 @@
 	$notExec = "{\"status\": 500, \"message\": \"query isn't execute\"}";
 
 	if (!$connection)
-		return "{\"status\": 500, \"message\": \"database isn't connect\"}";
+		die("{\"status\": 500, \"message\": \"database isn't connect\"}");
 
 	function profiles () {
 		$query = $GLOBALS["connection"]->prepare("SELECT * FROM `profile`");
@@ -36,12 +36,23 @@
 			die("{\"status\": 500, \"message\": \"this email is accepted\"}");
 	}
 
+	function token () {
+		$token = time();
+
+		for ($i = 0; $i < 9; $i++)
+			$token .= chr(rand(65, 90));
+
+		return $token;
+	}
+
 	function insert ($data) {
-		$query = "INSERT INTO `users` (`username`, `email`, `password`, `firstName`, `profile`)VALUE (:username, :email, :password, :firstName, :profile)";
+		$query = "INSERT INTO `users` (`username`, `email`, `password`, `firstName`, `profile`, `token`)VALUE (:username, :email, :password, :firstName, :profile, :token)";
 		$insert = $GLOBALS["connection"]->prepare($query);
 		
 		foreach ($data as $key => &$val)
 			$insert->bindParam(":$key", $val);
+
+		$insert->bindParam(":token", token());
 		
 		$insert->execute() or
 			die($GLOBALS["notExec"]);
