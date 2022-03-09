@@ -8,6 +8,7 @@
     
     <?php component::headFiles() ?>
 
+    <link rel="stylesheet" type="text/css" href="./style.css">
     <link rel="stylesheet" type="text/css" href="./responsive.css">
 </head>
 

@@ -101,8 +101,6 @@
     <link rel="stylesheet" type="text/css" href="/share/responsive.css">
     <link rel="stylesheet" type="text/css" href="/share/style.css">
 
-    <link rel="stylesheet" type="text/css" href="./style.css">
-
     <script type="text/javascript" src="/share/config.js"></script>
 
 <?php
