@@ -245,12 +245,12 @@ function submit (element, data = false) {
 $.select(".submit:not(#signup-box .submit)").event("click", submit);
 
 
-function setInfo (data) {
-    $.information.select("img").src = blobURL(data.profile);
-    $.information.select("h2 span").innerText = data["firstName"]? data["firstName"]: "client";
+// function setInfo (data) {
+//     $.information.select("img").src = blobURL(data.profile);
+//     $.information.select("h2 span").innerText = data["firstName"]? data["firstName"]: "client";
 
-    showBox($.information);
-}
+//     showBox($.information);
+// }
 
 async function signup () {
     const data = submit(this, true),
@@ -273,8 +273,7 @@ async function signup () {
     for (const item of data.entries())
         window.data[item[0]] = item[1];
 
-
-    response.status == 200? setInfo(window.data): message(response.message);
+    message(response.message);
 }
 
 $.signup.select(".submit").event("click", signup);

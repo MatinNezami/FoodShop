@@ -36,6 +36,10 @@
 			die("{\"status\": 500, \"message\": \"this email is accepted\"}");
 	}
 
+	function mailUrl ($url) {
+		# CONFIG SENDMAIL FOR SEND URL TO CLIENT EMAIL
+	}
+
 	function token () {
 		$token = time();
 
@@ -48,14 +52,17 @@
 	function insert ($data) {
 		$query = "INSERT INTO `users` (`username`, `email`, `password`, `firstName`, `profile`, `token`)VALUE (:username, :email, :password, :firstName, :profile, :token)";
 		$insert = $GLOBALS["connection"]->prepare($query);
+		$token = token();
 		
 		foreach ($data as $key => &$val)
 			$insert->bindParam(":$key", $val);
 
-		$insert->bindParam(":token", token());
-		
+		$insert->bindParam(":token", $token);
+
 		$insert->execute() or
 			die($GLOBALS["notExec"]);
+
+		mailUrl("localhost/accept?token=$token");
 	}
 
 	function register ($data) {
@@ -74,7 +81,7 @@
 		unset($data["type"]);
 		insert($data);
 
-		die("{\"status\": 200, \"message\": \"signup success\"}");
+		die("{\"status\": 200, \"message\": \"check your email\"}");
 	}
 
 
