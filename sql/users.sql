@@ -4,5 +4,5 @@ CREATE TABLE `users` (
     `accept` TINYINT(1) NOT NULL DEFAULT(0),
     `password` VARCHAR(30) NOT NULL,
     `firstName` VARCHAR(30) NOT NULL,
-    `profile` TINYBLOB NOT NULL
+    `profile` MEDIUMBLOB NOT NULL
 );
