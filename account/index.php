@@ -10,6 +10,7 @@
 
     <link rel="stylesheet" type="text/css" href="./style.css">
     <link rel="stylesheet" type="text/css" href="./responsive.css">
+    <link rel="stylesheet" type="text/css" href="/share/form.css">
 
     <script>
         <?php
@@ -171,6 +172,7 @@
     <script async type="text/javascript" src="./validate.js"></script>
     <script type="text/javascript" src="/share/app.js"></script>
     <script type="text/javascript" src="./main.js"></script>
+    <script type="text/javascript" src="/share/form.js"></script>
 </body>
 
 </html>
