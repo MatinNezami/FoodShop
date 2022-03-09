@@ -7,6 +7,7 @@
     <title>Not Found</title>
 
     <?php component::headFiles() ?>
+    <link rel="stylesheet" type="text/css" href="/share/error.css">
 </head>
 
 <body>
@@ -15,10 +16,10 @@
     </header>
 
     <main class="center-item">
-        <img src="/images/404.svg" loading="lazy" alt="not found" draggable="false">
+        <img src="/images/500.svg" loading="lazy" alt="not found" draggable="false">
 
         <h2>
-            This Location Is Not Exists Go To
+            Oops Server Error Go To
             <a href="/">Home</a>
         </h2>
     </main>
