@@ -85,6 +85,40 @@
 	}
 
 
+	function cookie ($token) {
+		setcookie("token", $token, (time() + (86400 * 300)), "/");
+	}
+
+	function accepted ($token) {
+		$accepted = $GLOBALS["connection"]->prepare("UPDATE `users` SET `accept` = 1 WHERE `token` = ?");
+		$accepted->bindValue(1, $token);
+
+		$accepted->execute() or
+			die($GLOBALS["notExec"]);
+	}
+
+	function accept () {
+		$validate = new Validate($_POST);
+
+		if (!$validate->valid)
+			die("{\"status\": 500, \"message\": \"" . $validate->message . "\"}");
+
+		$check = $GLOBALS["connection"]->prepare("SELECT `password` FROM `users` WHERE `token` = ?");
+		$check->bindValue(1, $_POST["token"]);
+
+		$check->execute() or
+			die($GLOBALS["notExec"]);
+
+		if ($_POST["password"] != $check->fetch(PDO::FETCH_ASSOC)["password"])
+			die("{\"status\": 500, \"message\": \"your password didn't match\"}");
+
+		cookie($_POST["token"]);
+		accepted($_POST["token"]);
+
+		die("{\"status\": 200, \"message\": \"your password did match\"}");
+	}
+
+
 	if (isset($_GET["profiles"]))
 		die(profiles());
 
@@ -92,6 +126,9 @@
 		switch ($_POST["type"]) {
 			case "register":
 				register($_POST);
+
+			case "accept":
+				accept();
 		}
 
 ?>
