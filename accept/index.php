@@ -36,7 +36,7 @@
         <?php
 
             if (isset($_GET["token"]) && $_GET["token"]) {
-                $has = $connection->prepare("SELECT `token` FROM `users` WHERE `token` = ?");
+                $has = $connection->prepare("SELECT `token` FROM `users` WHERE `token` = ? AND `accept` = 0");
                 $has->bindValue(1, $_GET["token"]);
                 
                 $has->execute() or
