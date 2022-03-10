@@ -11,6 +11,15 @@
 ?>
 
     <nav class="center-item">
+        <template id="user">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+                <g fill="none" stroke="#FFF" stroke-width="7" stroke-linecap="round">
+                    <circle cx="50" cy="25" r="20"/>
+                    <path d="M 10 85 C 30 50 70 50 90 85"/>
+                </g>
+            </svg>
+        </template>
+
         <div class="links center-item">
             <a href="/">Home</a>
 
@@ -25,28 +34,8 @@
             <rect class="menu-item" x="0" y="77"/>
         </svg>
 
-        <!-- check login for fetch profile from database -->
-
         <div class="account center-item">
-
-            <?php
-
-                // if (isset($_COOKIE["token"])) {
-                //     $profile = connection()->prepare("SELECT")
-
-            ?>
-                
-            <?php ?>
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
-                <g fill="none" stroke="#FFF" stroke-width="7" stroke-linecap="round">
-                    <circle cx="50" cy="25" r="20"/>
-                    <path d="M 10 85 C 30 50 70 50 90 85"/>
-                </g>
-            </svg>
-
-            <a href="/account?information">
-                <img src="/images/profile/2.webp" alt="profile image" draggable="false">
-            </a>
+            <div id="profile"></div>
 
             <a href="/account?login">Log in</a>
 
@@ -55,6 +44,8 @@
             <a href="/account?signup">Sign up</a>
         </div>
     </nav>
+
+    <script type="text/javascript" src="/share/profile.js"></script>
 
 <?php
 

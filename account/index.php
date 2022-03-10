@@ -167,8 +167,8 @@
 
     <script async type="text/javascript" src="/share/validate.js"></script>
     <script type="text/javascript" src="/share/app.js"></script>
-    <script type="text/javascript" src="./main.js"></script>
     <script type="text/javascript" src="/share/form.js"></script>
+    <script type="text/javascript" src="./main.js"></script>
 </body>
 
 </html>
