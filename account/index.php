@@ -53,6 +53,12 @@
                     <p class="placeholder">Email</p>
                 </div>
 
+                <ul>
+                    <li>
+                        use number, capitalize letter and specific character
+                    </li>
+                </ul>
+
                 <div class="input">
                     <input type="password" name="password" data-type="password" required>
                     <p class="placeholder">Password</p>
@@ -60,7 +66,7 @@
 
                 <div class="input">
                     <input type="password" name="retry-password" data-type="password" required>
-                    <p class="placeholder">Retry Password</p>
+                    <p class="placeholder">Re-enter Password</p>
                 </div>
 
                 <input type="file" id="custom-profile" autocomplete="off">

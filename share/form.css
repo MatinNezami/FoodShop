@@ -73,6 +73,15 @@ main > div form {
     width: 80%;
 }
 
+main > div ul {
+    width: 90%;
+    height: max-content;
+}
+
+main > div li {
+    font-size: 20px;
+}
+
 .show-password {
     justify-content: flex-start;
     gap: 20px;
