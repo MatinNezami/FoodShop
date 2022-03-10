@@ -14,6 +14,22 @@
 		die("{\"status\": 200, \"data\": " . json_encode($query->fetchAll(PDO::FETCH_ASSOC)) . "}");
 	}
 
+	function profile () {
+		if (!isset($_COOKIE["token"]))
+			die("{\"status\": 500}");
+
+		$profile = $GLOBALS["connection"]->prepare("SELECT `profile` FROM `users` WHERE `token` = ?");
+		$profile->bindValue(1, $_COOKIE["token"]);
+
+		$profile->execute() or
+			die($GLOBALS["notExec"]);
+
+		if ($profile->rowCount())
+			die("{\"status\": 200, \"profile\": \"" . $profile->fetch(PDO::FETCH_ASSOC)["profile"] . "\"}");
+
+		die("{\"status\": 500}");
+	}
+
 
 	function existsUser ($username, $email) {
 		$check = $GLOBALS["connection"]->prepare("SELECT `email`, `username` FROM `users` WHERE `email` = :email OR `username` = :username");
@@ -114,9 +130,14 @@
 		die("{\"status\": 200, \"message\": \"your password did match\"}");
 	}
 
+	if (isset($_GET["type"]))
+		switch ($_GET["type"]) {
+			case "profiles":
+					profiles();
 
-	if (isset($_GET["profiles"]))
-		die(profiles());
+			case "user-profile":
+				profile();
+		}
 
 	if (isset($_POST["type"]))
 		switch ($_POST["type"]) {
