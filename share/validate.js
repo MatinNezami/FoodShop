@@ -120,7 +120,7 @@ class Validate {
     }
 
     constructor (form) {
-        form.select("input").forEach(
+        form.querySelectorAll("input").forEach(
             input => this.inputs[input.name] = input
         );
 
