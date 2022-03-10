@@ -1,4 +1,4 @@
-$.select(".input input", "inputs");
+$.inputs = $.querySelectorAll(".input input");
 
 function inputValue (input) {
     const placeholder = input.parentNode.select(".placeholder");
