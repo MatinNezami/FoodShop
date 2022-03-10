@@ -27,6 +27,7 @@
         component::backToTop();
         component::asideMenu();
         component::message();
+        component::tooltip();
     ?>
 
     <script type="text/javascript" src="/share/app.js"></script>
@@ -71,8 +72,6 @@
             <script type="text/javascript" src="./main.js"></script>
         <?php } ?>
     </main>
-
-    <?php component::tooltip() ?>
 </body>
 
 </html>
