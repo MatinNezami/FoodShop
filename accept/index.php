@@ -71,6 +71,8 @@
             <script type="text/javascript" src="./main.js"></script>
         <?php } ?>
     </main>
+
+    <?php component::tooltip() ?>
 </body>
 
 </html>
