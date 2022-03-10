@@ -66,10 +66,10 @@
                 <button class="submit">Submit</button>
             </div>
 
+            <script type="text/javascript" src="/share/form.js"></script>
+            <script type="text/javascript" src="./main.js"></script>
         <?php } ?>
     </main>
-
-    <script type="text/javascript" src="/share/form.js"></script>
 </body>
 
 </html>
