@@ -66,6 +66,7 @@
                 <button class="submit">Submit</button>
             </div>
 
+            <script async type="text/javascript" src="/share/validate.js"></script>
             <script type="text/javascript" src="/share/form.js"></script>
             <script type="text/javascript" src="./main.js"></script>
         <?php } ?>
