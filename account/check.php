@@ -3,12 +3,8 @@
 	require_once "../share/component.php";
 	require_once "../share/validate.php";
 
-	$connection = connection();
 	$notExec = "{\"status\": 500, \"message\": \"query isn't execute\"}";
-
-	if (!$connection)
-		die("{\"status\": 500, \"message\": \"database isn't connect\"}");
-
+		
 	function profiles () {
 		$query = $GLOBALS["connection"]->prepare("SELECT * FROM `profile`");
 

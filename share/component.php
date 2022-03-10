@@ -1,8 +1,9 @@
 <?php
 
-    function connection () {
-        return new PDO("mysql:host=127.0.0.1;dbname=shop", "matin", '!@MneZAMi#$2020');
-    }
+    $connection = new PDO("mysql:host=127.0.0.1;dbname=shop", "matin", '!@MneZAMi#$2020');
+
+    if (!$connection)
+        die("{\"status\": 500, \"message\": \"database isn't connect\"}");
 
     class component {
         static function navbar () {
@@ -27,6 +28,15 @@
         <!-- check login for fetch profile from database -->
 
         <div class="account center-item">
+
+            <?php
+
+                // if (isset($_COOKIE["token"])) {
+                //     $profile = connection()->prepare("SELECT")
+
+            ?>
+                
+            <?php ?>
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
                 <g fill="none" stroke="#FFF" stroke-width="7" stroke-linecap="round">
                     <circle cx="50" cy="25" r="20"/>
