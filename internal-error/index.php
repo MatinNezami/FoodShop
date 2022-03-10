@@ -4,7 +4,7 @@
 <html lang="en">
 
 <head>
-    <title>Not Found</title>
+    <title>Server Error</title>
 
     <?php component::headFiles() ?>
     <link rel="stylesheet" type="text/css" href="/share/error.css">
@@ -16,7 +16,7 @@
     </header>
 
     <main class="center-item">
-        <img src="/images/500.svg" loading="lazy" alt="not found" draggable="false">
+        <img src="/images/500.svg" loading="lazy" alt="internal server error" draggable="false">
 
         <h2>
             Oops Server Error Go To
