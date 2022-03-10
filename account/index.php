@@ -9,8 +9,8 @@
     <?php component::headFiles() ?>
 
     <link rel="stylesheet" type="text/css" href="./style.css">
-    <link rel="stylesheet" type="text/css" href="./responsive.css">
     <link rel="stylesheet" type="text/css" href="/share/form.css">
+    <link rel="stylesheet" type="text/css" href="./responsive.css">
 
     <script>
         <?php
