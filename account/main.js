@@ -14,18 +14,6 @@ function blobURL (base64) {
     return URL.createObjectURL(new Blob([new Uint8Array(byte)], {type: type}));
 }
 
-async function ajax (url, data, method) {
-    const request = data? await fetch(url, {
-        method: method,
-        body: data
-    }): await fetch(url);
-
-    if (!request.ok)
-        return message("not found");
-
-    return JSON.parse(await request.text());
-}
-
 
 const profileImages = [];
 window.src = {};

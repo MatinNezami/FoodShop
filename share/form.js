@@ -62,3 +62,16 @@ function buttonUp () {
 
 $.select("button").event("pointerdown", buttonDown, "pointerup", buttonUp, "pointerleave", buttonUp);
 $.select("label").event("pointerdown", buttonDown, "pointerup", buttonUp, "pointerleave", buttonUp);
+
+
+async function ajax (url, data, method) {
+    const request = data? await fetch(url, {
+        method: method,
+        body: data
+    }): await fetch(url);
+
+    if (!request.ok)
+        return message("not found");
+
+    return JSON.parse(await request.text());
+}
