@@ -67,6 +67,7 @@
 		mailUrl("localhost/accept?token=$token");
 	}
 
+	// work on this function
 	function register ($data) {
 		$profile = $data["profile"];
 		unset($data["profile"]);
@@ -126,6 +127,25 @@
 
 	function login () {
 		checkValidate($_POST);
+
+		$info = $GLOBALS["connection"]->prepare("SELECT * FROM `users` WHERE `username` = ?");
+		$info->bindValue(1, $_POST["username"]);
+
+		$info->execute() or
+			die($GLOBALS["notExec"]);
+
+		if (!$info->rowCount())
+			die("{\"status\": 500, \"message\": \"this username isn't exists\"}");
+
+		$info = $info->fetch(PDO::FETCH_ASSOC);
+
+		if ($_POST["password"] == $info["password"]) {
+			cookie($info["token"]);
+
+			die("{\"status\": 200, \"message\": \"welcome, login successly\", \"info\": " . json_encode($info) ."}");
+		}
+
+		die("{\"status\": 500, \"message\": \"password didn't match\"}");
 	}
 
 

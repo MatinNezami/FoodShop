@@ -118,12 +118,12 @@ $.select("[data-target-box]").event("click", showBox);
 // $.select(".submit:not(#signup-box .submit)").event("click", submit);
 
 
-// function setInfo (data) {
-//     $.information.select("img").src = blobURL(data.profile);
-//     $.information.select("h2 span").innerText = data["firstName"]? data["firstName"]: "client";
+function setInfo (data) {
+    $.information.select("img").src = blobURL(data.profile);
+    $.information.select("h2 span").innerText = data["firstName"]? data["firstName"]: "client";
 
-//     showBox($.information);
-// }
+    showBox($.information);
+}
 
 async function signup () {
     const validate = new Validate($.signup.select("form")),
@@ -169,7 +169,17 @@ $.select(".logout").event("click", logout);
 
 
 async function login () {
+    const validate = new Validate($.login.select("form"));
 
+    if (!validate.data)
+        return null;
+
+    const response = await ajax("check.php", validate.data, "POST");
+
+    message(response.message);
+
+    if (response.status == 200)
+        setInfo(response.info);
 }
 
 $.login.select(".submit").event("click", login);
