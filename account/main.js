@@ -6,6 +6,9 @@ $.firstProfile = $.querySelector(".profile-images > div");
 $.select(".profile-images > div:last-of-type", "lastProfile");
 
 function insertProfile (data, i) {
+    if ($.lastProfile.childElementCount == 2)
+        return null;
+
     const img = new Image();
 
     img.draggable = false;
@@ -101,21 +104,6 @@ function showBox (targetBox) {
 }
 
 $.select("[data-target-box]").event("click", showBox);
-
-
-// function submit (element, data = false) {
-//     const validate = new Validate((element instanceof Event? this: element).parentNode.parentNode.select("form"))
-
-//     if (!validate.data)
-//         return null;
-
-//     if (data)
-//         return validate.data;
-
-//     // validate.data.forEach(value => console.log(value));
-// }
-
-// $.select(".submit:not(#signup-box .submit)").event("click", submit);
 
 
 function setInfo (data) {
