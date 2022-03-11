@@ -148,8 +148,15 @@
         </div>
 
         <div class="center-item" id="informations-box">
-            <img src="/images/profile/1.webp" loading="lazy" alt="user profile" draggable="false">
-            <h2>Hey <span>First Name Test Text</span></h2>
+            <?php
+
+                $type = substr($info["profile"], 0, strpos($info["profile"], ";"));
+                $src = "data:$type;base64," . substr($info["profile"], strpos($info["profile"], ";") + 1);
+                
+            ?>
+
+            <img src="<?php echo $src?? null ?>" loading="lazy" alt="user profile" draggable="false">
+            <h2>Hey <span><?php echo $info["firstName"]?? "client" ?></span></h2>
 
             <button class="logout">Log out</button>
 
