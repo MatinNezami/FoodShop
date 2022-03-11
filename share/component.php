@@ -1,25 +1,26 @@
 <?php
 
     $connection = new PDO("mysql:host=127.0.0.1;dbname=shop", "matin", '!@MneZAMi#$2020');
+    $info = [];
 
     if (!$connection)
         die("{\"status\": 500, \"message\": \"database isn't connect\"}");
 
-    function profile () {
+    (function () {
         if (!isset($_COOKIE["token"]))
             return 0;
+        
+        $info = $GLOBALS["connection"]->prepare("SELECT * FROM `users` WHERE `token` = ?");
+        $info->bindValue(1, $_COOKIE["token"]);
     
-        $profile = $GLOBALS["connection"]->prepare("SELECT `profile` FROM `users` WHERE `token` = ?");
-        $profile->bindValue(1, $_COOKIE["token"]);
-    
-        if(!$profile->execute())
+        if(!$info->execute())
             return 0;
     
-        if ($profile->rowCount())
-            return "\"" . $profile->fetch(PDO::FETCH_ASSOC)["profile"] . "\"";
+        if ($info->rowCount())
+            $GLOBALS["info"] = $info->fetch(PDO::FETCH_ASSOC);
     
         return 0;
-    }
+    })();
 
     class component {
         static function navbar () {
@@ -62,7 +63,7 @@
     </nav>
 
     <script>
-        <?php echo "window.userProfile = " . profile() . ";" ?>
+        <?php echo "window.userProfile = \"" . ($GLOBALS["info"]["profile"]?? null) . "\";" ?>
     </script>
 
     <script type="text/javascript" src="/share/profile.js"></script>
