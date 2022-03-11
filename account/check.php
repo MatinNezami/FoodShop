@@ -141,6 +141,7 @@
 
 		if ($_POST["password"] == $info["password"]) {
 			cookie($info["token"]);
+			unset($info["password"]);
 
 			die("{\"status\": 200, \"message\": \"welcome, login successly\", \"info\": " . json_encode($info) ."}");
 		}
