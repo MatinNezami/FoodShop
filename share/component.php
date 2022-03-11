@@ -16,7 +16,7 @@
             return 0;
     
         if ($profile->rowCount())
-            return $profile->fetch(PDO::FETCH_ASSOC)["profile"];
+            return "\"" . $profile->fetch(PDO::FETCH_ASSOC)["profile"] . "\"";
     
         return 0;
     }
@@ -62,7 +62,7 @@
     </nav>
 
     <script>
-        <?php echo "window.userProfile = \"" . profile() . "\";" ?>
+        <?php echo "window.userProfile = " . profile() . ";" ?>
     </script>
 
     <script type="text/javascript" src="/share/profile.js"></script>
