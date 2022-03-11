@@ -103,19 +103,19 @@ function showBox (targetBox) {
 $.select("[data-target-box]").event("click", showBox);
 
 
-function submit (element, data = false) {
-    const validate = new Validate((element instanceof Event? this: element).parentNode.parentNode.select("form"))
+// function submit (element, data = false) {
+//     const validate = new Validate((element instanceof Event? this: element).parentNode.parentNode.select("form"))
 
-    if (!validate.data)
-        return null;
+//     if (!validate.data)
+//         return null;
 
-    if (data)
-        return validate.data;
+//     if (data)
+//         return validate.data;
 
-    // validate.data.forEach(value => console.log(value));
-}
+//     // validate.data.forEach(value => console.log(value));
+// }
 
-$.select(".submit:not(#signup-box .submit)").event("click", submit);
+// $.select(".submit:not(#signup-box .submit)").event("click", submit);
 
 
 // function setInfo (data) {
@@ -126,10 +126,10 @@ $.select(".submit:not(#signup-box .submit)").event("click", submit);
 // }
 
 async function signup () {
-    const data = submit(this, true),
+    const validate = new Validate($.signup.select("form")),
         selected = isExists(".selected");
 
-    if (!data)
+    if (!validate.data)
         return null;
 
     if (!(selected || $.profile.files[0])) {
