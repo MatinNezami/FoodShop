@@ -14,28 +14,20 @@ function blobURL (base64) {
     return URL.createObjectURL(new Blob([new Uint8Array(byte)], {type: type}));
 }
 
-(async _ => {
+(_ => {
 
-    const request = await fetch("/account/check.php?type=user-profile"),
-        userSVG = _ => $.userProfile.appendChild($.select("#user").content.cloneNode(true));
-    
-    if (!request.ok)
-        return userSVG();
-    
-    const response = JSON.parse(await request.text());
-
-    if (response.status == 200) {
+    if (window.userProfile) {
         const link = document.createElement("A"),
-            profile = new Image();
-        
-        link.href = "/account?information";
-        profile.src = blobURL(response.profile);
+            img = new Image();
 
-        link.appendChild(profile);
+        link.href = "/account?information";
+        img.src = blobURL(userProfile);
+
+        link.appendChild(img);
         $.userProfile.appendChild(link);
     }
 
     else
-        userSVG();
+        $.userProfile.appendChild($.select("#user").content.cloneNode(true));
 
 })();

@@ -5,6 +5,22 @@
     if (!$connection)
         die("{\"status\": 500, \"message\": \"database isn't connect\"}");
 
+    function profile () {
+        if (!isset($_COOKIE["token"]))
+            return 0;
+    
+        $profile = $GLOBALS["connection"]->prepare("SELECT `profile` FROM `users` WHERE `token` = ?");
+        $profile->bindValue(1, $_COOKIE["token"]);
+    
+        if(!$profile->execute())
+            return 0;
+    
+        if ($profile->rowCount())
+            return $profile->fetch(PDO::FETCH_ASSOC)["profile"];
+    
+        return 0;
+    }
+
     class component {
         static function navbar () {
 
@@ -44,6 +60,10 @@
             <a href="/account?signup">Sign up</a>
         </div>
     </nav>
+
+    <script>
+        <?php echo "window.userProfile = \"" . profile() . "\";" ?>
+    </script>
 
     <script type="text/javascript" src="/share/profile.js"></script>
 

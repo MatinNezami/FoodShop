@@ -1,9 +1,4 @@
-<?php
-
-    require_once "../share/component.php";
-    $connection = connection();
-
-?>
+<?php require_once "../share/component.php" ?>
 
 <!DOCTYPE html>
 <html lang="en">
