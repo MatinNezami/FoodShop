@@ -108,14 +108,18 @@ $.select("[data-target-box]").event("click", showBox);
 
 function setInfo (data) {
     const profile = blobURL(data.profile),
-        img = new Image();
+        img = new Image(),
+        link = document.createElement("A");
 
     img.src = profile;
+    link.href = "/account?inforamtion";
+    link.appendChild(img);
+
     $.userProfile.innerHTML = "";
-    $.userProfile.appendChild(img);
+    $.userProfile.appendChild(link);
 
     $.information.select("img").src = profile;
-    $.information.select("h2 span").innerText = data["firstName"]? data["firstName"]: "client";
+    $.information.select("h2 span").innerText = data.firstName? data.firstName: "client";
 
     showBox($.information);
 }
