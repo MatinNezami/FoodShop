@@ -107,7 +107,14 @@ $.select("[data-target-box]").event("click", showBox);
 
 
 function setInfo (data) {
-    $.information.select("img").src = blobURL(data.profile);
+    const profile = blobURL(data.profile),
+        img = new Image();
+
+    img.src = profile;
+    $.userProfile.innerHTML = "";
+    $.userProfile.appendChild(img);
+
+    $.information.select("img").src = profile;
     $.information.select("h2 span").innerText = data["firstName"]? data["firstName"]: "client";
 
     showBox($.information);
