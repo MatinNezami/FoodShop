@@ -81,7 +81,8 @@
 
 
 	function cookie ($token) {
-		setcookie("token", $token, (time() + (86400 * 300)), "/");
+		if (!setcookie("token", $token, time() + (86400 * 300), "/"))
+			die("{\"status\": 500, \"message\": \"can't set cookie\"}");
 	}
 
 	function accepted ($token) {
@@ -113,10 +114,22 @@
 		die("{\"status\": 200, \"message\": \"your password did match\"}");
 	}
 
+
+	function logout () {
+		if (setcookie("token", " ", time() - 10, "/"))
+			die("{\"status\": 200, \"message\": \"logout successly\"}");
+
+		die("{\"status\": 500, \"message\": \"logout failed\"}");
+	}
+
+
 	if (isset($_GET["type"]))
 		switch ($_GET["type"]) {
 			case "profiles":
-					profiles();
+				profiles();
+
+			case "logout":
+				logout();
 		}
 
 	if (isset($_POST["type"]))

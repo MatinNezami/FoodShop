@@ -1,4 +1,5 @@
 $.select("#profile", "userProfile");
+$.select("#user", "userSVG");
 
 function blobURL (base64) {
     let point = base64.search(";");
@@ -28,6 +29,6 @@ function blobURL (base64) {
     }
 
     else
-        $.userProfile.appendChild($.select("#user").content.cloneNode(true));
+        $.userProfile.appendChild($.userSVG.content.cloneNode(true));
 
 })();

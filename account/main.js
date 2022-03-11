@@ -145,7 +145,7 @@ function submit (element, data = false) {
     if (data)
         return validate.data;
 
-    validate.data.forEach(value => console.log(value));
+    // validate.data.forEach(value => console.log(value));
 }
 
 $.select(".submit:not(#signup-box .submit)").event("click", submit);
@@ -183,3 +183,19 @@ async function signup () {
 }
 
 $.signup.select(".submit").event("click", signup);
+
+
+async function logout () {
+    const response = await ajax("check.php?type=logout");
+
+    message(response.message);
+
+    if (!response.status == 200)
+        return null;
+    
+    $.userProfile.innerHTML = "";
+    $.userProfile.appendChild($.userSVG.content.cloneNode(true));
+    showBox($.login);
+}
+
+$.select(".logout").event("click", logout);
