@@ -4,15 +4,6 @@
 	require_once "../share/validate.php";
 
 	$notExec = "{\"status\": 500, \"message\": \"query isn't execute\"}";
-		
-	function profiles () {
-        $query = $GLOBALS["connection"]->prepare("SELECT * FROM `profile`");
-
-        $query->execute() or
-            die($GLOBALS["notExec"]);
-
-        die("{\"status\": 200, \"data\": " . json_encode($query->fetchAll(PDO::FETCH_ASSOC)) . "}");
-    }
 
 	function existsUser ($username, $email) {
 		$check = $GLOBALS["connection"]->prepare("SELECT `email`, `username` FROM `users` WHERE `email` = :email OR `username` = :username");
@@ -125,9 +116,6 @@
 
 	if (isset($_GET["type"]))
 		switch ($_GET["type"]) {
-			case "profiles":
-				profiles();
-
 			case "logout":
 				logout();
 		}

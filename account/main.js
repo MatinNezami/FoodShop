@@ -1,10 +1,11 @@
 const profileImages = [];
 window.src = {};
 
-(async function profiles () {
-
-    const response = await ajax("check.php?type=profiles");
+(_ => {
     
+    if (!window.profiles)
+        return null;
+
     let parent = $.createElement("DIV");
 
     function set (data, i) {
@@ -28,8 +29,8 @@ window.src = {};
             parent = $.createElement("DIV");
         }
     }
-
-    response.status == 200? response.data.forEach(set): message(response.message);
+    
+    window.profiles.forEach(set);
 
 })();
 
