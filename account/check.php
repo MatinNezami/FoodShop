@@ -35,6 +35,13 @@
 		# CONFIG SENDMAIL FOR SEND URL TO CLIENT EMAIL
 	}
 
+	function checkValidate ($data) {
+		$check = new Validate($data, ["firstName", 5, 30, false]);
+
+		if (!$check->valid)
+			die("{\"status\": 500, \"message\": \"" . str_replace("-", " ", $check->message) . "\"}");
+	}
+
 	function token () {
 		$token = time();
 
@@ -64,10 +71,7 @@
 		$profile = $data["profile"];
 		unset($data["profile"]);
 
-		$check = new Validate($data, ["firstName", 5, 30, false]);
-
-		if (!$check->valid)
-			die("{\"status\": 500, \"message\": \"" . str_replace("-", " ", $check->message) . "\"}");
+		checkValidate($data);
 
 		existsUser($data["username"], $data["email"]);
 
@@ -94,10 +98,7 @@
 	}
 
 	function accept () {
-		$validate = new Validate($_POST);
-
-		if (!$validate->valid)
-			die("{\"status\": 500, \"message\": \"" . $validate->message . "\"}");
+		checkValidate($_POST);
 
 		$check = $GLOBALS["connection"]->prepare("SELECT `password` FROM `users` WHERE `token` = ?");
 		$check->bindValue(1, $_POST["token"]);
@@ -123,6 +124,11 @@
 	}
 
 
+	function login () {
+		checkValidate($_POST);
+	}
+
+
 	if (isset($_GET["type"]))
 		switch ($_GET["type"]) {
 			case "profiles":
@@ -139,6 +145,9 @@
 
 			case "accept":
 				accept();
+
+			case "login":
+				login();
 		}
 
 ?>
