@@ -1,39 +1,36 @@
 const profileImages = [];
 window.src = {};
 
-(_ => {
-    
-    if (!window.profiles)
-        return null;
+let parent = $.createElement("DIV");
+$.firstProfile = $.querySelector(".profile-images > div");
+$.select(".profile-images > div:last-of-type", "lastProfile");
 
-    let parent = $.createElement("DIV");
+function insertProfile (data, i) {
+    const img = new Image();
 
-    function set (data, i) {
-        const box = i < 4? $.querySelector(".profile-images > div:first-of-type"): $.select(".profile-images > div:last-of-type"),
-            img = new Image();
+    img.draggable = false;
+    img.alt = "profile";
+    img.src = blobURL(data.img);
+    img.dataset.name = data.key;
+    img.onclick = selectProfile;
 
-        img.draggable = false;
-        img.alt = "profile";
-        img.src = blobURL(data.img);
-        img.dataset.name = data.key;
-        img.onclick = selectProfile;
+    window.src[data.key] = data.img;
 
-        window.src[data.key] = data.img;
+    parent.appendChild(img);
+    profileImages.push(img);
 
-        parent.appendChild(img);
-        profileImages.push(img);
-
-        if (i % 2 != 0) {
-            parent.classList.add("center-item")
-            box.appendChild(parent);
-            parent = $.createElement("DIV");
-        }
+    if (i % 2 != 0) {
+        parent.classList.add("center-item");
+        (i < 4? $.firstProfile: $.lastProfile).appendChild(parent);
+        parent = $.createElement("DIV");
     }
-    
-    window.profiles.forEach(set);
+}
 
-})();
+async function profiles () {
+    const response = await ajax("check.php?type=profiles");
 
+    response.status == 200? response.data.forEach(insertProfile): message(response.message);
+}
 
 $.select("header", "header");
 
@@ -69,7 +66,7 @@ headerImage();
 window.addEventListener("resize", headerImage);
 
 
-function profile () {
+function showProfiles () {
     profilesBox.style.maxHeight = "500px";
     profilesBox.style.marginBottom = "25px";
 }
@@ -81,38 +78,7 @@ function selectProfile () {
     this.classList.add("selected");
 }
 
-$.select(".profile").event("click", profile);
-
-
-(function uploadImage (input, imageElm) {
-    function insert () {
-        window.uploadSrc = reader.result.slice(reader.result.search(":") + 1, reader.result.search(";")) + ";";
-        window.uploadSrc += reader.result.slice(reader.result.search(",") + 1);
-
-        imageElm.src = blobURL(window.uploadSrc);
-        imageElm.style.display = "block";
-
-        if (isExists(".selected"))
-            $.select(".selected").classList.remove("selected");
-
-        profileImages.forEach(img => img.onclick = null);
-    }
-
-    function remove () {
-        this.style.display = "none";
-        input.value = null;
-        profileImages.forEach(img => img.onclick = selectProfile);
-    }
-
-    imageElm.event("click", remove);
-
-    function upload () {
-        reader.addEventListener("loadend", insert);
-        reader.readAsDataURL(input.files[0]);
-    }
-
-    input.event("change", upload);
-})($.select("#custom-profile", "profile"), $.select("#custom-profile-image"));
+$.select(".profile").event("click", profiles, showProfiles);
 
 
 function showBox (targetBox) {
@@ -200,3 +166,34 @@ async function logout () {
 }
 
 $.select(".logout").event("click", logout);
+
+
+(function uploadImage (input, imageElm) {
+    function insert () {
+        window.uploadSrc = reader.result.slice(reader.result.search(":") + 1, reader.result.search(";")) + ";";
+        window.uploadSrc += reader.result.slice(reader.result.search(",") + 1);
+
+        imageElm.src = blobURL(window.uploadSrc);
+        imageElm.style.display = "block";
+
+        if (isExists(".selected"))
+            $.select(".selected").classList.remove("selected");
+
+        profileImages.forEach(img => img.onclick = null);
+    }
+
+    function remove () {
+        this.style.display = "none";
+        input.value = null;
+        profileImages.forEach(img => img.onclick = selectProfile);
+    }
+
+    imageElm.event("click", remove);
+
+    function upload () {
+        reader.addEventListener("loadend", insert);
+        reader.readAsDataURL(input.files[0]);
+    }
+
+    input.event("change", upload);
+})($.select("#custom-profile", "profile"), $.select("#custom-profile-image"));

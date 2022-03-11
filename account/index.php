@@ -6,20 +6,7 @@
 <head>
     <title>Account</title>
 
-    <?php
-
-        component::headFiles();
-
-        function profiles () {
-            $query = $GLOBALS["connection"]->prepare("SELECT `img` FROM `profile`");
-    
-            if (!$query->execute())
-                return 0;
-    
-            return json_encode($query->fetchAll(PDO::FETCH_ASSOC));
-        }
-
-    ?>
+    <?php component::headFiles() ?>
 
     <link rel="stylesheet" type="text/css" href="./style.css">
     <link rel="stylesheet" type="text/css" href="/share/form.css">
@@ -27,8 +14,6 @@
 
     <script>
         <?php
-            echo "window.profiles = " . profiles() . ";";
-
             # work on this code
             if (isset($_GET["login"]))
                 echo "const flag = \"login\"";
