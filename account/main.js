@@ -137,13 +137,13 @@ async function signup () {
         return null;
     }
 
-    data.append("profile", window.uploadSrc?? window.src[selected.dataset.name]);
+    validate.data.append("profile", window.uploadSrc?? window.src[selected.dataset.name]);
 
-    const response = await ajax("check.php", data, "POST");
+    const response = await ajax("check.php", validate.data, "POST");
 
     window.data = {};
 
-    for (const item of data.entries())
+    for (const item of validate.data.entries())
         window.data[item[0]] = item[1];
 
     message(response.message);
@@ -166,6 +166,13 @@ async function logout () {
 }
 
 $.select(".logout").event("click", logout);
+
+
+async function login () {
+
+}
+
+$.login.select(".submit").event("click", login);
 
 
 (function uploadImage (input, imageElm) {
