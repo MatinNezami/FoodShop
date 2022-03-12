@@ -73,5 +73,5 @@ async function ajax (url, data, method) {
     if (!request.ok)
         return message("not found");
 
-    return JSON.parse(await request.text());
+    return await request.json();
 }
