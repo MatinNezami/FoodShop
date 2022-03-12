@@ -87,7 +87,8 @@ input[type=file] {
     background-color: #2EC4B6;
 }
 
-#informations-box img {
+#informations-box img,
+#change-informations-box img {
     border-radius: 50%;
 }
 

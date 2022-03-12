@@ -41,6 +41,7 @@ $.select("#login-box", "login");
 $.select("#signup-box", "signup");
 $.select("#forgot-password-box", "forgot");
 $.select("#informations-box", "information");
+$.select("#change-informations-box", "change");
 
 $.select("main > div", "mainBoxes");
 

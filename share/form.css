@@ -159,6 +159,10 @@ main > div li {
     background-color: #F6511D;
 }
 
+.apply {
+    background-color: #FD9E02;
+}
+
 #err-tooltip {
     position: absolute;
     z-index: -1;

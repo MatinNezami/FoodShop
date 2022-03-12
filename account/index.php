@@ -147,20 +147,35 @@
             </div>
         </div>
 
+        <?php
+
+            $type = substr($info["profile"], 0, strpos($info["profile"], ";"));
+            $src = "data:$type;base64," . substr($info["profile"], strpos($info["profile"], ";") + 1);
+
+        ?>
+
         <div class="center-item" id="informations-box">
-            <?php
-
-                $type = substr($info["profile"], 0, strpos($info["profile"], ";"));
-                $src = "data:$type;base64," . substr($info["profile"], strpos($info["profile"], ";") + 1);
-                
-            ?>
-
             <img src="<?php echo $src?? null ?>" loading="lazy" alt="user profile" draggable="false">
             <h2>Hey <span><?php echo $info["firstName"]?? "client" ?></span></h2>
 
             <button class="logout">Log out</button>
 
-            <button class="change-info">Change Informations</button>
+            <button class="change-info" data-target-box="change">Change Informations</button>
+        </div>
+        
+        <div class="center-item" id="change-informations-box">
+            <img src="<?php echo $src ?>" loading="lazy" alt="user profile" drragable="false">
+
+            <form action="">
+                <div class="input">
+                    <input type="text" name="firstname" required>
+                    <p class="placeholder">first name</p>
+                </div>
+            </form>
+
+            <button class="change-email">change email</button>
+            <button class="change-password">change password</button>
+            <button class="apply">apply</button>
         </div>
     </main>
 
