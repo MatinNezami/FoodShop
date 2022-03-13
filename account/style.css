@@ -100,3 +100,17 @@ input[type=file] {
     min-width: 90%;
     width: 290px;
 }
+
+button svg {
+    width: 30px;
+    height: 30px;
+}
+
+#change-profile {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    position: absolute;
+    right: 120px;
+    top: 220px;
+}

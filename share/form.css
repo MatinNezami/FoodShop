@@ -43,6 +43,7 @@ main > div.center-item {
     flex-direction: column;
     padding: 20px 0;
     margin: 30px 0;
+    position: relative;
 }
 
 main > div > * {
