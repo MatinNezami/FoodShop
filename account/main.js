@@ -1,38 +1,53 @@
-const profileImages = [];
 window.src = {};
 
-let parent = $.createElement("DIV");
+let profileImages,
+    profileParent = $.createElement("DIV");
+
 $.firstProfile = $.querySelector(".profile-images > div");
 $.select(".profile-images > div:last-of-type", "lastProfile");
 
-function insertProfile (data, i) {
+
+async function createProfiles () {
+    if (!profileImages && !(await profiles()))
+        return null;
+
+    return profileImages.map(profile => {
+        const img = new Image();
+
+        img.draggable = false;
+        img.alt = "profile";
+        img.src = blobURL(profile.img);
+        img.dataset.name = profile.key;
+        img.onclick = selectProfile;
+    
+        window.src[profile.key] = profile.img;
+    
+        return img;
+    });
+}
+
+async function insertProfile (img, i) {
     if ($.lastProfile.childElementCount == 2)
         return null;
 
-    const img = new Image();
-
-    img.draggable = false;
-    img.alt = "profile";
-    img.src = blobURL(data.img);
-    img.dataset.name = data.key;
-    img.onclick = selectProfile;
-
-    window.src[data.key] = data.img;
-
-    parent.appendChild(img);
-    profileImages.push(img);
+    profileParent.appendChild(img);
 
     if (i % 2 != 0) {
-        parent.classList.add("center-item");
-        (i < 4? $.firstProfile: $.lastProfile).appendChild(parent);
-        parent = $.createElement("DIV");
+        profileParent.classList.add("center-item");
+        (i < 4? $.firstProfile: $.lastProfile).appendChild(profileParent);
+        profileParent = $.createElement("DIV");
     }
 }
 
 async function profiles () {
     const response = await ajax("check.php?type=profiles");
 
-    response.status == 200? response.data.forEach(insertProfile): message(response.message);
+    if (response.status == 500)
+        return 0;
+
+    profileImages = response.data;
+
+    return 1;
 }
 
 $.select("header", "header");
@@ -82,7 +97,7 @@ function selectProfile () {
     this.classList.add("selected");
 }
 
-$.select(".profile").event("click", profiles, showProfiles);
+$.select(".profile").event("click", async _ => (await createProfiles())?.forEach(insertProfile), showProfiles);
 
 
 function showBox (targetBox) {
