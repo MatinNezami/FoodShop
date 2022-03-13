@@ -26,7 +26,7 @@ async function createProfiles () {
     });
 }
 
-async function insertProfile (img, i) {
+async function signupProfiles (img, i) {
     if ($.lastProfile.childElementCount == 2)
         return null;
 
@@ -97,7 +97,7 @@ function selectProfile () {
     this.classList.add("selected");
 }
 
-$.select(".profile").event("click", async _ => (await createProfiles())?.forEach(insertProfile), showProfiles);
+$.select(".profile").event("click", async _ => (await createProfiles())?.forEach(signupProfiles), showProfiles);
 
 
 function showBox (targetBox) {
@@ -229,3 +229,28 @@ $.login.select(".submit").event("click", login);
 
     input.event("change", upload);
 })($.select("#custom-profile", "profile"), $.select("#custom-profile-image"));
+
+
+// IF USE MODAL BOX IN OTHER PAGE MOVE THIS CODE TO SHARE DIRECTORY
+
+function openModal (event) {
+    event.stopPropagation();
+
+    ($[this.dataset.targetModal]?? $.select(`#${this.dataset.targetModal}`, this.dataset.targetModal))
+        .classList.add("active");
+
+    $[this.dataset.targetModal].event("click", ev => ev.stopPropagation());
+    $.body.event("click", closeModal);
+}
+
+function closeModal () {
+    $.querySelectorAll(".modal.active").forEach(
+        modal => modal.classList.remove("active")
+    );
+
+    $.body.removeEventListener("click", closeModal);
+}
+
+// IF USE MODAL BOX IN OTHER PAGE MOVE THIS CODE TO SHARE DIRECTORY
+
+$.select("#change-profile-btn").event("click", openModal);
