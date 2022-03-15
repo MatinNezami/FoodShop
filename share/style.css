@@ -56,7 +56,7 @@ header nav {
     color: #FFF;
 }
 
-header nav a:not([href=\/account\?information]),
+header nav a:not(#profile a),
 header nav span {
     color: #FFF;
     position: relative;
@@ -67,6 +67,10 @@ header nav span {
 #profile a {
     width: 35px;
     height: 35px;
+}
+
+#profile a::before {
+    display: none;
 }
 
 .links {
@@ -89,7 +93,7 @@ header nav img {
     border-radius: 50%;
 }
 
-header nav a:not(#profile a)::before {
+header nav a::before {
     content: "";
     display: block;
     width: 0;
@@ -218,7 +222,6 @@ aside.menu .links a:hover {
     height: 40px;
     font-size: 20px;
     transition: all 400ms cubic-bezier(1,-0.98,0,1.78) 0s;
-    border
 }
 
 #message.active {

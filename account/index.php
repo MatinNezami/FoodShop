@@ -188,7 +188,7 @@
 
             <form action="" class="center-item">
                 <div class="input">
-                    <input type="text" name="firstname" value="<?php echo $info["firstName"]?? "client" ?>" required>
+                    <input type="text" name="firstName" value="<?php echo $info["firstName"]?? "client" ?>" required>
                     <p class="placeholder">First Name</p>
                 </div>
 

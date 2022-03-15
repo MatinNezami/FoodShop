@@ -36,6 +36,11 @@
 	}
 
 	function checkValidate ($data) {
+		unset($data["profile"]);
+
+		if (!$data)
+			return null;
+
 		$check = new Validate($data, ["firstName", 5, 30, false]);
 
 		if (!$check->valid)
@@ -68,18 +73,14 @@
 	}
 
 	// work on this function
-	function register ($data) {
-		$profile = $data["profile"];
-		unset($data["profile"]);
+	function register () {
+		checkValidate($_POST);
 
-		checkValidate($data);
+		existsUser($_POST["username"], $_POST["email"]);
 
-		existsUser($data["username"], $data["email"]);
-
-		$data["profile"] = $profile;
-		unset($data["retry-password"]);
-		unset($data["type"]);
-		insert($data);
+		unset($_POST["retry-password"]);
+		unset($_POST["type"]);
+		insert($_POST);
 
 		die("{\"status\": 200, \"message\": \"check your email\"}");
 	}
@@ -151,6 +152,31 @@
 	}
 
 
+	function changeInfo () {
+		unset($_POST["type"]);
+		checkValidate($_POST);
+
+		$query = "UPDATE `users` SET ";
+		
+		foreach ($_POST as $key => $val)
+			$query .= "`$key` = :$key, ";
+		
+		
+		$query = substr($query, 0, -2) . " WHERE `username` = :username";
+		$change = $GLOBALS["connection"]->prepare($query);
+		
+		foreach ($_POST as $key => &$val)
+			$change->bindValue(":$key", $val);
+		
+		$change->bindValue(":username", $GLOBALS["info"]["username"]);
+
+		$change->execute() or
+			die($GLOBALS["notExec"]);
+
+		die("{\"status\": 200, \"message\": \"successly change informations\"}");
+	}
+
+
 	if (isset($_GET["type"]))
 		switch ($_GET["type"]) {
 			case "profiles":
@@ -163,13 +189,16 @@
 	if (isset($_POST["type"]))
 		switch ($_POST["type"]) {
 			case "register":
-				register($_POST);
+				register();
 
 			case "accept":
 				accept();
 
 			case "login":
 				login();
+
+			case "change":
+				changeInfo();
 		}
 
 ?>

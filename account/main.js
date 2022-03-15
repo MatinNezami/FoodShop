@@ -95,6 +95,9 @@ function selectProfile () {
         $.select(".selected").classList.remove("selected");
 
     this.classList.add("selected");
+
+    $.change.select(".details-profile img").src = this.src;
+    $.select("#informations-box > img").src = this.src;
 }
 
 $.select(".profile").event("click", async _ => (await createProfiles())?.forEach(signupProfiles), showProfiles);
@@ -243,6 +246,38 @@ const changeProfilesHandler = async ev => (await createProfiles())?.forEach(img 
 $.select("#change-profile-btn").event("click", openModal, changeProfilesHandler);
 
 
+async function changeInfo () {
+    const validate = new Validate($.change.select("form"));
+
+    if (!validate.data)
+        return null;
+    
+    const data = new FormData(),
+        selected = isExists(".selected");
+    
+    $.change.select("input").forEach(input => {
+        if (input.value != input.defaultValue)
+            data.append(input.name, input.value);
+    });
+
+    if (selected || window.uploadSrc)
+        data.append("profile", window.uploadSrc?? window.src[selected.dataset.name]);
+
+    data.append("type", "change");
+
+    const response = await ajax("check.php", data, "POST");
+    message(response.message);
+
+    if (response.status == 200) {
+        $.userProfile.select("img").src = $.change.select(".details-profile img").src;
+
+        showBox($.information);
+    }
+}
+
+$.change.select(".apply").event("click", changeInfo);
+
+
 (function uploadImage (input, imageElm) {
     function insert () {
         window.uploadSrc = reader.result.slice(reader.result.search(":") + 1, reader.result.search(";")) + ";";
@@ -250,6 +285,9 @@ $.select("#change-profile-btn").event("click", openModal, changeProfilesHandler)
 
         imageElm.src = blobURL(window.uploadSrc);
         imageElm.style.display = "block";
+
+        $.change.select(".details-profile img").src = imageElm.src;
+        $.select("#informations-box > img").src = imageElm.src;
 
         if (isExists(".selected"))
             $.select(".selected").classList.remove("selected");
