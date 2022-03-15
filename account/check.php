@@ -128,7 +128,7 @@
 	function login () {
 		checkValidate($_POST);
 
-		$info = $GLOBALS["connection"]->prepare("SELECT `profile`, `firstName`, `password` FROM `users` WHERE `username` = ?");
+		$info = $GLOBALS["connection"]->prepare("SELECT `profile`, `token`, `firstName`, `password` FROM `users` WHERE `username` = ?");
 		$info->bindValue(1, $_POST["username"]);
 
 		$info->execute() or
@@ -142,6 +142,7 @@
 		if ($_POST["password"] == $info["password"]) {
 			cookie($info["token"]);
 			unset($info["password"]);
+			unset($info["token"]);
 
 			die("{\"status\": 200, \"message\": \"welcome, login successly\", \"info\": " . json_encode($info) ."}");
 		}
