@@ -96,8 +96,7 @@ function selectProfile () {
 
     this.classList.add("selected");
 
-    $.change.select(".details-profile img").src = this.src;
-    $.select("#informations-box > img").src = this.src;
+    $.select("#informations-box > img").src = $.change.select(".details-profile img").src = this.src;
 }
 
 $.select(".profile").event("click", async _ => (await createProfiles())?.forEach(signupProfiles), showProfiles);
@@ -130,14 +129,13 @@ function setInfo (data) {
         img = new Image(),
         link = document.createElement("A");
 
-    img.src = profile;
     link.href = "/account?inforamtion";
     link.appendChild(img);
 
     $.userProfile.innerHTML = "";
     $.userProfile.appendChild(link);
 
-    $.information.select("img").src = profile;
+    img.src = $.change.select(".details-profile img").src = $.information.select("img").src = profile;
     $.information.select("h2 span").innerText = data.firstName? data.firstName: "client";
 
     showBox($.information);
@@ -270,8 +268,9 @@ async function changeInfo () {
 
     if (response.status == 200) {
         $.userProfile.select("img").src = $.change.select(".details-profile img").src;
-
         showBox($.information);
+
+        $.information.select("h2 span").innerText = data.get("firstName");
     }
 }
 
@@ -286,9 +285,8 @@ $.change.select(".apply").event("click", changeInfo);
         imageElm.src = blobURL(window.uploadSrc);
         imageElm.style.display = "block";
 
-        $.change.select(".details-profile img").src = imageElm.src;
-        $.select("#informations-box > img").src = imageElm.src;
-
+        $.select("#informations-box > img").src = $.change.select(".details-profile img").src = imageElm.src;
+        
         if (isExists(".selected"))
             $.select(".selected").classList.remove("selected");
 
