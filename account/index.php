@@ -184,10 +184,15 @@
                 </svg>
             </button>
 
-            <form action="">
-                <div class="input active">
+            <form action="" class="center-item">
+                <div class="input">
                     <input type="text" name="firstname" value="<?php echo $info["firstName"]?? "client" ?>" required>
                     <p class="placeholder">First Name</p>
+                </div>
+
+                <div class="input">
+                    <input type="text" name="username" value="<?php echo $info["username"] ?>" required>
+                    <p class="placeholder">Username</p>
                 </div>
             </form>
 
