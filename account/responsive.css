@@ -1,5 +1,5 @@
 @media screen and (max-width: 456px) {
-    main > div > *:not(img) {
+    main > div > *:not(img, .details-profile) {
         width: 90%;
     }
 }

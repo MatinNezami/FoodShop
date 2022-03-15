@@ -63,14 +63,15 @@ header nav span {
     top: -3px;
 }
 
+#profile,
+#profile a {
+    width: 35px;
+    height: 35px;
+}
+
 .links {
     gap: 20px;
     width: max-content;
-}
-
-.links p {
-    display: inline-block;
-    width: inherit;
 }
 
 header nav .open {
@@ -88,7 +89,7 @@ header nav img {
     border-radius: 50%;
 }
 
-header nav a:not([href=\/account\?information])::before {
+header nav a:not(#profile a)::before {
     content: "";
     display: block;
     width: 0;

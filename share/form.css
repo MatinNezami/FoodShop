@@ -57,13 +57,18 @@ main > div > label,
     background-color: var(--navbar-color);
 }
 
-main > div > img {
+.details-profile {
+    position: relative;
+}
+
+main > div > img,
+.details-profile img {
     width: 280px;
     height: 280px;
     object-fit: cover;
 }
 
-main > div > *:not(img, form),
+main > div > *:not(img, form, .details-profile),
 main > div form > *,
 .modal label {
     height: 3rem;
