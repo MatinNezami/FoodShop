@@ -187,15 +187,17 @@
             <form action="">
                 <div class="input active">
                     <input type="text" name="firstname" value="<?php echo $info["firstName"]?? "client" ?>" required>
-                    <p class="placeholder">first name</p>
+                    <p class="placeholder">First Name</p>
                 </div>
             </form>
 
-            <button class="change-email">change email</button>
-            <button class="change-password">change password</button>
-            <button class="apply">apply</button>
+            <button class="change-email">Change Email</button>
+            <button class="change-password">Change Password</button>
+            <button class="apply">Apply</button>
             
-            <div class="center-item modal" id="change-profile-modal"></div>
+            <div class="center-item modal" id="change-profile-modal">
+                <label for="custom-profile" class="center-item">Custom Profile</label>
+            </div>
         </div>
     </main>
 

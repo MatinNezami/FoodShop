@@ -232,6 +232,7 @@ $.login.select(".submit").event("click", login);
 
 
 // IF USE MODAL BOX IN OTHER PAGE MOVE THIS CODE TO SHARE DIRECTORY
+// WORK ON THIS FUNCTION ===> IFS
 
 function openModal (event) {
     event.stopPropagation();
@@ -239,8 +240,21 @@ function openModal (event) {
     ($[this.dataset.targetModal]?? $.select(`#${this.dataset.targetModal}`, this.dataset.targetModal))
         .classList.add("active");
 
-    $[this.dataset.targetModal].event("click", ev => ev.stopPropagation());
-    $.body.event("click", closeModal);
+    if (!$[this.dataset.targetModal] + "-childs")
+        $[this.dataset.targetModal].select("*", `${this.dataset.targetModal}-childs`);
+
+    if (!$[this.dataset.targetModal + "-labels"])
+        $[this.dataset.targetModal + "-labels"] = $[this.dataset.targetModal].querySelectorAll("label");
+
+    $[this.dataset.targetModal + "-labels"].forEach(
+        label => $.select(`#${label.getAttribute("for")}`).event("click", ev => ev.stopPropagation())
+    )
+
+    if (!$[this.dataset.targetModal].onclick)
+        $[this.dataset.targetModal].onclick = ev => ev.stopPropagation();
+
+    if (!$.body.onclick)
+        $.body.onclick = closeModal;
 }
 
 function closeModal () {
@@ -248,9 +262,13 @@ function closeModal () {
         modal => modal.classList.remove("active")
     );
 
-    $.body.removeEventListener("click", closeModal);
+    $.body.onclick = undefined;
 }
 
 // IF USE MODAL BOX IN OTHER PAGE MOVE THIS CODE TO SHARE DIRECTORY
+
+function changeProfiles (img) {
+
+}
 
 $.select("#change-profile-btn").event("click", openModal);

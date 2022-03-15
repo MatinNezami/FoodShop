@@ -13,7 +13,8 @@ button {
 }
 
 button::before,
-main > div > label::before {
+main > div > label::before,
+.modal label::before {
     content: "";
     position: absolute;
     width: 101%;
@@ -51,7 +52,8 @@ main > div > * {
 }
 
 main > div > button,
-main > div > label {
+main > div > label,
+.modal label {
     background-color: var(--navbar-color);
 }
 
@@ -62,7 +64,8 @@ main > div > img {
 }
 
 main > div > *:not(img, form),
-main > div form > * {
+main > div form > *,
+.modal label {
     height: 3rem;
     border-radius: 10px;
     width: 80%;
