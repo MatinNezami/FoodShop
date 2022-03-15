@@ -200,6 +200,49 @@ async function login () {
 $.login.select(".submit").event("click", login);
 
 
+// IF USE MODAL BOX IN OTHER PAGE MOVE THIS CODE TO SHARE DIRECTORY
+// WORK ON THIS FUNCTION ===> IFS
+
+function openModal (event) {
+    event.stopPropagation();
+
+    ($[this.dataset.targetModal]?? $.select(`#${this.dataset.targetModal}`, this.dataset.targetModal))
+        .classList.add("active");
+
+    $[this.dataset.targetModal].select("*").event("click", ev => ev.stopPropagation());
+
+    $[this.dataset.targetModal].querySelectorAll("label").forEach(
+        label => $.select(`#${label.getAttribute("for")}`).event("click", ev => ev.stopPropagation())
+    )
+
+    $[this.dataset.targetModal].onclick = ev => ev.stopPropagation();
+    $.body.onclick = closeModal;
+}
+
+function closeModal () {
+    $.querySelectorAll(".modal.active").forEach(
+        modal => modal.classList.remove("active")
+    );
+
+    $.body.onclick = undefined;
+}
+
+// IF USE MODAL BOX IN OTHER PAGE MOVE THIS CODE TO SHARE DIRECTORY
+
+function changeProfiles (img, event) {
+    if ($[event.srcElement.dataset.targetModal].childElementCount == 9)
+        return null;
+
+    const reference = $[event.srcElement.dataset.targetModal].querySelector("label");
+
+    $[event.srcElement.dataset.targetModal].insertBefore(img, reference);
+}
+
+const changeProfilesHandler = async ev => (await createProfiles())?.forEach(img => changeProfiles(img, ev));
+
+$.select("#change-profile-btn").event("click", openModal, changeProfilesHandler);
+
+
 (function uploadImage (input, imageElm) {
     function insert () {
         window.uploadSrc = reader.result.slice(reader.result.search(":") + 1, reader.result.search(";")) + ";";
@@ -229,46 +272,3 @@ $.login.select(".submit").event("click", login);
 
     input.event("change", upload);
 })($.select("#custom-profile", "profile"), $.select("#custom-profile-image"));
-
-
-// IF USE MODAL BOX IN OTHER PAGE MOVE THIS CODE TO SHARE DIRECTORY
-// WORK ON THIS FUNCTION ===> IFS
-
-function openModal (event) {
-    event.stopPropagation();
-
-    ($[this.dataset.targetModal]?? $.select(`#${this.dataset.targetModal}`, this.dataset.targetModal))
-        .classList.add("active");
-
-    if (!$[this.dataset.targetModal] + "-childs")
-        $[this.dataset.targetModal].select("*", `${this.dataset.targetModal}-childs`);
-
-    if (!$[this.dataset.targetModal + "-labels"])
-        $[this.dataset.targetModal + "-labels"] = $[this.dataset.targetModal].querySelectorAll("label");
-
-    $[this.dataset.targetModal + "-labels"].forEach(
-        label => $.select(`#${label.getAttribute("for")}`).event("click", ev => ev.stopPropagation())
-    )
-
-    if (!$[this.dataset.targetModal].onclick)
-        $[this.dataset.targetModal].onclick = ev => ev.stopPropagation();
-
-    if (!$.body.onclick)
-        $.body.onclick = closeModal;
-}
-
-function closeModal () {
-    $.querySelectorAll(".modal.active").forEach(
-        modal => modal.classList.remove("active")
-    );
-
-    $.body.onclick = undefined;
-}
-
-// IF USE MODAL BOX IN OTHER PAGE MOVE THIS CODE TO SHARE DIRECTORY
-
-function changeProfiles (img) {
-
-}
-
-$.select("#change-profile-btn").event("click", openModal);
