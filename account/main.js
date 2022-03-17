@@ -60,6 +60,8 @@ $.select("#change-informations-box", "change");
 
 $.select("main > div", "mainBoxes");
 
+$.information.select("h2 span", "clientName");
+
 const profilesBox = $.select(".profile-images"),
     reader = new FileReader();
 
@@ -136,7 +138,7 @@ function setInfo (data) {
     $.userProfile.appendChild(link);
 
     img.src = $.change.select(".details-profile img").src = $.information.select("img").src = profile;
-    $.information.select("h2 span").innerText = data.firstName? data.firstName: "client";
+    $.clientName.innerText = data.firstName? data.firstName: "client";
 
     showBox($.information);
 }
@@ -184,6 +186,9 @@ async function logout () {
 $.select(".logout").event("click", logout);
 
 
+const resetInputs = inputs => inputs.forEach(input => input.defaultValue = input.value);
+
+
 async function login () {
     const validate = new Validate($.login.select("form"));
 
@@ -194,6 +199,8 @@ async function login () {
 
     message(response.message);
 
+    $.login.select("input").forEach(input => input.value = "");
+
     if (response.status == 200)
         setInfo(response.info);
 }
@@ -202,7 +209,6 @@ $.login.select(".submit").event("click", login);
 
 
 // IF USE MODAL BOX IN OTHER PAGE MOVE THIS CODE TO SHARE DIRECTORY
-// WORK ON THIS FUNCTION ===> IFS
 
 function openModal (event) {
     event.stopPropagation();
@@ -244,6 +250,13 @@ const changeProfilesHandler = async ev => (await createProfiles())?.forEach(img 
 $.select("#change-profile-btn").event("click", openModal, changeProfilesHandler);
 
 
+function insertChange () {
+    $.userProfile.select("img").src = $.change.select(".details-profile img").src;
+    $.clientName.innerText = data.get("firstName");
+    
+    showBox($.information);
+}
+
 async function changeInfo () {
     const validate = new Validate($.change.select("form"));
 
@@ -266,12 +279,8 @@ async function changeInfo () {
     const response = await ajax("check.php", data, "POST");
     message(response.message);
 
-    if (response.status == 200) {
-        $.userProfile.select("img").src = $.change.select(".details-profile img").src;
-        showBox($.information);
-
-        $.information.select("h2 span").innerText = data.get("firstName");
-    }
+    if (response.status == 200)
+        insertChange();
 }
 
 $.change.select(".apply").event("click", changeInfo);
