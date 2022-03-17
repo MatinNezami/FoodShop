@@ -163,8 +163,6 @@ async function signup () {
 
     for (const item of validate.data.entries())
         window.data[item[0]] = item[1];
-
-    message(response.message);
 }
 
 $.signup.select(".submit").event("click", signup);
@@ -173,9 +171,7 @@ $.signup.select(".submit").event("click", signup);
 async function logout () {
     const response = await ajax("check.php?type=logout");
 
-    message(response.message);
-
-    if (!response.status == 200)
+    if (response.status == 500)
         return null;
     
     $.userProfile.innerHTML = "";
@@ -197,12 +193,11 @@ async function login () {
 
     const response = await ajax("check.php", validate.data, "POST");
 
-    message(response.message);
-
+    if (response.status == 500)
+        return null;
+    
     $.login.select("input").forEach(input => input.value = "");
-
-    if (response.status == 200)
-        setInfo(response.info);
+    setInfo(response.info);
 }
 
 $.login.select(".submit").event("click", login);
@@ -277,7 +272,6 @@ async function changeInfo () {
     data.append("type", "change");
 
     const response = await ajax("check.php", data, "POST");
-    message(response.message);
 
     if (response.status == 200)
         insertChange();

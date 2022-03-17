@@ -73,5 +73,10 @@ async function ajax (url, data, method) {
     if (!request.ok)
         return message("not found");
 
-    return await request.json();
+    const response = await request.json();
+
+    if (response.message)
+        message(response.message);
+
+    return response;
 }
