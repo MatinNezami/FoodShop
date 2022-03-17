@@ -23,7 +23,7 @@ async function accept () {
 
     if (response.status == 200)
         setTimeout(() => {
-            location.replace("http://localhost/account?information");
+            location.replace("http://localhost/account?page=information");
         }, 3050);
 }
 

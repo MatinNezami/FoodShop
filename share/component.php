@@ -54,11 +54,11 @@
         <div class="account center-item">
             <div id="profile"></div>
 
-            <a href="/account?login">Log in</a>
+            <a href="/account?page=login">Log in</a>
 
             <span>/</span>
 
-            <a href="/account?signup">Sign up</a>
+            <a href="/account?page=signup">Sign up</a>
         </div>
     </nav>
 

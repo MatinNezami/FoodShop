@@ -30,15 +30,28 @@
 
     <script>
         <?php
-            # work on this code
-            if (isset($_GET["login"]))
-                echo "const flag = \"login\"";
+            (function () {
+                $userCookie = isset($_COOKIE["token"])? "const flag = \"information\";": "const flag = \"login\";";
 
-            elseif (isset($_GET["signup"]))
-                echo "const flag = \"signup\"";
+                if (!isset($_GET["page"])) {
+                    echo $userCookie;
+                    return NULL;
+                }
 
-            elseif (isset($_GET["information"]))
-                echo "const flag = \"information\"";
+                switch ($_GET["page"]) {
+                    case "login":
+                        echo "const flag = \"login\";";
+                        break;
+
+                    case "signup":
+                        echo "const flag = \"signup\";";
+                        break;
+
+                    case "information":
+                        echo $userCookie;
+                        break;
+                }
+            })();
         ?>
     </script>
 </head>
