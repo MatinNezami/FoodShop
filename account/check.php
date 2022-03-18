@@ -144,6 +144,7 @@
 			cookie($info["token"]);
 			unset($info["password"]);
 			unset($info["token"]);
+			unset($info["accept"]);
 
 			die("{\"status\": 200, \"message\": \"welcome, login successly\", \"info\": " . json_encode($info) ."}");
 		}
