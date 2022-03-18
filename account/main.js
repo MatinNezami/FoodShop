@@ -143,6 +143,16 @@ function setInfo (data) {
     showBox($.information);
 }
 
+function checkChanged (inputs) {
+    let changed = false;
+
+    for (const input of inputs)
+        if (input.defaultValue != input.value)
+            changed = true;
+
+    return changed;
+}
+
 async function signup () {
     const validate = new Validate($.signup.select("form")),
         selected = isExists(".selected");
@@ -182,8 +192,12 @@ async function logout () {
 $.select(".logout").event("click", logout);
 
 
-const resetInputs = inputs => inputs.forEach(input => input.defaultValue = input.value);
+function resetForm (selected, inputs) {
+    inputs.forEach(input => input.defaultValue = input.value);
 
+    window.uploadSrc = undefined;
+    selected?.classList?.remove("selected");
+}
 
 async function login () {
     const validate = new Validate($.login.select("form"));
@@ -245,23 +259,21 @@ const changeProfilesHandler = async ev => (await createProfiles())?.forEach(img 
 $.select("#change-profile-btn").event("click", openModal, changeProfilesHandler);
 
 
-function insertChange () {
-    $.userProfile.select("img").src = $.change.select(".details-profile img").src;
-    $.clientName.innerText = data.get("firstName");
-    
+function insertChange (selected, inputs) {
+    if (selected || window.uploadSrc)
+        $.userProfile.select("img").src = $.change.select(".details-profile img").src;
+
+
+    $.clientName.innerText = $.change.select("input[name=firstName]").value;    
     showBox($.information);
+
+    resetForm(selected, inputs);
 }
 
-async function changeInfo () {
-    const validate = new Validate($.change.select("form"));
+function changeInfoForm (selected, inputs) {
+    const data = new FormData();
 
-    if (!validate.data)
-        return null;
-    
-    const data = new FormData(),
-        selected = isExists(".selected");
-    
-    $.change.select("input").forEach(input => {
+    inputs.forEach(input => {
         if (input.value != input.defaultValue)
             data.append(input.name, input.value);
     });
@@ -271,10 +283,26 @@ async function changeInfo () {
 
     data.append("type", "change");
 
-    const response = await ajax("check.php", data, "POST");
+    return data;
+}
+
+async function changeInfo () {
+    const selected = isExists(".selected"),
+        inputs = $.change.select(".input input");
+
+    if (!(selected || window.uploadSrc || checkChanged(inputs)))
+        return null;
+    
+    const validate = new Validate($.change.select("form"));
+
+    if (!validate.data)
+        return null;
+    
+    const data = changeInfoForm(selected, inputs),
+        response = await ajax("check.php", data, "POST");
 
     if (response.status == 200)
-        insertChange();
+        insertChange(selected, inputs);
 }
 
 $.change.select(".apply").event("click", changeInfo);
