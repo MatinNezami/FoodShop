@@ -181,11 +181,10 @@ main > div li {
     user-select: none;
     top: 0;
     left: 0;
-    text-transform: capitalize;
     border-radius: 7px;
     background-color: #FFF;
     box-shadow: var(--tooltip-shadow);
-    gap: 10px;
+    justify-content: flex-start;
 }
 
 #err-tooltip svg {
@@ -211,4 +210,8 @@ main > div li {
     top: -14px;
     left: 50%;
     transform: translateX(-50%);
+}
+
+#err-tooltip span {
+    vertical-align: super;
 }

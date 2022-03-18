@@ -161,14 +161,16 @@
 ?>
 
     <div id="err-tooltip" class="center-item">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
-            <polygon points="50 12 10 90 90 90" stroke-width="10" fill="#FFB703" stroke="#FFB703"/>
-            <polygon points="50 1 14.7 70 75.1 50" fill="#FFF2"/>
-            <path d="M 45 35 55 35 51 65 49 65 z" fill="#FFF" stroke-width="3" stroke="#FFF" stroke-linejoin="round"/>
-            <circle cx="50" cy="73" r="4" fill="#FFF"/>
-        </svg>
+        <p>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+                <polygon points="50 12 10 90 90 90" stroke-width="10" fill="#FFB703" stroke="#FFB703"/>
+                <polygon points="50 1 14.7 70 75.1 50" fill="#FFF2"/>
+                <path d="M 45 35 55 35 51 65 49 65 z" fill="#FFF" stroke-width="3" stroke="#FFF" stroke-linejoin="round"/>
+                <circle cx="50" cy="73" r="4" fill="#FFF"/>
+            </svg>
 
-        <p></p>
+            <span></span>
+        </p>
     </div>
 
 <?php
