@@ -20,7 +20,7 @@ main > div.center-item {
     overflow: hidden;
     margin-bottom: 0;
     transition: var(--animate);
-    height: max-content;
+    height: max-content !important;
 }
 
 .profile-images > div {
