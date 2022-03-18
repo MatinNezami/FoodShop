@@ -77,7 +77,7 @@
 		cookie($token);
 	}
 
-	// work on this function
+	// work on this function CREATE FAVORITE AND SAVE PRODUCTS
 	function register () {
 		checkValidate($_POST);
 
@@ -178,16 +178,24 @@
 	}
 
 
-	if (isset($_GET["type"]))
+	(function () {
+		if (!isset($_GET["type"]))
+			return NULL;
+
 		switch ($_GET["type"]) {
 			case "profiles":
 				profiles();
-
+	
 			case "logout":
 				logout();
 		}
+	})();
+		
 
-	if (isset($_POST["type"]))
+	(function () {
+		if (!isset($_POST["type"]))
+			return NULL;
+
 		switch ($_POST["type"]) {
 			case "register":
 				register();
@@ -201,5 +209,6 @@
 			case "change":
 				changeInfo();
 		}
+	})();
 
 ?>
