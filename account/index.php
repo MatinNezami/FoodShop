@@ -160,7 +160,7 @@
         </div>
 
         <div class="center-item" id="forgot-password-box">
-            <img src="/images/forgot-password.svg" loading="lazy" alt="forgot-password" draggable="flase">
+            <img src="/images/forgot-password.svg" loading="lazy" alt="forgot password" draggable="flase">
 
             <form action="">
                 <div class="input">
@@ -212,12 +212,48 @@
             </form>
 
             <button class="change-email">Change Email</button>
-            <button class="change-password">Change Password</button>
+            <button class="change-password" data-target-box="password">Change Password</button>
             <button class="apply">Apply</button>
             
             <div class="center-item modal" id="change-profile-modal">
                 <label for="custom-profile" class="center-item">Custom Profile</label>
             </div>
+        </div>
+
+        <div class="center-item" id="change-password-box">
+            <img src="/images/change-password.svg" loading="lazy" alt="change password" draggable="flase">
+
+            <form action="" class="center-item">
+                <div class="input">
+                    <input type="password" name="old-password" data-type="password" required>
+                    <p class="placeholder">Old Password</p>
+                </div>
+
+                <ul>
+                    <li>
+                        use number, capitalize letter and specific character
+                    </li>
+                </ul>
+
+                <div class="input">
+                    <input type="password" name="password" data-type="password" required>
+                    <p class="placeholder">New Password</p>
+                </div>
+
+                <div class="input">
+                    <input type="password" name="retry-password" data-type="password" required>
+                    <p class="placeholder">Re-enter Password</p>
+                </div>
+
+                <input type="hidden" name="type" value="change-password">
+            </form>
+
+            <div class="show-password center-item">
+                <input type="checkbox" id="show-password-password" autocomplete="off">
+                <label for="show-password-password">Show Password</p>
+            </div>
+
+            <button class="submit">Change</button>
         </div>
     </main>
 
