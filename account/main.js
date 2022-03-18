@@ -335,7 +335,14 @@ async function changePasswd () {
     if (response.status == 500)
         return null;
 
-    inputs.forEach(input => input.value = "");
+    inputs.forEach(input => {
+        const placeholder = input.parentNode.select(".placeholder");
+        
+        input.value = "";
+        placeholder.classList.remove("active");
+        placeholder.removeChild(placeholder.select("span"));
+    });
+
     showBox($.information);
 }
 
