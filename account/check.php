@@ -129,7 +129,7 @@
 	function login () {
 		checkValidate($_POST);
 
-		$info = $GLOBALS["connection"]->prepare("SELECT `profile`, `token`, `firstName`, `password` FROM `users` WHERE `username` = ?");
+		$info = $GLOBALS["connection"]->prepare("SELECT * FROM `users` WHERE `username` = ?");
 		$info->bindValue(1, $_POST["username"]);
 
 		$info->execute() or
