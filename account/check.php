@@ -57,6 +57,9 @@
 	}
 
 	function insert ($data) {
+		unset($data["retry-password"]);
+		unset($data["type"]);
+
 		$query = "INSERT INTO `users` (`username`, `email`, `password`, `firstName`, `profile`, `token`)VALUE (:username, :email, :password, :firstName, :profile, :token)";
 		$insert = $GLOBALS["connection"]->prepare($query);
 		$token = token();
@@ -70,6 +73,8 @@
 			die($GLOBALS["notExec"]);
 
 		mailUrl("localhost/accept?token=$token");
+
+		cookie($token);
 	}
 
 	// work on this function
@@ -77,9 +82,6 @@
 		checkValidate($_POST);
 
 		existsUser($_POST["username"], $_POST["email"]);
-
-		unset($_POST["retry-password"]);
-		unset($_POST["type"]);
 		insert($_POST);
 
 		die("{\"status\": 200, \"message\": \"check your email\"}");
@@ -111,7 +113,6 @@
 		if ($_POST["password"] != $check->fetch(PDO::FETCH_ASSOC)["password"])
 			die("{\"status\": 500, \"message\": \"your password didn't match\"}");
 
-		cookie($_POST["token"]);
 		accepted($_POST["token"]);
 
 		die("{\"status\": 200, \"message\": \"your password did match\"}");
