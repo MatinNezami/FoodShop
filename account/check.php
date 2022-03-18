@@ -178,6 +178,30 @@
 	}
 
 
+	function changePasswd () {
+		global $info;
+
+		if ($_POST["password"] == $_POST["old-password"])
+			die("{\"status\": 500, \"message\": \"new password match with old password\"}");
+
+		if ($info["password"] != $_POST["old-password"])
+			die("{\"status\": 500, \"message\": \"old password didn't match\"}");
+
+		$_POST["username"] = $info["username"];
+
+		checkValidate($_POST);
+
+		$update = $GLOBALS["connection"]->prepare("UPDATE `users` SET `password` = ? WHERE `username` = ?");
+		$update->bindValue(1, $_POST["password"]);
+		$update->bindValue(2, $info["username"]);
+
+		$update->execute() or
+			die($GLOBALS["notExec"]);
+
+		die("{\"status\": 200, \"message\": \"password successly changed\"}");
+	}
+
+
 	(function () {
 		if (!isset($_GET["type"]))
 			return NULL;
@@ -208,6 +232,9 @@
 
 			case "change":
 				changeInfo();
+
+			case "change-password":
+				changePasswd();
 		}
 	})();
 

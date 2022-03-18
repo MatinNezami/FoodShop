@@ -222,7 +222,7 @@ async function login () {
     if (response.status == 500)
         return null;
     
-    $.login.select("input").forEach(input => input.value = "");
+    $.login.select(".input input").forEach(input => input.value = "");
     insertInfo(response.info);
 }
 
@@ -318,6 +318,28 @@ async function changeInfo () {
 }
 
 $.change.select(".apply").event("click", changeInfo);
+
+
+async function changePasswd () {
+    const validate = new Validate($.password.select("form"), false),
+        inputs = $.password.select(".input input");
+
+    if (inputs[0].value == inputs[1].value)
+        return Validate.error(inputs[1], "new password match with old password");
+
+    if (!validate.data)
+        return null;
+
+    const response = await ajax("check.php", validate.data, "POST");
+
+    if (response.status == 500)
+        return null;
+
+    inputs.forEach(input => input.value = "");
+    showBox($.information);
+}
+
+$.password.select(".submit").event("click", changePasswd);
 
 
 (function uploadImage (input, imageElm) {
