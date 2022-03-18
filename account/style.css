@@ -93,11 +93,20 @@ input[type=file] {
     border-radius: 50%;
 }
 
-#informations-box h2 {
-    text-align: center;
+#informations-box h2,
+#message p {
     overflow: hidden;
-    white-space: pre;
     text-overflow: ellipsis;
+}
+
+#message p {
+    white-space: nowrap;
+    user-select: none;
+}
+
+#informations-box h2 {
+    white-space: pre;
+    text-align: center;
     min-width: 90%;
     width: 290px;
 }
