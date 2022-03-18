@@ -209,7 +209,17 @@
                     <input type="text" name="username" value="<?php echo $info["username"] ?>" required>
                     <p class="placeholder">Username</p>
                 </div>
+
+                <div class="input">
+                    <input type="password" name="password" data-type="password" required>
+                    <p class="placeholder">Password</p>
+                </div>
             </form>
+
+            <div class="show-password center-item">
+                <input type="checkbox" id="show-change" autocomplete="off">
+                <label for="show-change">Show Password</p>
+            </div>
 
             <button class="change-email" data-target-box="email">Change Email</button>
             <button class="change-password" data-target-box="password">Change Password</button>
@@ -265,8 +275,18 @@
                     <p class="placeholder">Email</p>
                 </div>
 
+                <div class="input">
+                    <input type="password" name="password" data-type="password" required>
+                    <p class="placeholder">Password</p>
+                </div>
+
                 <input type="hidden" name="type" value="change-email">
             </form>
+
+            <div class="show-password center-item">
+                <input type="checkbox" id="show-password-email" autocomplete="off">
+                <label for="show-password-email">Show Password</p>
+            </div>
 
             <button class="submit">Change</button>
         </div>
