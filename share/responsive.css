@@ -17,6 +17,7 @@
     }
 
     #err-tooltip {
-        width: 97%;
+        max-width: 95%;
+        width: max-content;
     }
 }
