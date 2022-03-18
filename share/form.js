@@ -60,8 +60,8 @@ function buttonUp () {
     this.classList.remove("clicked");
 }
 
-$.select("button").event("pointerdown", buttonDown, "pointerup", buttonUp, "pointerleave", buttonUp);
-$.select("label").event("pointerdown", buttonDown, "pointerup", buttonUp, "pointerleave", buttonUp);
+$.select("button, label")
+    .event("pointerdown", buttonDown, "pointerup", buttonUp, "pointerleave", buttonUp);
 
 
 async function ajax (url, data, method) {
