@@ -68,6 +68,7 @@ class Validate {
                 return this.username(input);
 
             case "password":
+            case "old-password":
                 return this.password(input, this.inputs.username);
 
             case "retry-password":

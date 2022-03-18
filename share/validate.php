@@ -117,6 +117,7 @@
 					return $this->username($key, $val);
 
 				case "password":
+				case "old-password":
 					return $this->password($key, $val);
 
 				case "retry-password":
