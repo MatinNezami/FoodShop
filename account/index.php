@@ -211,7 +211,7 @@
                 </div>
             </form>
 
-            <button class="change-email">Change Email</button>
+            <button class="change-email" data-target-box="email">Change Email</button>
             <button class="change-password" data-target-box="password">Change Password</button>
             <button class="apply">Apply</button>
             
@@ -252,6 +252,21 @@
                 <input type="checkbox" id="show-password-password" autocomplete="off">
                 <label for="show-password-password">Show Password</p>
             </div>
+
+            <button class="submit">Change</button>
+        </div>
+
+        <div class="center-item" id="change-email-box">
+            <img src="/images/change-email.svg" loading="lazy" alt="change email" draggable="flase">
+
+            <form action="" class="center-item">
+                <div class="input">
+                    <input type="email" name="email" required>
+                    <p class="placeholder">Email</p>
+                </div>
+
+                <input type="hidden" name="type" value="change-email">
+            </form>
 
             <button class="submit">Change</button>
         </div>
