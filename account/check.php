@@ -140,16 +140,15 @@
 
 		$info = $info->fetch(PDO::FETCH_ASSOC);
 
-		if ($_POST["password"] == $info["password"]) {
-			cookie($info["token"]);
-			unset($info["password"]);
-			unset($info["token"]);
-			unset($info["accept"]);
+		if ($_POST["password"] != $info["password"])
+			die("{\"status\": 500, \"message\": \"password didn't match\"}");
 
-			die("{\"status\": 200, \"message\": \"welcome, login successly\", \"info\": " . json_encode($info) ."}");
-		}
+		cookie($info["token"]);
+		unset($info["password"]);
+		unset($info["token"]);
+		unset($info["accept"]);
 
-		die("{\"status\": 500, \"message\": \"password didn't match\"}");
+		die("{\"status\": 200, \"message\": \"welcome, login successly\", \"info\": " . json_encode($info) ."}");
 	}
 
 
