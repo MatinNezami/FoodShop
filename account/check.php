@@ -154,6 +154,12 @@
 
 
 	function changeInfo () {
+		global $info;
+
+		if ($info["password"] != $_POST["password"])
+			die("{\"status\": 500, \"message\": \"password didn't match\"}");
+
+		$_POST["username"] = $info["username"];
 		unset($_POST["type"]);
 		checkValidate($_POST);
 
@@ -169,7 +175,7 @@
 		foreach ($_POST as $key => &$val)
 			$change->bindValue(":$key", $val);
 		
-		$change->bindValue(":username", $GLOBALS["info"]["username"]);
+		$change->bindValue(":username", $info["username"]);
 
 		$change->execute() or
 			die($GLOBALS["notExec"]);

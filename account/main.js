@@ -276,6 +276,7 @@ function insertChange (selected, inputs) {
     if (selected || window.uploadSrc)
         $.userProfile.select("img").src = $.detailsProfile.src;
 
+        $.change.select("input[name=password]").value = "";
 
     $.clientName.innerText = $.change.select("input[name=firstName]").value;    
     showBox($.information);
@@ -301,29 +302,49 @@ function changeInfoForm (selected, inputs) {
 
 async function changeInfo () {
     const selected = isExists(".selected"),
-        inputs = $.change.select(".input input");
+        password = $.change.select("input[name=password]");
+    let inputs = $.change.select(".input input:not([name=password])");
 
     if (!(selected || window.uploadSrc || checkChanged(inputs)))
-        return null;
+        return Validate.error(inputs[0], "information hasn't changed");
     
     const validate = new Validate($.change.select("form"));
 
     if (!validate.data)
         return null;
+
+    inputs = [...inputs];
+    inputs.push(password);
     
     const data = changeInfoForm(selected, inputs),
         response = await ajax("check.php", data, "POST");
 
-    if (response.status == 200)
-        insertChange(selected, inputs);
+    if (response.status == 500)
+        return null;
+
+    insertChange(selected, inputs);
+    cleanInputs(password);
 }
 
 $.change.select(".apply").event("click", changeInfo);
 
 
+function cleanInputs (inputs) {
+    if (inputs instanceof Element)
+        inputs = [inputs];
+
+    inputs.forEach(input => {
+        const placeholder = input.parentNode.select(".placeholder");
+        
+        input.value = "";
+        placeholder.classList.remove("active");
+        placeholder.removeChild(placeholder.select("span"));
+    });
+}
+
 async function changePasswd () {
     const validate = new Validate($.password.select("form"), false),
-        inputs = $.password.select(".input input");
+        inputs = $.password.select(".input input:not([name=password])");
 
     if (input[1].value && inputs[0].value == inputs[1].value)
         return Validate.error(inputs[1], "new password match with old password");
@@ -336,14 +357,7 @@ async function changePasswd () {
     if (response.status == 500)
         return null;
 
-    inputs.forEach(input => {
-        const placeholder = input.parentNode.select(".placeholder");
-        
-        input.value = "";
-        placeholder.classList.remove("active");
-        placeholder.removeChild(placeholder.select("span"));
-    });
-
+    cleanInputs(inputs)
     showBox($.information);
 }
 
