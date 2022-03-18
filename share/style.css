@@ -180,6 +180,7 @@ aside.menu a {
 aside.menu .links a:hover {
     color: transparent;
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
     background-image: var(--link-hover-color);
 }

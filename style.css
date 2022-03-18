@@ -22,6 +22,7 @@ footer > img {
 
 header > img {
     -webkit-mask-image: linear-gradient(to bottom, #000, #0000);
+    mask-image: linear-gradient(to bottom, #000, #0000);
 }
 
 main,
@@ -123,12 +124,14 @@ main .product:hover .image {
 
 .aside-product.left {
     -webkit-mask-image: linear-gradient(to left, #000 60%, #0000);
+    mask-image: linear-gradient(to left, #000 60%, #0000);
     justify-content: flex-end;
     transform: translateX(-500px) rotate(-45deg);
 }
 
 .aside-product.right {
     -webkit-mask-image: linear-gradient(to right, #000 60%, #0000);
+    mask-image: linear-gradient(to right, #000 60%, #0000);
     justify-content: flex-start;
     transform: translateX(500px) rotate(45deg);
 }
@@ -215,6 +218,7 @@ footer {
 
 footer > img {
     -webkit-mask-image: linear-gradient(to top, #000, #0000);
+    mask-image: linear-gradient(to top, #000, #0000);
 }
 
 footer .image,

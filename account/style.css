@@ -3,6 +3,7 @@ body > img {
     height: 100%;
     position: absolute;
     -webkit-mask-image: linear-gradient(#000, #0000);
+    mask-image: linear-gradient(#000, #0000);
     object-fit: cover;
     filter: brightness(70%);
     z-index: -1;
