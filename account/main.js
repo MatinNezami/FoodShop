@@ -61,6 +61,7 @@ $.select("#change-informations-box", "change");
 $.select("main > div", "mainBoxes");
 
 $.information.select("h2 span", "clientName");
+$.change.select(".details-profile img", "detailsProfile");
 
 const profilesBox = $.select(".profile-images"),
     reader = new FileReader();
@@ -98,7 +99,7 @@ function selectProfile () {
 
     this.classList.add("selected");
 
-    $.select("#informations-box > img").src = $.change.select(".details-profile img").src = this.src;
+    $.select("#informations-box > img").src = $.detailsProfile.src = this.src;
 }
 
 $.select(".profile").event("click", async _ => (await createProfiles())?.forEach(signupProfiles), showProfiles);
@@ -126,23 +127,6 @@ function showBox (targetBox) {
 $.select("[data-target-box]").event("click", showBox);
 
 
-function setInfo (data) {
-    const profile = blobURL(data.profile),
-        img = new Image(),
-        link = document.createElement("A");
-
-    link.href = "/account?inforamtion";
-    link.appendChild(img);
-
-    $.userProfile.innerHTML = "";
-    $.userProfile.appendChild(link);
-
-    img.src = $.change.select(".details-profile img").src = $.information.select("img").src = profile;
-    $.clientName.innerText = data.firstName? data.firstName: "client";
-
-    showBox($.information);
-}
-
 function checkChanged (inputs) {
     let changed = false;
 
@@ -151,6 +135,29 @@ function checkChanged (inputs) {
             changed = true;
 
     return changed;
+}
+
+function insertInfo (data) {
+    const img = new Image(),
+        changeInputs = $.change.select(".input input");
+
+    img.src = $.information.select("img").src = $.detailsProfile.src = blobURL(data.profile);
+    img.draggable = false;
+    img.alt = "user profile";
+
+    $.userProfile.innerHTML = "";
+    $.userProfile.appendChild(img);
+
+    $.clientName.innerText = changeInputs[0].value = data.firstName;
+    changeInputs[1].value = data.username;
+    changeInputs.forEach(input => input.classList.add("active"));
+
+    isExists(".selected")?.classList?.remove("selected");
+
+    // INSERT EMAIL TO INPUT THEN CREATE BOXES
+
+    resetForm(null, changeInputs);
+    showBox($.information);
 }
 
 async function signup () {
@@ -166,13 +173,16 @@ async function signup () {
     }
 
     validate.data.append("profile", window.uploadSrc?? window.src[selected.dataset.name]);
-
     const response = await ajax("check.php", validate.data, "POST");
 
-    window.data = {};
+    if (response.status == 500)
+        return null;
 
-    for (const item of validate.data.entries())
-        window.data[item[0]] = item[1];
+    const data = {};
+    validate.data.forEach((val, key) => data[key] = val);
+
+    insertInfo(data);
+    $.signup.select(".input input").forEach(input => input.value = "");
 }
 
 $.signup.select(".submit").event("click", signup);
@@ -199,6 +209,7 @@ function resetForm (selected, inputs) {
     selected?.classList?.remove("selected");
 }
 
+
 async function login () {
     const validate = new Validate($.login.select("form"));
 
@@ -211,7 +222,7 @@ async function login () {
         return null;
     
     $.login.select("input").forEach(input => input.value = "");
-    setInfo(response.info);
+    insertInfo(response.info);
 }
 
 $.login.select(".submit").event("click", login);
@@ -261,7 +272,7 @@ $.select("#change-profile-btn").event("click", openModal, changeProfilesHandler)
 
 function insertChange (selected, inputs) {
     if (selected || window.uploadSrc)
-        $.userProfile.select("img").src = $.change.select(".details-profile img").src;
+        $.userProfile.select("img").src = $.detailsProfile.src;
 
 
     $.clientName.innerText = $.change.select("input[name=firstName]").value;    
@@ -316,7 +327,7 @@ $.change.select(".apply").event("click", changeInfo);
         imageElm.src = blobURL(window.uploadSrc);
         imageElm.style.display = "block";
 
-        $.select("#informations-box > img").src = $.change.select(".details-profile img").src = imageElm.src;
+        $.select("#informations-box > img").src = $.detailsProfile.src = imageElm.src;
         
         if (isExists(".selected"))
             $.select(".selected").classList.remove("selected");
