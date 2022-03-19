@@ -31,7 +31,7 @@
 			die("{\"status\": 500, \"message\": \"this email is accepted\"}");
 	}
 
-	function mailUrl ($url) {
+	function mailUrl ($url, $email) {
 		# CONFIG SENDMAIL FOR SEND URL TO CLIENT EMAIL
 	}
 
@@ -47,7 +47,7 @@
 			die("{\"status\": 500, \"message\": \"" . str_replace("-", " ", $check->message) . "\"}");
 	}
 
-	function token () {
+	function generateToken () {
 		$token = time();
 
 		for ($i = 0; $i < 9; $i++)
@@ -57,12 +57,11 @@
 	}
 
 	function insert ($data) {
-		unset($data["retry-password"]);
-		unset($data["type"]);
+		unset($data["retry-password"], $data["type"]);
 
 		$query = "INSERT INTO `users` (`username`, `email`, `password`, `firstName`, `profile`, `token`)VALUE (:username, :email, :password, :firstName, :profile, :token)";
 		$insert = $GLOBALS["connection"]->prepare($query);
-		$token = token();
+		$token = generateToken();
 		
 		foreach ($data as $key => &$val)
 			$insert->bindParam(":$key", $val);
@@ -72,7 +71,7 @@
 		$insert->execute() or
 			die($GLOBALS["notExec"]);
 
-		mailUrl("localhost/accept?token=$token");
+		mailUrl("localhost/accept?token=$token", $email);
 
 		cookie($token);
 	}
@@ -145,9 +144,7 @@
 			die("{\"status\": 500, \"message\": \"password didn't match\"}");
 
 		cookie($info["token"]);
-		unset($info["password"]);
-		unset($info["token"]);
-		unset($info["accept"]);
+		unset($info["accept"], $info["token"], $info["password"], $info["acceptCode"]);
 
 		die("{\"status\": 200, \"message\": \"welcome, login successly\", \"info\": " . json_encode($info) ."}");
 	}
@@ -231,6 +228,28 @@
 	}
 
 
+	function generateAcceptCode () {
+		$code = "";
+
+		for($i = 0; $i < 6; $i++)
+			$code .= rand(0, 9);
+
+		return $code;
+	}
+
+	function mailCode ($code, $email) {
+		# CONFIG SENDMAIL FOR SEND URL TO CLIENT EMAIL
+	}
+
+	function insertCode ($code, $username) {
+		$update = $GLOBALS["connection"]->prepare("UPDATE `users` SET `acceptCode` = ? WHERE `username` = ?");
+		$update->bindValue(1, $code);
+		$update->bindValue(2, $username);
+
+		$update->execute() or
+			die($GLOBALS["notExec"]);
+	}
+
 	function resetPasswd () {
 		checkValidate($_POST);
 
@@ -247,7 +266,10 @@
 		if (!$email->fetch(PDO::FETCH_ASSOC)["accept"])
 			die("{\"status\": 500, \"message\": \"please accept your email\"}");
 
-		// WHAT IS STRUCTUTE ?????????????
+		$code = generateAcceptCode();
+		mailCode($code, $_POST["email"]);
+		insertCode($code, $_POST["username"]);
+
 		die("{\"status\": 200, \"message\": \"check your email\"}");
 	}
 
