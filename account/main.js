@@ -6,6 +6,26 @@ let profileImages,
 $.firstProfile = $.querySelector(".profile-images > div");
 $.select(".profile-images > div:last-of-type", "lastProfile");
 
+$.select("header", "header");
+
+$.select("#login-box", "login");
+$.select("#signup-box", "signup");
+$.select("#forgot-password-box", "forgot");
+$.select("#informations-box", "information");
+$.select("#change-informations-box", "change");
+$.select("#change-password-box", "password");
+$.select("#change-email-box", "email");
+
+$.select("main > div", "mainBoxes");
+
+$.information.select("h2 span", "clientName");
+$.change.select(".details-profile img", "detailsProfile");
+
+const profilesBox = $.select(".profile-images"),
+    reader = new FileReader();
+
+showBox($[flag]);
+
 
 async function createProfiles () {
     if (!profileImages && !(await profiles()))
@@ -49,27 +69,6 @@ async function profiles () {
 
     return 1;
 }
-
-$.select("header", "header");
-
-$.select("#login-box", "login");
-$.select("#signup-box", "signup");
-$.select("#forgot-password-box", "forgot");
-$.select("#informations-box", "information");
-$.select("#change-informations-box", "change");
-$.select("#change-password-box", "password");
-$.select("#change-email-box", "email");
-
-$.select("main > div", "mainBoxes");
-
-$.information.select("h2 span", "clientName");
-$.change.select(".details-profile img", "detailsProfile");
-
-const profilesBox = $.select(".profile-images"),
-    reader = new FileReader();
-
-
-showBox($[flag]);
 
 
 function headerImage () {
