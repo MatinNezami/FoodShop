@@ -24,10 +24,10 @@
 
 		$data = $check->fetch(PDO::FETCH_ASSOC);
 
-		if ($data["username"] == $username)
+		if ($data["username"] === $username)
 			die("{\"status\": 500, \"message\": \"this username is exists\"}");
 
-		if ($data["email"] == $email)
+		if ($data["email"] === $email)
 			die("{\"status\": 500, \"message\": \"this email is accepted\"}");
 	}
 
