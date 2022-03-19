@@ -183,7 +183,7 @@ async function signup () {
     validate.data.forEach((val, key) => data[key] = val);
 
     insertInfo(data);
-    $.signup.select(".input input").forEach(input => input.value = "");
+    cleanInputs($.signup.select(".input input"))
 }
 
 $.signup.select(".submit").event("click", signup);
@@ -222,7 +222,7 @@ async function login () {
     if (response.status == 500)
         return null;
     
-    $.login.select(".input input").forEach(input => input.value = "");
+    cleanInputs($.login.select(".input input"));
     insertInfo(response.info);
 }
 
@@ -333,8 +333,11 @@ function cleanInputs (inputs) {
         inputs = [inputs];
 
     inputs.forEach(input => {        
+        const placeholder = input.parentNode.select(".placeholder");
+        
         input.value = "";
-        inputValue(input);
+        placeholder.classList.remove("active");
+        placeholder.removeChild(placeholder.select("span"));
     });
 }
 

@@ -8,7 +8,7 @@ function inputValue (input) {
 
     placeholder.classList.add("active");
 
-    if (input.required)
+    if (input.required && placeholder.childElementCount < 1)
         placeholder.innerHTML = `<span>*</span> ${placeholder.innerText}`;
 }
 
