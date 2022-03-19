@@ -27,21 +27,27 @@ const profilesBox = $.select(".profile-images"),
 showBox($[flag]);
 
 
+function image (src, alt) {
+    const img = new Image();
+
+    img.src = src;
+    img.alt = alt;
+    img.draggable = false;
+    return img;
+}
+
+
 async function createProfiles () {
     if (!profileImages && !(await profiles()))
         return null;
 
     return profileImages.map(profile => {
-        const img = new Image();
+        const img = image(blobURL(profile.img), "profile");
 
-        img.draggable = false;
-        img.alt = "profile";
-        img.src = blobURL(profile.img);
         img.dataset.name = profile.key;
         img.onclick = selectProfile;
     
         window.src[profile.key] = profile.img;
-    
         return img;
     });
 }
@@ -66,7 +72,6 @@ async function profiles () {
         return 0;
 
     profileImages = response.data;
-
     return 1;
 }
 
@@ -75,12 +80,7 @@ function headerImage () {
     if (window.innerWidth <= 500 || isExists("body > img"))
         return null;
 
-    const img = new Image();
-
-    img.src = "/images/account.webp";
-    img.draggable = "false";
-    img.alt = "background picture";
-
+    const img = image("/images/account.webp", "background picture");
     $.body.insertBefore(img, $.header);
 }
 
@@ -139,13 +139,11 @@ function checkChanged (inputs) {
 }
 
 function insertInfo (data) {
-    const img = new Image(),
+    const img = image(blobURL(data.profile), "user profile"),
         changeInputs = $.change.select(".input input:not([name=password])"),
         email = $.email.select(".input input[name=email]");
 
-    img.src = $.information.select("img").src = $.detailsProfile.src = blobURL(data.profile);
-    img.draggable = false;
-    img.alt = "user profile";
+    $.information.select("img").src = $.detailsProfile.src = img.src;
 
     $.userProfile.innerHTML = "";
     $.userProfile.appendChild(img);
@@ -183,7 +181,7 @@ async function signup () {
     validate.data.forEach((val, key) => data[key] = val);
 
     insertInfo(data);
-    cleanInputs($.signup.select(".input input"))
+    cleanInputs($.signup.select(".input input"));
 }
 
 $.signup.select(".submit").event("click", signup);
@@ -241,7 +239,7 @@ function openModal (event) {
 
     $[this.dataset.targetModal].querySelectorAll("label").forEach(
         label => $.select(`#${label.getAttribute("for")}`).event("click", ev => ev.stopPropagation())
-    )
+    );
 
     $[this.dataset.targetModal].onclick = ev => ev.stopPropagation();
     $.body.onclick = closeModal;
@@ -295,7 +293,6 @@ function changeInfoForm (selected, inputs) {
         data.append("profile", window.uploadSrc?? window.src[selected.dataset.name]);
 
     data.append("type", "change");
-
     return data;
 }
 
@@ -356,7 +353,7 @@ async function changePasswd () {
     if (response.status == 500)
         return null;
 
-    cleanInputs(inputs)
+    cleanInputs(inputs);
     showBox($.information);
 }
 
@@ -371,7 +368,7 @@ $.password.select(".submit").event("click", changePasswd);
         imageElm.src = blobURL(window.uploadSrc);
         imageElm.style.display = "block";
 
-        $.select("#informations-box > img").src = $.detailsProfile.src = imageElm.src;
+        $.information.select("img").src = $.detailsProfile.src = imageElm.src;
         
         if (isExists(".selected"))
             $.select(".selected").classList.remove("selected");
