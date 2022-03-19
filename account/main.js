@@ -141,7 +141,7 @@ function checkChanged (inputs) {
 
 function insertInfo (data) {
     const img = new Image(),
-        changeInputs = $.change.select(".input input");
+        changeInputs = $.change.select(".input input:not([name=password])");
 
     img.src = $.information.select("img").src = $.detailsProfile.src = blobURL(data.profile);
     img.draggable = false;
@@ -152,13 +152,11 @@ function insertInfo (data) {
 
     $.clientName.innerText = changeInputs[0].value = data.firstName;
     changeInputs[1].value = data.username;
-    changeInputs.forEach(input => input.classList.add("active"));
-
-    isExists(".selected")?.classList?.remove("selected");
+    changeInputs.forEach(input => inputValue(input));
 
     // INSERT EMAIL TO INPUT THEN CREATE BOXES
 
-    resetForm(null, changeInputs);
+    resetForm(isExists(".selected"), changeInputs);
     showBox($.information);
 }
 
@@ -333,12 +331,9 @@ function cleanInputs (inputs) {
     if (inputs instanceof Element)
         inputs = [inputs];
 
-    inputs.forEach(input => {
-        const placeholder = input.parentNode.select(".placeholder");
-        
+    inputs.forEach(input => {        
         input.value = "";
-        placeholder.classList.remove("active");
-        placeholder.removeChild(placeholder.select("span"));
+        inputValue(input);
     });
 }
 
