@@ -162,7 +162,7 @@
         <div class="center-item" id="forgot-password-box">
             <img src="/images/forgot-password.svg" loading="lazy" alt="forgot password" draggable="flase">
 
-            <form action="">
+            <form action="" class="center-item">
                 <div class="input">
                     <input type="text" name="username" required>
                     <p class="placeholder">Username</p>

@@ -387,6 +387,21 @@ async function changeEmail () {
 $.email.select(".submit").event("click", changeEmail);
 
 
+async function forgotPasswd () {
+    const validate = new Validate($.forgot.select("form"));
+
+    if (!validate.data)
+        return null;
+
+    const response = await ajax("check.php", validate.data, "POST");
+
+    if (response.status == 200)
+        showBox($.login);
+}
+
+$.forgot.select(".submit").event("click", forgotPasswd);
+
+
 (function uploadImage (input, imageElm) {
     function insert () {
         window.uploadSrc = reader.result.slice(reader.result.search(":") + 1, reader.result.search(";")) + ";";

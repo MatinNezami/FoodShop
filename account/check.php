@@ -217,6 +217,7 @@
 		if ($_POST["password"] != $info["password"])
 			die("{\"status\": 500, \"message\": \"password didn't match\"}");
 
+		checkValidate($_POST);
 		existsUser("", $_POST["email"]);
 
 		$update = $GLOBALS["connection"]->prepare("UPDATE `users` SET `email` = ? WHERE `username` = ?");
@@ -227,6 +228,27 @@
 			die($GLOBALS["notExec"]);
 
 		die("{\"status\": 200, \"message\": \"check new email\"}");
+	}
+
+
+	function resetPasswd () {
+		checkValidate($_POST);
+
+		$email = $GLOBALS["connection"]->prepare("SELECT `accept` FROM `users` WHERE `email` = ? AND `username` = ?");
+		$email->bindValue(1, $_POST["email"]);
+		$email->bindValue(2, $_POST["username"]);
+
+		$email->execute() or
+			die($GLOBALS["notExec"]);
+
+		if (!$email->rowCount())
+			die("{\"status\": 500, \"message\": \"this informations isn't exists\"}");
+
+		if (!$email->fetch(PDO::FETCH_ASSOC)["accept"])
+			die("{\"status\": 500, \"message\": \"please accept your email\"}");
+
+		// WHAT IS STRUCTUTE ?????????????
+		die("{\"status\": 200, \"message\": \"check your email\"}");
 	}
 
 
@@ -266,6 +288,9 @@
 
 			case "change-email":
 				changeEmail();
+
+			case "reset-password":
+				resetPasswd();
 		}
 	})();
 
