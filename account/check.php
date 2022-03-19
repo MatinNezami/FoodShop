@@ -159,6 +159,9 @@
 		if ($info["password"] != $_POST["password"])
 			die("{\"status\": 500, \"message\": \"password didn't match\"}");
 
+		if (isset($_POST["username"]) && existsUser($_POST["username"], ""))
+			die("{\"status\": 500, \"message\": \"this username is exists\"}");
+
 		$_POST["username"] = $info["username"];
 		unset($_POST["type"]);
 		checkValidate($_POST);
