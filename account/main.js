@@ -140,7 +140,8 @@ function checkChanged (inputs) {
 
 function insertInfo (data) {
     const img = new Image(),
-        changeInputs = $.change.select(".input input:not([name=password])");
+        changeInputs = $.change.select(".input input:not([name=password])"),
+        email = $.email.select(".input input[name=email]");
 
     img.src = $.information.select("img").src = $.detailsProfile.src = blobURL(data.profile);
     img.draggable = false;
@@ -153,7 +154,8 @@ function insertInfo (data) {
     changeInputs[1].value = data.username;
     changeInputs.forEach(input => inputValue(input));
 
-    // INSERT EMAIL TO INPUT THEN CREATE BOXES
+    email.defaultValue = email.value = data.email;
+    inputValue(email);
 
     resetForm(isExists(".selected"), changeInputs);
     showBox($.information);

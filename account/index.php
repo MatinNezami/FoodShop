@@ -271,7 +271,7 @@
 
             <form action="" class="center-item">
                 <div class="input">
-                    <input type="email" name="email" required>
+                    <input type="email" name="email" value="<?php echo $info["email"]?? null ?>" required>
                     <p class="placeholder">Email</p>
                 </div>
 
