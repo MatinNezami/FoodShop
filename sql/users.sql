@@ -5,5 +5,6 @@ CREATE TABLE `users` (
     `password` VARCHAR(30) NOT NULL,
     `firstName` VARCHAR(30) NOT NULL,
     `token` VARCHAR(255) UNIQUE NOT NULL,
-    `profile` MEDIUMBLOB NOT NULL
+    `profile` MEDIUMBLOB NOT NULL,
+    `acceptCode` VARCHAR(6)
 );
