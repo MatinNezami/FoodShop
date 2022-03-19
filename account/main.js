@@ -339,8 +339,8 @@ function cleanInputs (inputs) {
 }
 
 async function changePasswd () {
-    const validate = new Validate($.password.select("form"), false),
-        inputs = $.password.select(".input input:not([name=password])");
+    const validate = new Validate($.password.select("form"), false);
+    let inputs = $.password.select(".input input:not([name=password])");
 
     if (inputs[1].value && inputs[0].value == inputs[1].value)
         return Validate.error(inputs[1], "new password match with old password");
@@ -352,6 +352,9 @@ async function changePasswd () {
 
     if (response.status == 500)
         return null;
+
+    inputs = [...inputs];
+    inputs.push($.password.select("input[name=password]"))
 
     cleanInputs(inputs);
     showBox($.information);
