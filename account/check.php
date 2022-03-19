@@ -211,6 +211,25 @@
 	}
 
 
+	function changeEmail () {
+		global $info;
+
+		if ($_POST["password"] != $info["password"])
+			die("{\"status\": 500, \"message\": \"password didn't match\"}");
+
+		existsUser("", $_POST["email"]);
+
+		$update = $GLOBALS["connection"]->prepare("UPDATE `users` SET `email` = ? WHERE `username` = ?");
+		$update->bindValue(1, $_POST["email"]);
+		$update->bindValue(2, $info["username"]);
+
+		$update->execute() or
+			die($GLOBALS["notExec"]);
+
+		die("{\"status\": 200, \"message\": \"check new email\"}");
+	}
+
+
 	(function () {
 		if (!isset($_GET["type"]))
 			return NULL;
@@ -244,6 +263,9 @@
 
 			case "change-password":
 				changePasswd();
+
+			case "change-email":
+				changeEmail();
 		}
 	})();
 

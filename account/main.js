@@ -329,7 +329,7 @@ function cleanInputs (inputs) {
     if (inputs instanceof Element)
         inputs = [inputs];
 
-    inputs.forEach(input => {        
+    inputs.forEach(input => {
         const placeholder = input.parentNode.select(".placeholder");
         
         input.value = "";
@@ -354,13 +354,37 @@ async function changePasswd () {
         return null;
 
     inputs = [...inputs];
-    inputs.push($.password.select("input[name=password]"))
+    inputs.push($.password.select("input[name=password]"));
 
     cleanInputs(inputs);
     showBox($.information);
 }
 
 $.password.select(".submit").event("click", changePasswd);
+
+
+async function changeEmail () {
+    const inputs = [$.email.select(".input input:not([name=password])")];
+
+    if (!checkChanged(inputs))
+        return Validate.error(inputs[0], "email hasn't changed");
+
+    const validate = new Validate($.email.select("form"), false);
+
+    if (!validate.data)
+        return null;
+
+    const response = await ajax("check.php", validate.data, "POST");
+
+    if (response.status == 500)
+        return null;
+
+    cleanInputs($.email.select("input[name=password]"));
+    showBox($.information);
+    resetForm(null, inputs)
+}
+
+$.email.select(".submit").event("click", changeEmail);
 
 
 (function uploadImage (input, imageElm) {
