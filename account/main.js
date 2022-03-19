@@ -334,7 +334,7 @@ function cleanInputs (inputs) {
         
         input.value = "";
         placeholder.classList.remove("active");
-        placeholder.removeChild(placeholder.select("span"));
+        placeholder.select("span")?.remove();
     });
 }
 
@@ -342,7 +342,7 @@ async function changePasswd () {
     const validate = new Validate($.password.select("form"), false),
         inputs = $.password.select(".input input:not([name=password])");
 
-    if (input[1].value && inputs[0].value == inputs[1].value)
+    if (inputs[1].value && inputs[0].value == inputs[1].value)
         return Validate.error(inputs[1], "new password match with old password");
 
     if (!validate.data)
