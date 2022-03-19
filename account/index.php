@@ -164,6 +164,11 @@
 
             <form action="">
                 <div class="input">
+                    <input type="text" name="username" required>
+                    <p class="placeholder">Username</p>
+                </div>
+
+                <div class="input">
                     <input type="email" name="email" required>
                     <p class="placeholder">Email</p>
                 </div>
