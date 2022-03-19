@@ -217,7 +217,7 @@
 		checkValidate($_POST);
 		existsUser("", $_POST["email"]);
 
-		$update = $GLOBALS["connection"]->prepare("UPDATE `users` SET `email` = ? WHERE `username` = ?");
+		$update = $GLOBALS["connection"]->prepare("UPDATE `users` SET `email` = ?, `accept` = 0 WHERE `username` = ?");
 		$update->bindValue(1, $_POST["email"]);
 		$update->bindValue(2, $info["username"]);
 
