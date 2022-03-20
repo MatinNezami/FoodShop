@@ -51,6 +51,16 @@ main > div > * {
     margin-bottom: 25px;
 }
 
+main > div::before {
+    content: "";
+    position: absolute;
+    width: calc(100% + 20px);
+    height: calc(100% + 20px);
+    background: #FFF6;
+    border-radius: inherit;
+    z-index: -1;
+}
+
 main > div > button,
 main > div > label,
 .modal label {
