@@ -415,15 +415,11 @@ $.forgot.select(".submit").event("click", forgotPasswd);
 
         imageElm.style.display = "block";
         $.information.select("img").src = $.detailsProfile.src = imageElm.src = blobURL(window.uploadSrc);
-
-        isExists(".selected")?.classList?.remove(".selected");
-        profileImages.forEach(img => img.onclick = null);
     }
 
     function remove () {
         this.style.display = "none";
         input.value = null;
-        profileImages.forEach(img => img.onclick = selectProfile);
     }
 
     imageElm.event("click", remove);
