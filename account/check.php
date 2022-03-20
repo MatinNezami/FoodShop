@@ -76,8 +76,24 @@
 		cookie($token);
 	}
 
+	function checkProfile () {
+		if (!isset($_POST["profile"]))
+			die("{\"status\": 500, \"message\": \"profile isn't exists\"}");
+
+		$src = base64_decode(substr($_POST["profile"], strpos($_POST["profile"], ";") + 1, -1));
+
+		if (strlen($src) > 10000000)
+			die("{\"status\": 500, \"message\": \"profile is long\"}");
+	
+		$infoOpen = finfo_open();
+	
+		if (!str_contains(finfo_buffer($infoOpen, $src, FILEINFO_MIME_TYPE), "image"))
+			die("{\"status\": 500, \"message\": \"profile isn't image\"}");
+	}
+
 	// work on this function CREATE FAVORITE AND SAVE PRODUCTS
 	function register () {
+		checkProfile();
 		checkValidate($_POST);
 
 		existsUser($_POST["username"], $_POST["email"]);
@@ -162,6 +178,9 @@
 		$_POST["username"] = $info["username"];
 		unset($_POST["type"]);
 		checkValidate($_POST);
+
+		if (isset($_POST["profile"]))
+			checkProfile();
 
 		$query = "UPDATE `users` SET ";
 		

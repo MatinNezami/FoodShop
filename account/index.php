@@ -82,9 +82,7 @@
                 </div>
 
                 <ul>
-                    <li>
-                        use number, capitalize letter and specific character
-                    </li>
+                    <li>use number, capitalize letter and specific character</li>
                 </ul>
 
                 <div class="input">
@@ -97,7 +95,7 @@
                     <p class="placeholder">Re-enter Password</p>
                 </div>
 
-                <input type="file" id="custom-profile" autocomplete="off">
+                <input type="file" accept="image/*" id="custom-profile" autocomplete="off">
 
                 <input type="hidden" name="type" value="register">
             </form>
@@ -111,8 +109,13 @@
 
             <div class="profile-images center-item">
                 <div class="center-item"></div>
-                
                 <div class="center-item"></div>
+            </div>
+
+            <div class="center-item">
+                <ul>
+                    <li>muximum custom profile size 10 MB</li>
+                </ul>
             </div>
 
             <img src="" alt="custom profile" draggable="false" id="custom-profile-image">

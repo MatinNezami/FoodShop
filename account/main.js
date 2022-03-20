@@ -404,17 +404,19 @@ $.forgot.select(".submit").event("click", forgotPasswd);
 
 (function uploadImage (input, imageElm) {
     function insert () {
+        if (!input.files[0].type.startsWith("image"))
+            return message("your upload file isn't image");
+
+        if (input.files[0].size > 10000000)
+            return message("your upload file is long");
+
         window.uploadSrc = reader.result.slice(reader.result.search(":") + 1, reader.result.search(";")) + ";";
         window.uploadSrc += reader.result.slice(reader.result.search(",") + 1);
 
-        imageElm.src = blobURL(window.uploadSrc);
         imageElm.style.display = "block";
+        $.information.select("img").src = $.detailsProfile.src = imageElm.src = blobURL(window.uploadSrc);
 
-        $.information.select("img").src = $.detailsProfile.src = imageElm.src;
-        
-        if (isExists(".selected"))
-            $.select(".selected").classList.remove("selected");
-
+        isExists(".selected")?.classList?.remove(".selected");
         profileImages.forEach(img => img.onclick = null);
     }
 
