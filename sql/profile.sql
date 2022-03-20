@@ -1,6 +1,6 @@
 CREATE TABLE `profile` (
 	`key` INT(1) PRIMARY KEY CHECK(`key` <= 8),
-	`img` BLOB NOT NULL
+	`img` MEDIUMBLOB NOT NULL
 );
 
 
