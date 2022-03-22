@@ -13,9 +13,11 @@ cd php-8.1.4;
 ./configure --with-pdo-mysql;
 make install;
 
+yum install -y php-mysqlnd;
+
 setsebool -P httpd_can_network_connect=1;
 setsebool -P httpd_can_network_connect_db=1;
 
 #mv -f +++ your nginx.conf +++ /etc/nginx;
 #rm -fr /var/www/html/*;
-#cp -rf +++ your push code from githum +++ /var/www/html;
+#cp -rf +++ your push code from github +++ /var/www/html;
