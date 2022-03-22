@@ -9,12 +9,6 @@ body > img {
     z-index: -1;
 }
 
-main > div.center-item {
-    opacity: 0;
-    transition: opacity 230ms ease-in 0s;
-    display: none;
-}
-
 .profile-images {
     max-height: 0;
     width: 80%;

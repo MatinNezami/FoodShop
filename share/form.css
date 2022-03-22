@@ -44,7 +44,20 @@ main > div.center-item {
     flex-direction: column;
     padding: 20px 0;
     margin: 30px 0;
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    left: 0;
+    opacity: 0;
+}
+
+main > div.center-item.active {
+    opacity: 1;
     position: relative;
+    z-index: unset;
+    top: unset;
+    left: unset;
+    transition: opacity 230ms ease-in 0s;
 }
 
 main > div > * {
