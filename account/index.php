@@ -29,30 +29,7 @@
     <link rel="stylesheet" type="text/css" href="./responsive.css">
 
     <script>
-        <?php
-            (function () {
-                $userCookie = isset($_COOKIE["token"])? "const flag = \"information\";": "const flag = \"login\";";
-
-                if (!isset($_GET["page"])) {
-                    echo $userCookie;
-                    return NULL;
-                }
-
-                switch ($_GET["page"]) {
-                    case "login":
-                        echo "const flag = \"login\";";
-                        break;
-
-                    case "signup":
-                        echo "const flag = \"signup\";";
-                        break;
-
-                    case "information":
-                        echo $userCookie;
-                        break;
-                }
-            })();
-        ?>
+        <?php echo "const client = {login: " . (isset($_COOKIE["token"])? "true": "false") . "};" ?>
     </script>
 </head>
 
@@ -153,7 +130,7 @@
 
             <button class="login-google">With Google</button>
 
-            <button class="forgot-password" data-target-box="forgot">Forgot Password</button>
+            <button class="forgot-password" data-target-box="forgot-password">Forgot Password</button>
 
             <div class="control center-item">
                 <button class="signup" data-target-box="signup">Sign Up</button>
@@ -184,16 +161,16 @@
             </div>
         </div>
 
-        <div class="center-item" id="informations-box">
+        <div class="center-item" id="informations-box" data-logined="true">
             <img src="<?php echo $src ?>" loading="lazy" alt="user profile" draggable="false">
             <h2>Hey <span><?php echo $info["firstName"]?? "client" ?></span></h2>
 
             <button class="logout">Log out</button>
 
-            <button class="change-info" data-target-box="change">Change Informations</button>
+            <button class="change-info" data-target-box="change-info">Change Informations</button>
         </div>
         
-        <div class="center-item" id="change-informations-box">
+        <div class="center-item" id="change-informations-box" data-logined="true">
             <div class="details-profile">
                 <img src="<?php echo $src ?>" loading="lazy" alt="user profile" draggable="false">
 
@@ -229,8 +206,8 @@
                 <label for="show-change">Show Password</p>
             </div>
 
-            <button class="change-email" data-target-box="email">Change Email</button>
-            <button class="change-password" data-target-box="password">Change Password</button>
+            <button class="change-email" data-target-box="change-email">Change Email</button>
+            <button class="change-password" data-target-box="change-password">Change Password</button>
             <button class="apply">Apply</button>
             
             <div class="center-item modal" id="change-profile-modal">
@@ -238,7 +215,7 @@
             </div>
         </div>
 
-        <div class="center-item" id="change-password-box">
+        <div class="center-item" id="change-password-box" data-logined="true">
             <img src="/images/change-password.svg" loading="lazy" alt="change password" draggable="flase">
 
             <form action="" class="center-item">
@@ -274,7 +251,7 @@
             <button class="submit">Change</button>
         </div>
 
-        <div class="center-item" id="change-email-box">
+        <div class="center-item" id="change-email-box" data-logined="true">
             <img src="/images/change-email.svg" loading="lazy" alt="change email" draggable="flase">
 
             <form action="" class="center-item">

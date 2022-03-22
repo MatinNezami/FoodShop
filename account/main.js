@@ -10,22 +10,43 @@ $.select("header", "header");
 
 $.select("#login-box", "login");
 $.select("#signup-box", "signup");
-$.select("#forgot-password-box", "forgot");
+$.select("#forgot-password-box", "forgot-password");
 $.select("#informations-box", "information");
-$.select("#change-informations-box", "change");
-$.select("#change-password-box", "password");
-$.select("#change-email-box", "email");
+$.select("#change-informations-box", "change-info");
+$.select("#change-password-box", "change-password");
+$.select("#change-email-box", "change-email");
 
 $.select("main > div", "mainBoxes");
 
 $.information.select("h2 span", "clientName");
-$.change.select(".details-profile img", "detailsProfile");
+$["change-info"].select(".details-profile img", "detailsProfile");
 
 const profilesBox = $.select(".profile-images"),
     reader = new FileReader();
 
-showBox($[flag]);
+(_ => {
 
+    function getRequest (key) {
+        const regex = new RegExp(`${key + "="}.*`),
+            match = location.search.match(regex);
+      
+        if (!match)
+            return null;
+      
+        let end = match[0].search("&");
+        if (end < 0) end = undefined;
+      
+        return match[0].slice(match[0].search("=") + 1, end);
+    }
+
+    const page = getRequest("page");
+
+    if (!$[page])
+        return showBox(client.login? $.information: $.login);
+
+    client.login? showBox($[page]): showBox($[page].dataset.logined? $.login: $[page]);
+
+})();
 
 function image (src, alt) {
     const img = new Image();
@@ -140,8 +161,8 @@ function checkChanged (inputs) {
 
 function insertInfo (data) {
     const img = image(blobURL(data.profile), "user profile"),
-        changeInputs = $.change.select(".input input:not([name=password])"),
-        email = $.email.select(".input input[name=email]");
+        changeInputs = $["change-info"].select(".input input:not([name=password])"),
+        email = $["change-email"].select(".input input[name=email]");
 
     $.information.select("img").src = $.detailsProfile.src = img.src;
 
@@ -273,9 +294,9 @@ function insertChange (selected, inputs) {
     if (selected || window.uploadSrc)
         $.userProfile.select("img").src = $.detailsProfile.src;
 
-        $.change.select("input[name=password]").value = "";
+        $["change-info"].select("input[name=password]").value = "";
 
-    $.clientName.innerText = $.change.select("input[name=firstName]").value;    
+    $.clientName.innerText = $["change-info"].select("input[name=firstName]").value;    
     showBox($.information);
 
     resetForm(selected, inputs);
@@ -298,18 +319,17 @@ function changeInfoForm (selected, inputs) {
 
 async function changeInfo () {
     const selected = isExists(".selected"),
-        password = $.change.select("input[name=password]");
-    let inputs = $.change.select(".input input:not([name=password])");
+        password = $["change-info"].select("input[name=password]");
+    let inputs = [...$["change-info"].select(".input input:not([name=password])")];
 
     if (!(selected || window.uploadSrc || checkChanged(inputs)))
         return Validate.error(inputs[0], "information hasn't changed");
     
-    const validate = new Validate($.change.select("form"));
+    const validate = new Validate($["change-info"].select("form"));
 
     if (!validate.data)
         return null;
 
-    inputs = [...inputs];
     inputs.push(password);
     
     const data = changeInfoForm(selected, inputs),
@@ -322,7 +342,7 @@ async function changeInfo () {
     cleanInputs(password);
 }
 
-$.change.select(".apply").event("click", changeInfo);
+$["change-info"].select(".apply").event("click", changeInfo);
 
 
 function cleanInputs (inputs) {
@@ -339,8 +359,8 @@ function cleanInputs (inputs) {
 }
 
 async function changePasswd () {
-    const validate = new Validate($.password.select("form"), false);
-    let inputs = $.password.select(".input input:not([name=password])");
+    const validate = new Validate($["change-password"].select("form"), false);
+    let inputs = [...$["change-password"].select(".input input:not([name=password])")];
 
     if (inputs[1].value && inputs[0].value == inputs[1].value)
         return Validate.error(inputs[1], "new password match with old password");
@@ -353,23 +373,22 @@ async function changePasswd () {
     if (response.status == 500)
         return null;
 
-    inputs = [...inputs];
-    inputs.push($.password.select("input[name=password]"));
+    inputs.push($["change-password"].select("input[name=password]"));
 
     cleanInputs(inputs);
     showBox($.information);
 }
 
-$.password.select(".submit").event("click", changePasswd);
+$["change-password"].select(".submit").event("click", changePasswd);
 
 
 async function changeEmail () {
-    const inputs = [$.email.select(".input input:not([name=password])")];
+    const inputs = [$["change-email"].select(".input input:not([name=password])")];
 
     if (!checkChanged(inputs))
         return Validate.error(inputs[0], "email hasn't changed");
 
-    const validate = new Validate($.email.select("form"), false);
+    const validate = new Validate($["change-email"].select("form"), false);
 
     if (!validate.data)
         return null;
@@ -379,16 +398,16 @@ async function changeEmail () {
     if (response.status == 500)
         return null;
 
-    cleanInputs($.email.select("input[name=password]"));
+    cleanInputs($["change-email"].select("input[name=password]"));
     showBox($.information);
     resetForm(null, inputs)
 }
 
-$.email.select(".submit").event("click", changeEmail);
+$["change-email"].select(".submit").event("click", changeEmail);
 
 
 async function forgotPasswd () {
-    const validate = new Validate($.forgot.select("form"));
+    const validate = new Validate($["forgot-password"].select("form"));
 
     if (!validate.data)
         return null;
@@ -399,7 +418,7 @@ async function forgotPasswd () {
         showBox($.login);
 }
 
-$.forgot.select(".submit").event("click", forgotPasswd);
+$["forgot-password"].select(".submit").event("click", forgotPasswd);
 
 
 (function uploadImage (input, imageElm) {
