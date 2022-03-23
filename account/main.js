@@ -23,13 +23,13 @@ const profilesBox = $.select(".profile-images"),
     reader = new FileReader(),
     page = getRequest("page");
 
-let box;
+let box = page;
 
 if (!$[page])
     showBox(box = client.login? "informations": "login", false);
 
 else
-    showBox(box = client.login? page: $[page].dataset.logined? "login": page, false);
+    showBox(page, false);
 
 history.replaceState(null, "", `?page=${box}`);
 
@@ -132,9 +132,13 @@ window.addEventListener("popstate", _ => showBox(getRequest("page"), false));
 function showBox (targetBox, push = true) {
     isExists("main > div.active")?.classList?.remove("active");
 
-    const box = (targetBox instanceof Event? $[this.dataset.targetBox]: $[targetBox]);
-    box.classList.add("active");
+    let box = targetBox instanceof Event? $[this.dataset.targetBox]: $[targetBox];
 
+    if (box.dataset.logined && !client.login)
+        box = $.login;
+
+    box.classList.add("active");
+    
     if (push)
         history.pushState(null, "", `?page=${box.id}`);
 }
@@ -170,7 +174,7 @@ function insertInfo (data) {
     inputValue(email);
 
     resetForm(isExists(".selected"), changeInputs);
-    showBox("information");
+    showBox("informations");
 }
 
 async function signup () {
@@ -207,6 +211,8 @@ async function logout () {
     if (response.status == 500)
         return null;
     
+    client.login = false;
+
     $.userProfile.innerHTML = "";
     $.userProfile.appendChild($.userSVG.content.cloneNode(true));
     showBox("login");
@@ -233,6 +239,8 @@ async function login () {
 
     if (response.status == 500)
         return null;
+
+    client.login = true;
     
     cleanInputs($.login.select(".input input"));
     insertInfo(response.info);
@@ -290,7 +298,7 @@ function insertChange (selected, inputs) {
         $["change-info"].select("input[name=password]").value = "";
 
     $.clientName.innerText = $["change-info"].select("input[name=firstName]").value;    
-    showBox("information");
+    showBox("informations");
 
     resetForm(selected, inputs);
 }
@@ -369,7 +377,7 @@ async function changePasswd () {
     inputs.push($["change-password"].select("input[name=password]"));
 
     cleanInputs(inputs);
-    showBox("information");
+    showBox("informations");
 }
 
 $["change-password"].select(".submit").event("click", changePasswd);
@@ -392,7 +400,7 @@ async function changeEmail () {
         return null;
 
     cleanInputs($["change-email"].select("input[name=password]"));
-    showBox("information");
+    showBox("informations");
     resetForm(null, inputs)
 }
 
