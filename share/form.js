@@ -1,5 +1,35 @@
 $.inputs = $.querySelectorAll(".input input");
 
+function findInput (current, next = 2) {
+    if (!current || current.classList.contains("input"))
+        return current;
+
+    for (let i = 0; i < next; i++) {
+        current = current?.nextElementSibling;
+
+        if (current && current.classList.contains("input"))
+            break;
+    }
+
+    return current?.classList?.contains("input")? current: null;
+}
+
+function next (event) {
+    if (event.which != 13)
+        return null;
+
+    this.blur();
+    const next = findInput(this.parentNode.nextElementSibling);
+
+    if (next)
+        return next.select("input").focus();
+
+    this.offsetParent.offsetParent.select(".submit, .apply").click();
+}
+
+$.inputs.event("keydown", next);
+
+
 function inputValue (input) {
     const placeholder = input.parentNode.select(".placeholder");
 
