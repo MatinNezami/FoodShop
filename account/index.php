@@ -39,7 +39,7 @@
     </header>
 
     <main class="center-item">
-        <div class="center-item" id="signup-box">
+        <div class="center-item" id="signup">
             <img src="/images/register.svg" loading="lazy" alt="signup picture" draggable="false">
 
             <form action="" class="center-item">
@@ -106,7 +106,7 @@
             </div>
         </div>
 
-        <div class="center-item" id="login-box">
+        <div class="center-item" id="login">
             <img src="/images/login.svg" loading="lazy" alt="login picture" draggable="false">
 
             <form action="" class="center-item">
@@ -139,7 +139,7 @@
             </div>
         </div>
 
-        <div class="center-item" id="forgot-password-box">
+        <div class="center-item" id="forgot-password">
             <img src="/images/forgot-password.svg" loading="lazy" alt="forgot password" draggable="flase">
 
             <form action="" class="center-item">
@@ -161,7 +161,7 @@
             </div>
         </div>
 
-        <div class="center-item" id="informations-box" data-logined="true">
+        <div class="center-item" id="informations" data-logined="true">
             <img src="<?php echo $src ?>" loading="lazy" alt="user profile" draggable="false">
             <h2>Hey <span><?php echo $info["firstName"]?? "client" ?></span></h2>
 
@@ -170,7 +170,7 @@
             <button class="change-info" data-target-box="change-info">Change Informations</button>
         </div>
         
-        <div class="center-item" id="change-informations-box" data-logined="true">
+        <div class="center-item" id="change-info" data-logined="true">
             <div class="details-profile">
                 <img src="<?php echo $src ?>" loading="lazy" alt="user profile" draggable="false">
 
@@ -215,7 +215,7 @@
             </div>
         </div>
 
-        <div class="center-item" id="change-password-box" data-logined="true">
+        <div class="center-item" id="change-password" data-logined="true">
             <img src="/images/change-password.svg" loading="lazy" alt="change password" draggable="flase">
 
             <form action="" class="center-item">
@@ -251,7 +251,7 @@
             <button class="submit">Change</button>
         </div>
 
-        <div class="center-item" id="change-email-box" data-logined="true">
+        <div class="center-item" id="change-email" data-logined="true">
             <img src="/images/change-email.svg" loading="lazy" alt="change email" draggable="flase">
 
             <form action="" class="center-item">

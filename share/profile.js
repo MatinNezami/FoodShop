@@ -21,7 +21,7 @@ function blobURL (base64) {
         const link = document.createElement("A"),
             img = new Image();
 
-        link.href = "/account?page=information";
+        link.href = "/account?page=informations";
         img.src = blobURL(userProfile);
 
         link.appendChild(img);

@@ -59,16 +59,16 @@ input[type=file] {
     filter: brightness(70%);
 }
 
-#forgot-password-box,
-#informations-box {
+#forgot-password,
+#informations {
     width: 450px;
 }
 
-#forgot-password-box img {
+#forgot-password img {
     margin-bottom: 50px;
 }
 
-#forgot-password-box div button {
+#forgot-password div button {
     width: 100%;
     height: 100%;
     border-radius: 10px;
@@ -82,12 +82,12 @@ input[type=file] {
     background-color: #2EC4B6;
 }
 
-#informations-box img,
-#change-informations-box img {
+#informations img,
+#change-informations img {
     border-radius: 50%;
 }
 
-#informations-box h2,
+#informations h2,
 #message p {
     overflow: hidden;
     text-overflow: ellipsis;
@@ -98,7 +98,7 @@ input[type=file] {
     user-select: none;
 }
 
-#informations-box h2 {
+#informations h2 {
     white-space: pre;
     text-align: center;
     min-width: 90%;

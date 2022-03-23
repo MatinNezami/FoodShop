@@ -8,45 +8,45 @@ $.select(".profile-images > div:last-of-type", "lastProfile");
 
 $.select("header", "header");
 
-$.select("#login-box", "login");
-$.select("#signup-box", "signup");
-$.select("#forgot-password-box", "forgot-password");
-$.select("#informations-box", "information");
-$.select("#change-informations-box", "change-info");
-$.select("#change-password-box", "change-password");
-$.select("#change-email-box", "change-email");
+$.select("#login", "login");
+$.select("#signup", "signup");
+$.select("#forgot-password", "forgot-password");
+$.select("#informations", "informations");
+$.select("#change-info", "change-info");
+$.select("#change-password", "change-password");
+$.select("#change-email", "change-email");
 
-$.select("main > div", "mainBoxes");
-
-$.information.select("h2 span", "clientName");
+$.informations.select("h2 span", "clientName");
 $["change-info"].select(".details-profile img", "detailsProfile");
 
 const profilesBox = $.select(".profile-images"),
-    reader = new FileReader();
+    reader = new FileReader(),
+    page = getRequest("page");
 
-(_ => {
+let box;
 
-    function getRequest (key) {
-        const regex = new RegExp(`${key + "="}.*`),
-            match = location.search.match(regex);
+if (!$[page])
+    showBox(box = client.login? "informations": "login", false);
+
+else
+    showBox(box = client.login? page: $[page].dataset.logined? "login": page, false);
+
+history.replaceState(null, "", `?page=${box}`);
+
+
+function getRequest (key) {
+    const regex = new RegExp(`${key + "="}.*`),
+        match = location.search.match(regex);
       
-        if (!match)
-            return null;
+    if (!match)
+        return null;
       
-        let end = match[0].search("&");
-        if (end < 0) end = undefined;
+    let end = match[0].search("&");
+    if (end < 0) end = undefined;
       
-        return match[0].slice(match[0].search("=") + 1, end);
-    }
+    return match[0].slice(match[0].search("=") + 1, end);
+}
 
-    const page = getRequest("page");
-
-    if (!$[page])
-        return showBox(client.login? $.information: $.login);
-
-    client.login? showBox($[page]): showBox($[page].dataset.logined? $.login: $[page]);
-
-})();
 
 function image (src, alt) {
     const img = new Image();
@@ -127,23 +127,16 @@ function selectProfile () {
 $.select(".profile").event("click", async _ => (await createProfiles())?.forEach(signupProfiles), showProfiles);
 
 
-function showBox (targetBox) {
-    function hide (box) {
-        box.style.display = "none";
-        box.style.opacity = "0";
-    }
+window.addEventListener("popstate", _ => showBox(getRequest("page"), false));
 
-    function show (box) {
-        box.style.display = "flex";
+function showBox (targetBox, push = true) {
+    isExists("main > div.active")?.classList?.remove("active");
 
-        setTimeout (_ => {
-            box.style.opacity = "1";
-        }, 10);
-    }
+    const box = (targetBox instanceof Event? $[this.dataset.targetBox]: $[targetBox]);
+    box.classList.add("active");
 
-    $.mainBoxes.forEach(box => hide(box));
-
-    targetBox instanceof Event? show($[this.dataset.targetBox]): show(targetBox);
+    if (push)
+        history.pushState(null, "", `?page=${box.id}`);
 }
 
 $.select("[data-target-box]").event("click", showBox);
@@ -164,7 +157,7 @@ function insertInfo (data) {
         changeInputs = $["change-info"].select(".input input:not([name=password])"),
         email = $["change-email"].select(".input input[name=email]");
 
-    $.information.select("img").src = $.detailsProfile.src = img.src;
+    $.informations.select("img").src = $.detailsProfile.src = img.src;
 
     $.userProfile.innerHTML = "";
     $.userProfile.appendChild(img);
@@ -177,7 +170,7 @@ function insertInfo (data) {
     inputValue(email);
 
     resetForm(isExists(".selected"), changeInputs);
-    showBox($.information);
+    showBox("information");
 }
 
 async function signup () {
@@ -216,7 +209,7 @@ async function logout () {
     
     $.userProfile.innerHTML = "";
     $.userProfile.appendChild($.userSVG.content.cloneNode(true));
-    showBox($.login);
+    showBox("login");
 }
 
 $.select(".logout").event("click", logout);
@@ -297,7 +290,7 @@ function insertChange (selected, inputs) {
         $["change-info"].select("input[name=password]").value = "";
 
     $.clientName.innerText = $["change-info"].select("input[name=firstName]").value;    
-    showBox($.information);
+    showBox("information");
 
     resetForm(selected, inputs);
 }
@@ -376,7 +369,7 @@ async function changePasswd () {
     inputs.push($["change-password"].select("input[name=password]"));
 
     cleanInputs(inputs);
-    showBox($.information);
+    showBox("information");
 }
 
 $["change-password"].select(".submit").event("click", changePasswd);
@@ -399,7 +392,7 @@ async function changeEmail () {
         return null;
 
     cleanInputs($["change-email"].select("input[name=password]"));
-    showBox($.information);
+    showBox("information");
     resetForm(null, inputs)
 }
 
@@ -415,7 +408,7 @@ async function forgotPasswd () {
     const response = await ajax("check.php", validate.data, "POST");
 
     if (response.status == 200)
-        showBox($.login);
+        showBox("login");
 }
 
 $["forgot-password"].select(".submit").event("click", forgotPasswd);
@@ -433,7 +426,7 @@ $["forgot-password"].select(".submit").event("click", forgotPasswd);
         window.uploadSrc += reader.result.slice(reader.result.search(",") + 1);
 
         imageElm.style.display = "block";
-        $.information.select("img").src = $.detailsProfile.src = imageElm.src = blobURL(window.uploadSrc);
+        $.informations.select("img").src = $.detailsProfile.src = imageElm.src = blobURL(window.uploadSrc);
     }
 
     function remove () {
