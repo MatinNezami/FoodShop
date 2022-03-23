@@ -13,9 +13,14 @@ body > img {
     max-height: 0;
     width: 80%;
     overflow: hidden;
-    margin-bottom: 0;
+    margin-bottom: unset;
     transition: var(--animate);
     height: max-content !important;
+}
+
+.profile-images.active {
+    max-height: 500px;
+    margin-bottom: 25px;
 }
 
 .profile-images > div {
