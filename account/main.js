@@ -23,15 +23,10 @@ const profilesBox = $.select(".profile-images"),
     reader = new FileReader(),
     page = getRequest("page");
 
-let box = page;
 
-if (!$[page])
-    showBox(box = client.login? "informations": "login", false);
-
-else
-    showBox(page, false);
-
-history.replaceState(null, "", `?page=${box}`);
+history.replaceState(null, "", `?page=${
+    renderBox(!$[page]? "informations": page, false)
+}`);
 
 
 function getRequest (key) {
@@ -59,18 +54,16 @@ function image (src, alt) {
 
 
 async function createProfiles () {
-    if (!profileImages && !(await profiles()))
-        return null;
+    return !profileImages && !(await profiles())? null:
+        profileImages.map(profile => {
+            const img = image(blobURL(profile.img), "profile");
 
-    return profileImages.map(profile => {
-        const img = image(blobURL(profile.img), "profile");
-
-        img.dataset.name = profile.key;
-        img.onclick = selectProfile;
-    
-        window.src[profile.key] = profile.img;
-        return img;
-    });
+            img.dataset.name = profile.key;
+            img.onclick = selectProfile;
+        
+            window.src[profile.key] = profile.img;
+            return img;
+        });
 }
 
 async function signupProfiles (img, i) {
@@ -110,11 +103,6 @@ headerImage();
 window.addEventListener("resize", headerImage);
 
 
-function showProfiles () {
-    profilesBox.style.maxHeight = "500px";
-    profilesBox.style.marginBottom = "25px";
-}
-
 function selectProfile () {
     if (isExists(".selected"))
         $.select(".selected").classList.remove("selected");
@@ -124,30 +112,36 @@ function selectProfile () {
     $.select("#informations-box > img").src = $.detailsProfile.src = this.src;
 }
 
-$.select(".profile").event("click", async _ => (await createProfiles())?.forEach(signupProfiles), showProfiles);
+$.select(".profile").event("click",
+    async _ => (await createProfiles())?.forEach(signupProfiles),
+    _ => profilesBox.classList.add("active")
+);
 
 
-window.addEventListener("popstate", _ => showBox(getRequest("page"), false));
+window.addEventListener("popstate", _ => renderBox(getRequest("page"), false));
 
-function showBox (targetBox, push = true) {
-    isExists("main > div.active")?.classList?.remove("active");
-
+function renderBox (targetBox, push = true) {
+    const active = isExists("main > div.active");
     let box = targetBox instanceof Event? $[this.dataset.targetBox]: $[targetBox];
 
     if (box.dataset.logined && !client.login)
         box = $.login;
 
+    if (box == active) return null;
+
+    active?.classList?.remove("active")
     box.classList.add("active");
+
+    if (!push) return box.id;
     
-    if (push)
-        history.pushState(null, "", `?page=${box.id}`);
+    history.pushState(null, "", `?page=${box.id}`);
 }
 
-$.select("[data-target-box]").event("click", showBox);
+$.select("[data-target-box]").event("click", renderBox);
 
 
 function checkChanged (inputs) {
-    let changed = false;
+    let changed;
 
     for (const input of inputs)
         if (input.defaultValue != input.value)
@@ -174,7 +168,7 @@ function insertInfo (data) {
     inputValue(email);
 
     resetForm(isExists(".selected"), changeInputs);
-    showBox("informations");
+    renderBox("informations");
 }
 
 async function signup () {
@@ -206,16 +200,14 @@ $.signup.select(".submit").event("click", signup);
 
 
 async function logout () {
-    const response = await ajax("check.php?type=logout");
-
-    if (response.status == 500)
+    if ((await ajax("check.php?type=logout")).status == 500)
         return null;
     
     client.login = false;
 
     $.userProfile.innerHTML = "";
     $.userProfile.appendChild($.userSVG.content.cloneNode(true));
-    showBox("login");
+    renderBox("login");
 }
 
 $.select(".logout").event("click", logout);
@@ -298,7 +290,7 @@ function insertChange (selected, inputs) {
         $["change-info"].select("input[name=password]").value = "";
 
     $.clientName.innerText = $["change-info"].select("input[name=firstName]").value;    
-    showBox("informations");
+    renderBox("informations");
 
     resetForm(selected, inputs);
 }
@@ -333,10 +325,9 @@ async function changeInfo () {
 
     inputs.push(password);
     
-    const data = changeInfoForm(selected, inputs),
-        response = await ajax("check.php", data, "POST");
+    const data = changeInfoForm(selected, inputs);
 
-    if (response.status == 500)
+    if ((await ajax("check.php", data, "POST")).status == 500)
         return null;
 
     insertChange(selected, inputs);
@@ -369,15 +360,13 @@ async function changePasswd () {
     if (!validate.data)
         return null;
 
-    const response = await ajax("check.php", validate.data, "POST");
-
-    if (response.status == 500)
+    if ((await ajax("check.php", validate.data, "POST")).status == 500)
         return null;
 
     inputs.push($["change-password"].select("input[name=password]"));
 
     cleanInputs(inputs);
-    showBox("informations");
+    renderBox("informations");
 }
 
 $["change-password"].select(".submit").event("click", changePasswd);
@@ -400,7 +389,7 @@ async function changeEmail () {
         return null;
 
     cleanInputs($["change-email"].select("input[name=password]"));
-    showBox("informations");
+    renderBox("informations");
     resetForm(null, inputs)
 }
 
@@ -413,10 +402,8 @@ async function forgotPasswd () {
     if (!validate.data)
         return null;
 
-    const response = await ajax("check.php", validate.data, "POST");
-
-    if (response.status == 200)
-        showBox("login");
+    if ((await ajax("check.php", validate.data, "POST")).status == 200)
+        renderBox("login");
 }
 
 $["forgot-password"].select(".submit").event("click", forgotPasswd);
