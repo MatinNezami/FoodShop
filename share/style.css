@@ -56,17 +56,15 @@ header nav {
     color: #FFF;
 }
 
+#profile svg {
+    cursor: default;
+}
+
 header nav a:not(#profile a),
 header nav span {
     color: #FFF;
     position: relative;
     top: -3px;
-}
-
-#profile,
-#profile a {
-    width: 35px;
-    height: 35px;
 }
 
 #profile a::before {
@@ -84,6 +82,7 @@ header nav .open {
 
 header nav img,
 header nav svg {
+    margin-top: 5px;
     width: 35px;
     height: 35px;
     cursor: pointer;

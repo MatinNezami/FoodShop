@@ -1,5 +1,10 @@
 $.select("#profile", "userProfile");
-$.select("#user", "userSVG");
+$.svg = $.select("#svg").content;
+$.select("#mode", "mode");
+$.moon = $.svg.getElementById("moon");
+$.sun = $.svg.getElementById("sun");
+
+const dark = localStorage.getItem("dark");
 
 function blobURL (base64) {
     let point = base64.search(";");
@@ -15,20 +20,46 @@ function blobURL (base64) {
     return URL.createObjectURL(new Blob([new Uint8Array(byte)], {type: type}));
 }
 
-(_ => {
+(function profile () {
 
-    if (window.userProfile) {
-        const link = document.createElement("A"),
-            img = new Image();
+    if (!window.userProfile)
+        return $.userProfile.appendChild($.svg.getElementById("user"));
 
-        link.href = "/account?page=informations";
-        img.src = blobURL(userProfile);
+    const link = document.createElement("A"),
+        img = new Image();
 
-        link.appendChild(img);
-        $.userProfile.appendChild(link);
-    }
+    link.href = "/account?page=informations";
+    img.src = blobURL(userProfile);
 
-    else
-        $.userProfile.appendChild($.userSVG.content.cloneNode(true));
+    link.appendChild(img);
+    $.userProfile.appendChild(link);
 
 })();
+
+
+(function mode () {
+
+    if (!dark)
+        return $.mode.appendChild($.moon);
+    
+    $.mode.appendChild($.sun);
+    $.body.classList.add("dark");
+
+})();
+
+
+function changeMode () {
+    $.mode.innerHTML = "";
+
+    if (dark) {
+        $.mode.appendChild($.moon);
+        $.body.classList.remove("dark");
+        return localStorage.setItem("dark", "");
+    }
+
+    $.mode.appendChild($.sun);
+    $.body.classList.add("dark");
+    localStorage.setItem("dark", true);
+}
+
+$.mode.event("click", changeMode);
