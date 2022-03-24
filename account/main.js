@@ -184,9 +184,8 @@ async function signup () {
     }
 
     validate.data.append("profile", window.uploadSrc?? window.src[selected.dataset.name]);
-    const response = await ajax("check.php", validate.data, "POST");
 
-    if (response.status == 500)
+    if ((await ajax("check.php", validate.data, "POST")).status == 500)
         return null;
 
     const data = {};
@@ -383,9 +382,7 @@ async function changeEmail () {
     if (!validate.data)
         return null;
 
-    const response = await ajax("check.php", validate.data, "POST");
-
-    if (response.status == 500)
+    if ((await ajax("check.php", validate.data, "POST")).status == 500)
         return null;
 
     cleanInputs($["change-email"].select("input[name=password]"));

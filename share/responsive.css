@@ -24,4 +24,8 @@
     main > div::before {
         display: none;
     }
+
+    .dark header > nav {
+        background-color: #19589B;
+    }
 }
