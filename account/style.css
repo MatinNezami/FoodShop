@@ -87,6 +87,10 @@ input[type=file] {
     background-color: #2EC4B6;
 }
 
+label {
+    color: #000;
+}
+
 #informations img,
 #change-info img {
     border-radius: 50%;
@@ -140,6 +144,18 @@ button svg {
     height: 50px;
     transition: var(--animate);
     cursor: pointer;
+}
+
+.dark main > div.center-item,
+.dark .input input,
+.dark .input .placeholder {
+    background-color: #191B1C;
+}
+
+.dark main > div.center-item,
+.dark .show-password label,
+.dark input {
+    color: #FFF;
 }
 
 /* IF USE MODAL BOX IN OTHER PAGE MOVE THIS CODE TO SHARE DIRECTORY */
