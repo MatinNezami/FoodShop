@@ -2,6 +2,7 @@ $.select("aside.menu", "menu");
 $.select("#prevent", "prevent");
 $.select("#message", "message");
 $.select("#message p", "messageText");
+$.select(".back-to-top", "back");
 
 function closeMenu () {
     $.menu.style.left = "-260px";
@@ -19,7 +20,11 @@ $.prevent.event("click", closeMenu);
 $.select("header nav .open").event("click", openMenu);
 
 
-$.select(".back-to-top").event("click", _ => scrollTo(0, 0));
+$.back.event("click", _ => scrollTo(0, 0));
+
+window.addEventListener("scroll",
+    _ => $.back.style.display = scrollY >= 130? "flex": "none"
+);
 
 
 function message (message) {
