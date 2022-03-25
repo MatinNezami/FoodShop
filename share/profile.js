@@ -4,8 +4,6 @@ $.select("#mode", "mode");
 $.moon = $.svg.getElementById("moon");
 $.sun = $.svg.getElementById("sun");
 
-const dark = localStorage.getItem("dark");
-
 function blobURL (base64) {
     let point = base64.search(";");
     const type = base64.slice(0, point);
@@ -39,7 +37,7 @@ function blobURL (base64) {
 
 (function mode () {
 
-    if (!dark)
+    if (!localStorage.getItem("dark"))
         return $.mode.appendChild($.moon);
     
     $.mode.appendChild($.sun);
@@ -51,7 +49,7 @@ function blobURL (base64) {
 function changeMode () {
     $.mode.innerHTML = "";
 
-    if (dark) {
+    if (localStorage.getItem("dark")) {
         $.mode.appendChild($.moon);
         $.body.classList.remove("dark");
         return localStorage.setItem("dark", "");
