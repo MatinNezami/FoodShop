@@ -245,3 +245,7 @@ aside.menu .links a:hover {
     background-color: var(--navbar-color);
     transition: width 3s linear 0s;
 }
+
+.dark {
+    background-color: #080708;
+}
