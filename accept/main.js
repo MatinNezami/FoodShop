@@ -24,7 +24,7 @@ async function acceptAccount () {
     validate.data.append("token", getRequest("token"));
 
     if ((await ajax("/account/check.php", validate.data, "POST")).status == 200)
-        setTimeout(_ => location.replace("localhost/account"), 3000);
+        setTimeout(_ => location.replace("http://localhost/account"), 3000);
 }
 
 $["accept-account"].select(".submit").event("click", acceptAccount);
