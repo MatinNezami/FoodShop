@@ -29,20 +29,6 @@ history.replaceState(null, "", `?page=${
 }`);
 
 
-function getRequest (key) {
-    const regex = new RegExp(`${key + "="}.*`),
-        match = location.search.match(regex);
-      
-    if (!match)
-        return null;
-      
-    let end = match[0].search("&");
-    if (end < 0) end = undefined;
-      
-    return match[0].slice(match[0].search("=") + 1, end);
-}
-
-
 function image (src, alt) {
     const img = new Image();
 
@@ -119,23 +105,6 @@ $.select(".profile").event("click",
 
 
 window.addEventListener("popstate", _ => renderBox(getRequest("page"), false));
-
-function renderBox (targetBox, push = true) {
-    const active = isExists("main > div.active");
-    let box = targetBox instanceof Event? $[this.dataset.targetBox]: $[targetBox];
-
-    if (box.dataset.logined && !client.login)
-        box = $.login;
-
-    if (box == active) return null;
-
-    active?.classList?.remove("active")
-    box.classList.add("active");
-
-    if (!push) return box.id;
-    
-    history.pushState(null, "", `?page=${box.id}`);
-}
 
 $.select("[data-target-box]").event("click", renderBox);
 

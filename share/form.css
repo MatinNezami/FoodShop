@@ -238,3 +238,20 @@ main > div li {
 #err-tooltip span {
     vertical-align: super;
 }
+
+#error,
+#error::before {
+    background: unset;
+}
+
+.dark main > div.center-item,
+.dark .input input,
+.dark .input .placeholder {
+    background-color: #191B1C;
+}
+
+.dark main > div.center-item,
+.dark .show-password label,
+.dark input {
+    color: #FFF;
+}

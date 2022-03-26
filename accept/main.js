@@ -1,15 +1,21 @@
-$.select("form", "form");
+$.select("#accept-account", "accept-account");
+$.select("#accept-code", "accept-code");
+$.select("#error", "error");
 
-function getRequest (target) {
-    target += "=";
-    const regex = new RegExp(`${target}[^&]*`),
-        result = location.search.match(regex)[0];
+(_ => {
 
-    return result.slice(result.search("=") + 1);
-}
+    const page = getRequest("page");
+    
+    if ($[page] && !isExists("main > div.active"))
+        return renderBox(page, false);
 
-async function accept () {
-    const validate = new Validate($.form, false);
+    renderBox("error", false);
+    history.replaceState(null, "", "?page=error");       
+
+})();
+
+async function acceptAccount () {
+    const validate = new Validate($["accept-account"].select("form"), false);
 
     if (!validate.data)
         return null;
@@ -17,14 +23,8 @@ async function accept () {
     validate.data.append("type", "accept");
     validate.data.append("token", getRequest("token"));
 
-    const response = await ajax("/account/check.php", validate.data, "POST");
-
-    message(response.message);
-
-    if (response.status == 200)
-        setTimeout(() => {
-            location.replace("http://localhost/account?page=information");
-        }, 3050);
+    if ((await ajax("/account/check.php", validate.data, "POST")).status == 200)
+        setTimeout(_ => location.replace("localhost/account"), 3000);
 }
 
-$.select(".submit").event("click", accept);
+$["accept-account"].select(".submit").event("click", acceptAccount);
