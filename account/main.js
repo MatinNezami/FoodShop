@@ -141,7 +141,7 @@ function insertInfo (data) {
 }
 
 async function signup () {
-    const validate = new Validate($.signup.select("form")),
+    const validate = new Validate($.signup.select("form"), true, true),
         selected = isExists(".selected");
 
     if (!validate.data)
