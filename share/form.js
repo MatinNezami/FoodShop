@@ -30,6 +30,26 @@ function next (event) {
 $.inputs.event("keydown", next);
 
 
+function tinyNext (event) {
+    const range = (event.which >= 48 && event.which <= 57) || event.which == 8;
+    if (!this.nextElementSibling && !this.previousElementSibling || !range)
+        return event.preventDefault();
+
+    let input = this.nextElementSibling;
+
+    if (event.which == 8)
+        input = this.previousElementSibling;
+
+    this.value = event.which == 8? "": String.fromCharCode(event.which);
+
+    this.blur();
+    event.preventDefault();
+    input.focus();
+}
+
+$.select(".tiny-inputs input").event("keydown", tinyNext);
+
+
 function inputValue (input) {
     const placeholder = input.parentNode.select(".placeholder");
 
