@@ -145,7 +145,7 @@ main > div li {
 
 .placeholder {
     font-size: 20px;
-    transition: var(--animate);
+    transition: top 160ms ease-in 0s, font-size 160ms ease-in 0s, left 160ms ease-in 0s, transform 160ms ease-in 0s;
     padding: 0 5px;
     top: 50%;
     transform: translateY(-50%);
