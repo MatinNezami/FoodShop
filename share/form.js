@@ -47,7 +47,7 @@ function tinyNext (event) {
     input.focus();
 }
 
-$.select(".tiny-inputs input").event("keydown", tinyNext);
+$.querySelectorAll(".tiny-inputs input").event("keydown", tinyNext);
 
 
 function inputValue (input) {
