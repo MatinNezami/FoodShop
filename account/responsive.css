@@ -1,4 +1,4 @@
-@media screen and (max-width: 456px) {
+@media screen and (max-width: 535px) {
     main > div > *:not(img, .details-profile) {
         width: 90%;
     }
@@ -18,7 +18,7 @@
 
     main > div.center-item {
         width: 100% !important;
-        margin: unset;
+        margin: unset !important;
         padding: 100px 0 50px 0;
         border-radius: unset;
     }
@@ -30,5 +30,9 @@
 
     #informations img {
         margin-top: 20px;
+    }
+
+    main > div::before {
+        display: none;
     }
 }

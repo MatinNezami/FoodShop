@@ -1,4 +1,4 @@
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 532px) {
     .aside-products-box {
         display: none;
     }
@@ -19,10 +19,6 @@
     #err-tooltip {
         max-width: 95%;
         width: max-content;
-    }
-
-    main > div::before {
-        display: none;
     }
 
     .dark header > nav {
