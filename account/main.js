@@ -95,7 +95,7 @@ function selectProfile () {
 
     this.classList.add("selected");
 
-    $.select("#informations-box > img").src = $.detailsProfile.src = this.src;
+    $.informations.select("img").src = $.detailsProfile.src = this.src;
 }
 
 $.select(".profile").event("click",
@@ -174,7 +174,7 @@ async function logout () {
     client.login = false;
 
     $.userProfile.innerHTML = "";
-    $.userProfile.appendChild($.userSVG.content.cloneNode(true));
+    $.userProfile.appendChild($.svg.getElementById("user"));
     renderBox("login");
 }
 
