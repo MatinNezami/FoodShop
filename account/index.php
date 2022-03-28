@@ -59,7 +59,7 @@
                 </div>
 
                 <ul>
-                    <li>use number, capitalize letter and specific character</li>
+                    <li>Use number, capitalize letter and specific character</li>
                 </ul>
 
                 <div class="input">
@@ -89,9 +89,10 @@
                 <div class="center-item"></div>
             </div>
 
-            <div class="center-item">
+            <div class="center-item ul-parent">
                 <ul>
-                    <li>muximum custom profile size 10 MB</li>
+                    <li>Muximum custom profile size 10 MB</li>
+                    <li>Please upload PNG, JPEG or WEBP images</li>
                 </ul>
             </div>
 

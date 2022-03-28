@@ -91,11 +91,15 @@ main > div > img,
     object-fit: cover;
 }
 
-main > div > *:not(img, form, .details-profile),
+main > div > *:not(img, form, .details-profile, .ul-parent),
 main > div form > *,
 .modal label {
     height: 3rem;
     border-radius: 10px;
+    width: 80%;
+}
+
+.ul-parent {
     width: 80%;
 }
 
@@ -108,6 +112,9 @@ main > div form {
 main > div ul {
     width: 90%;
     height: max-content;
+    gap: 10px;
+    display: flex;
+    flex-direction: column;
 }
 
 main > div li {
