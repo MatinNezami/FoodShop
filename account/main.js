@@ -121,13 +121,17 @@ function checkChanged (inputs) {
 
 function insertInfo (data) {
     const img = image(blobURL(data.profile), "user profile"),
+        link = $.createElement("A"),
         changeInputs = $["change-info"].select(".input input:not([name=password])"),
         email = $["change-email"].select(".input input[name=email]");
 
     $.informations.select("img").src = $.detailsProfile.src = img.src;
 
+    link.href = "/account?page=informations";
+    link.appendChild(img);
+
     $.userProfile.innerHTML = "";
-    $.userProfile.appendChild(img);
+    $.userProfile.appendChild(link);
 
     $.clientName.innerText = changeInputs[0].value = data.firstName;
     changeInputs[1].value = data.username;
