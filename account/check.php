@@ -4,6 +4,7 @@
 	require_once "../share/validate.php";
 
 	$notExec = "{\"status\": 500, \"message\": \"query isn't execute\"}";
+	$lastTime = fn() => time() + (86400 * 3);
 		
 	function profiles () {
         $query = $GLOBALS["connection"]->prepare("SELECT * FROM `profile`");
@@ -16,8 +17,8 @@
 
 	function existsUser ($username, $email) {
 		$check = $GLOBALS["connection"]->prepare("SELECT `email`, `username` FROM `users` WHERE `email` = :email OR `username` = :username");
-		$check->bindParam(":email", $email);
-		$check->bindParam(":username", $username);
+		$check->bindValue(":email", $email);
+		$check->bindValue(":username", $username);
 
 		$check->execute() or
 			die($GLOBALS["notExec"]);
@@ -29,6 +30,15 @@
 
 		if ($data["email"] === $email)
 			die("{\"status\": 500, \"message\": \"this email is accepted\"}");
+	}
+
+	function oppertunity ($email) {
+		$update = $GLOBALS["connection"]->prepare("UPDATE `users` SET `oppertunity` = ? WHERE `email` = ?");
+		$update->bindValue(1, $GLOBALS["lastTime"]());
+		$update->bindValue(2, $email);
+
+		$update->execute() or
+			die($GLOBALS["notExec"]);
 	}
 
 	function mailUrl ($url, $email) {
@@ -59,7 +69,7 @@
 	function insert ($data) {
 		unset($data["retry-password"], $data["type"]);
 
-		$query = "INSERT INTO `users` (`username`, `email`, `password`, `firstName`, `profile`, `token`)VALUE (:username, :email, :password, :firstName, :profile, :token)";
+		$query = "INSERT INTO `users` (`username`, `email`, `password`, `firstName`, `profile`, `token`, `oppertunity`)VALUE (:username, :email, :password, :firstName, :profile, :token, :oppertunity)";
 		$insert = $GLOBALS["connection"]->prepare($query);
 		$token = generateToken();
 		
@@ -67,6 +77,7 @@
 			$insert->bindParam(":$key", $val);
 
 		$insert->bindParam(":token", $token);
+		$insert->bindParam(":oppertunity", $GLOBALS["lastTime"]());
 
 		$insert->execute() or
 			die($GLOBALS["notExec"]);
@@ -88,7 +99,7 @@
 		$infoOpen = finfo_open();
 	
 		if (!str_contains(finfo_buffer($infoOpen, $src, FILEINFO_MIME_TYPE), "image"))
-			die("{\"status\": 500, \"message\": \"profile isn't image\"}");
+			die("{\"status\": 500, \"message\": \"profile isn't image "  . $type . "\"}");
 	}
 
 	// work on this function CREATE FAVORITE AND SAVE PRODUCTS
@@ -117,8 +128,6 @@
 	}
 
 	function accept () {
-		checkValidate($_POST);
-
 		$check = $GLOBALS["connection"]->prepare("SELECT `password` FROM `users` WHERE `token` = ?");
 		$check->bindValue(1, $_POST["token"]);
 
@@ -143,8 +152,6 @@
 
 
 	function login () {
-		checkValidate($_POST);
-
 		$info = $GLOBALS["connection"]->prepare("SELECT * FROM `users` WHERE `username` = ?");
 		$info->bindValue(1, $_POST["username"]);
 
@@ -258,6 +265,8 @@
 
 	function mailCode ($code, $email) {
 		# CONFIG SENDMAIL FOR SEND URL TO CLIENT EMAIL
+
+		oppertunity($email);
 	}
 
 	function insertCode ($code, $username) {
