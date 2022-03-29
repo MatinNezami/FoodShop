@@ -147,10 +147,8 @@ async function signup () {
     if (!validate.data)
         return null;
 
-    if (!(selected || $.profile.files[0])) {
-        Validate.error(profilesBox, "Select A Profile");
-        return null;
-    }
+    if (!(selected || $.profile.files[0]))
+        return Validate.error(profilesBox, "Select A Profile");
 
     validate.data.append("profile", window.uploadSrc?? window.src[selected.dataset.name]);
 
@@ -302,10 +300,8 @@ async function changeInfo () {
         return null;
 
     inputs.push(password);
-    
-    const data = changeInfoForm(selected, inputs);
 
-    if ((await ajax("check.php", data, "POST")).status == 500)
+    if ((await ajax("check.php", changeInfoForm(selected, inputs), "POST")).status == 500)
         return null;
 
     insertChange(selected, inputs);
@@ -329,16 +325,13 @@ function cleanInputs (inputs) {
 }
 
 async function changePasswd () {
-    const validate = new Validate($["change-password"].select("form"), false);
+    const validate = new Validate($["change-password"].select("form"), false, true);
     let inputs = [...$["change-password"].select(".input input:not([name=password])")];
 
     if (inputs[1].value && inputs[0].value == inputs[1].value)
         return Validate.error(inputs[1], "new password match with old password");
 
-    if (!validate.data)
-        return null;
-
-    if ((await ajax("check.php", validate.data, "POST")).status == 500)
+    if (!validate.data || (await ajax("check.php", validate.data, "POST")).status == 500)
         return null;
 
     inputs.push($["change-password"].select("input[name=password]"));
@@ -358,10 +351,7 @@ async function changeEmail () {
 
     const validate = new Validate($["change-email"].select("form"), false);
 
-    if (!validate.data)
-        return null;
-
-    if ((await ajax("check.php", validate.data, "POST")).status == 500)
+    if (!validate.data || (await ajax("check.php", validate.data, "POST")).status == 500)
         return null;
 
     cleanInputs($["change-email"].select("input[name=password]"));
@@ -375,11 +365,10 @@ $["change-email"].select(".submit").event("click", changeEmail);
 async function forgotPasswd () {
     const validate = new Validate($["forgot-password"].select("form"));
 
-    if (!validate.data)
+    if (!validate.data || (await ajax("check.php", validate.data, "POST")).status == 500)
         return null;
 
-    if ((await ajax("check.php", validate.data, "POST")).status == 200)
-        renderBox("login");
+    renderBox("login");
 }
 
 $["forgot-password"].select(".submit").event("click", forgotPasswd);
