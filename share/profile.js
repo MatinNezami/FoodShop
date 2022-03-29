@@ -1,8 +1,8 @@
 $.select("#profile", "userProfile");
-$.svg = $.select("#svg").content;
 $.select("#mode", "mode");
-$.moon = $.svg.getElementById("moon");
-$.sun = $.svg.getElementById("sun");
+$.user = $.select("#user").content.querySelector("svg");
+$.moon = $.select("#moon").content.querySelector("svg");
+$.sun = $.select("#sun").content.querySelector("svg");
 
 function blobURL (base64) {
     let point = base64.search(";");
@@ -21,7 +21,7 @@ function blobURL (base64) {
 (function profile () {
 
     if (!window.userProfile)
-        return $.userProfile.appendChild($.svg.getElementById("user"));
+        return $.userProfile.appendChild($.user);
 
     const link = document.createElement("A"),
         img = new Image();

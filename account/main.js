@@ -174,7 +174,7 @@ async function logout () {
     client.login = false;
 
     $.userProfile.innerHTML = "";
-    $.userProfile.appendChild($.svg.getElementById("user"));
+    $.userProfile.appendChild($.user);
     renderBox("login");
 }
 
