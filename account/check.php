@@ -23,9 +23,11 @@
 		$check->execute() or
 			die($GLOBALS["notExec"]);
 
+		if (!$check->rowCount()) return NULL;
+			
 		$data = $check->fetch(PDO::FETCH_ASSOC);
 
-		if ($data["username"] === $username)
+		if (strtolower($data["username"]) == strtolower($username))
 			die("{\"status\": 500, \"message\": \"this username is exists\"}");
 
 		if ($data["email"] === $email)
