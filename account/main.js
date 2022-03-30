@@ -280,11 +280,6 @@ function changeInfoForm (selected, inputs) {
     return data;
 }
 
-function sameUsername (username, password) {
-    for (let item of username.toLowerCase().match(/.{1,3}/g)?? [])
-        if (password.toLowerCase().includes(item)) return true;
-}
-
 async function changeInfo () {
     const selected = isExists(".selected"),
         password = $["change-info"].select("input[name=password]"),
@@ -295,7 +290,7 @@ async function changeInfo () {
     if (!(selected || window.uploadSrc || checkChanged(inputs)))
         return Validate.error(inputs[0], "information hasn't changed");
 
-    if (sameUsername(username.value, password.value))
+    if (Validate.same(password.value, username.value))
         return Validate.error(username, "username same with password");
 
     const validate = new Validate($["change-info"].select("form"), false, true);

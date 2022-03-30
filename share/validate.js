@@ -39,7 +39,7 @@ class Validate {
         };
     }
 
-    same (password, username) {
+    static same (password, username) {
         for (let item of password.toLowerCase().match(/.{1,3}/g)?? [])
             if (username.toLowerCase().includes(item)) return true;
     }
@@ -53,7 +53,7 @@ class Validate {
                 message: this.details? "password isn't strong": "password didn't match"
             };
 
-        if (this.samePassword && this.same(input.value, username.value))
+        if (this.samePassword && Validate.same(input.value, username.value))
             return {
                 status: false,
                 message: this.details? "password is same with username": "password didn't match"
