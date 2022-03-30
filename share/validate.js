@@ -39,6 +39,11 @@ class Validate {
         };
     }
 
+    same (password, username) {
+        for (let item of password.toLowerCase().match(/.{1,3}/g)?? [])
+            if (username.toLowerCase().includes(item)) return true;
+    }
+
     password (input, username) {
         const passwordRegex = new RegExp(`^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{${input.minLength? 8: null},${input.maxLength? 30: null}}$`);
 
@@ -48,17 +53,11 @@ class Validate {
                 message: this.details? "password isn't strong": "password didn't match"
             };
 
-        if (!this.samePassword)
+        if (this.samePassword && this.same(input.value, username.value))
             return {
-                status: true
-            }
-
-        for (let item of input.value.toLowerCase().match(/.{1,3}/g)?? [])
-            if (username.value.toLowerCase().includes(item))
-                return {
-                    status: false,
-                    message: this.details? "password is same with username": "password didn't match"
-                };
+                status: false,
+                message: this.details? "password is same with username": "password didn't match"
+            };
 
         return {
             status: true
@@ -103,9 +102,7 @@ class Validate {
 
         $.errorTooltip.classList.add("active");
 
-        setTimeout(() => {
-            $.errorTooltip.classList.remove("active");
-        }, 3000);
+        setTimeout(_ => $.errorTooltip.classList.remove("active"), 3000);
 
         scrollTo(0, $.errorTooltip.getBoundingClientRect().y + scrollY / 2);
     }
