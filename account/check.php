@@ -175,6 +175,15 @@
 	}
 
 
+	function changeInfoQuery () {
+		$query = "UPDATE `users` SET ";
+		
+		foreach ($_POST as $key => $val)
+			$query .= "`$key` = :$key, ";
+		
+		return substr($query, 0, -2) . " WHERE `username` = :oldUsername";
+	}
+
 	function changeInfo () {
 		global $info;
 
@@ -184,26 +193,21 @@
 		if (isset($_POST["username"]) && existsUser($_POST["username"], ""))
 			die("{\"status\": 500, \"message\": \"this username is exists\"}");
 
-		$_POST["username"] = $info["username"];
 		unset($_POST["type"]);
-		checkValidate($_POST);
+		// checkValidate(["username" => $info["username"], ...$_POST]); IF PHP SUPPORT REST OPERATOR (IN MY LINUX) USE THIS CODE
+		$validInfo = $_POST;
+		$validInfo["username"] = $_POST["username"]?? $info["username"];
+		checkValidate($validInfo);
 
 		if (isset($_POST["profile"]))
 			checkProfile();
 
-		$query = "UPDATE `users` SET ";
-		
-		foreach ($_POST as $key => $val)
-			$query .= "`$key` = :$key, ";
-		
-		
-		$query = substr($query, 0, -2) . " WHERE `username` = :username";
-		$change = $GLOBALS["connection"]->prepare($query);
+		$change = $GLOBALS["connection"]->prepare(changeInfoQuery());
 		
 		foreach ($_POST as $key => &$val)
 			$change->bindValue(":$key", $val);
 		
-		$change->bindValue(":username", $info["username"]);
+		$change->bindValue(":oldUsername", $info["username"]);
 
 		$change->execute() or
 			die($GLOBALS["notExec"]);
