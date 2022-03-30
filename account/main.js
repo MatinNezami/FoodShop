@@ -147,7 +147,7 @@ async function signup () {
     if (!(selected || $.profile.files[0]))
         return Validate.error(profilesBox, "Select A Profile");
 
-    validate.data.append("profile", uploadSrc?? src[selected.dataset.name]);
+    validate.data.append("profile", window.uploadSrc?? window.src[selected.dataset.name]);
 
     if ((await ajax("check.php", validate.data, "POST")).status == 500)
         return null;
@@ -247,7 +247,7 @@ $.select("#change-profile-btn").event("click", openModal, changeProfilesHandler)
 
 
 function insertChange (selected, inputs) {
-    if (selected || uploadSrc)
+    if (selected || window.uploadSrc)
         $.userProfile.select("img").src = $.detailsProfile.src;
 
         $["change-info"].select("input[name=password]").value = "";
@@ -266,8 +266,8 @@ function changeInfoForm (selected, inputs) {
             data.append(input.name, input.value);
     });
 
-    if (selected || uploadSrc)
-        data.append("profile", uploadSrc?? src[selected.dataset.name]);
+    if (selected || window.uploadSrc)
+        data.append("profile", window.uploadSrc?? window.src[selected.dataset.name]);
 
     data.append("type", "change");
     return data;
@@ -280,7 +280,7 @@ async function changeInfo () {
 
     let inputs = [$["change-info"].select("[name=firstName]"), username];
 
-    if (!(selected || uploadSrc || checkChanged(inputs)))
+    if (!(selected || window.uploadSrc || checkChanged(inputs)))
         return Validate.error(inputs[0], "information hasn't changed");
 
     if (Validate.same(password.value, username.value))
@@ -378,7 +378,7 @@ $["forgot-password"].select(".submit").event("click", forgotPasswd);
         window.uploadSrc += reader.result.slice(reader.result.search(",") + 1);
 
         imageElm.style.display = "block";
-        $.informations.select("img").src = $.detailsProfile.src = imageElm.src = blobURL(uploadSrc);
+        $.informations.select("img").src = $.detailsProfile.src = imageElm.src = blobURL(window.uploadSrc);
     }
 
     function remove () {
