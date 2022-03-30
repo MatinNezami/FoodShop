@@ -1,3 +1,4 @@
+"use strict";
 window.src = {};
 
 let profileImages,
@@ -6,15 +7,9 @@ let profileImages,
 $.firstProfile = $.querySelector(".profile-images > div");
 $.select(".profile-images > div:last-of-type", "lastProfile");
 
-$.select("header", "header");
-
-$.select("#login", "login");
-$.select("#signup", "signup");
-$.select("#forgot-password", "forgot-password");
-$.select("#informations", "informations");
-$.select("#change-info", "change-info");
-$.select("#change-password", "change-password");
-$.select("#change-email", "change-email");
+$.select("main > div").forEach(
+    box => $[box.id] = box
+);
 
 $.informations.select("h2 span", "clientName");
 $["change-info"].select(".details-profile img", "detailsProfile");
@@ -22,7 +17,6 @@ $["change-info"].select(".details-profile img", "detailsProfile");
 const profilesBox = $.select(".profile-images"),
     reader = new FileReader(),
     page = getRequest("page");
-
 
 history.replaceState(null, "", `?page=${
     renderBox(!$[page]? "informations": page, false)
@@ -77,16 +71,15 @@ async function profiles () {
 
 
 function headerImage () {
-    if (window.innerWidth <= 500 || isExists("body > img"))
+    if (innerWidth <= 500 || isExists("body > img"))
         return null;
 
     const img = image("/images/account.webp", "background picture");
-    $.body.insertBefore(img, $.header);
+    $.body.insertBefore(img, $.header?? $.select("header", "header"));
 }
 
 headerImage();
-
-window.addEventListener("resize", headerImage);
+addEventListener("resize", headerImage);
 
 
 function selectProfile () {
@@ -104,7 +97,7 @@ $.select(".profile").event("click",
 );
 
 
-window.addEventListener("popstate", _ => renderBox(getRequest("page"), false));
+addEventListener("popstate", _ => renderBox(getRequest("page"), false));
 
 $.select("[data-target-box]").event("click", renderBox);
 
@@ -154,7 +147,7 @@ async function signup () {
     if (!(selected || $.profile.files[0]))
         return Validate.error(profilesBox, "Select A Profile");
 
-    validate.data.append("profile", window.uploadSrc?? window.src[selected.dataset.name]);
+    validate.data.append("profile", uploadSrc?? src[selected.dataset.name]);
 
     if ((await ajax("check.php", validate.data, "POST")).status == 500)
         return null;
@@ -254,7 +247,7 @@ $.select("#change-profile-btn").event("click", openModal, changeProfilesHandler)
 
 
 function insertChange (selected, inputs) {
-    if (selected || window.uploadSrc)
+    if (selected || uploadSrc)
         $.userProfile.select("img").src = $.detailsProfile.src;
 
         $["change-info"].select("input[name=password]").value = "";
@@ -273,8 +266,8 @@ function changeInfoForm (selected, inputs) {
             data.append(input.name, input.value);
     });
 
-    if (selected || window.uploadSrc)
-        data.append("profile", window.uploadSrc?? window.src[selected.dataset.name]);
+    if (selected || uploadSrc)
+        data.append("profile", uploadSrc?? src[selected.dataset.name]);
 
     data.append("type", "change");
     return data;
@@ -287,7 +280,7 @@ async function changeInfo () {
 
     let inputs = [$["change-info"].select("[name=firstName]"), username];
 
-    if (!(selected || window.uploadSrc || checkChanged(inputs)))
+    if (!(selected || uploadSrc || checkChanged(inputs)))
         return Validate.error(inputs[0], "information hasn't changed");
 
     if (Validate.same(password.value, username.value))
@@ -385,7 +378,7 @@ $["forgot-password"].select(".submit").event("click", forgotPasswd);
         window.uploadSrc += reader.result.slice(reader.result.search(",") + 1);
 
         imageElm.style.display = "block";
-        $.informations.select("img").src = $.detailsProfile.src = imageElm.src = blobURL(window.uploadSrc);
+        $.informations.select("img").src = $.detailsProfile.src = imageElm.src = blobURL(uploadSrc);
     }
 
     function remove () {
