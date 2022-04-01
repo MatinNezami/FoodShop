@@ -53,7 +53,7 @@
 		if (!$data)
 			return null;
 
-		$check = new Validate($data, ["firstName", 5, 30, false]);
+		$check = new Validate($data, ["firstName", 4, 30, false]);
 
 		if (!$check->valid)
 			die("{\"status\": 500, \"message\": \"" . str_replace("-", " ", $check->message) . "\"}");

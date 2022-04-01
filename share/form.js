@@ -131,20 +131,6 @@ async function ajax (url, data, method) {
     return response;
 }
 
-
-function getRequest (key) {
-    const regex = new RegExp(`${key + "="}.*`),
-        match = location.search.match(regex);
-      
-    if (!match)
-        return null;
-      
-    let end = match[0].search("&");
-    if (end < 0) end = undefined;
-      
-    return match[0].slice(match[0].search("=") + 1, end);
-}
-
 function renderBox (targetBox, push = true) {
     const active = isExists("main > div.active");
     let box = targetBox instanceof Event? $[this.dataset.targetBox]: $[targetBox];
