@@ -64,11 +64,6 @@ input[type=file] {
     filter: brightness(70%);
 }
 
-#forgot-password,
-#informations {
-    width: 450px;
-}
-
 #forgot-password img {
     margin-bottom: 50px;
 }

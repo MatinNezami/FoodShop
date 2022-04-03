@@ -2,6 +2,10 @@
     main > div > *:not(img, .details-profile) {
         width: 90%;
     }
+
+    main > div.center-item {
+        width: 90% !important;
+    }
 }
 
 @media screen and (max-width: 500px) {
