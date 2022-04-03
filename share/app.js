@@ -4,11 +4,16 @@ $.select("#message", "message");
 $.select("#message p", "messageText");
 $.select(".back-to-top", "back");
 
-function removeQuery (key) {
-	const query = location.search.match(new RegExp(`${key}=[^&]*&?`))[0],
-	    result = location.search.replaceAll(query, "");
+const renderMenu = _ => getRequest("menu") && innerWidth <= 532? openMenu(null): closeMenu();
 
-	if (result < 2)
+function removeQuery (key) {
+	const query = location.search.match(new RegExp(`${key}=[^&]*&?`));
+
+    if (!query) return null;
+
+	const result = location.search.replaceAll(query[0], "");
+
+	if (result.length < 2)
 		return history.pushState(null, "", "/");
 
     if (result.endsWith("&"))
@@ -50,7 +55,8 @@ function openMenu (state) {
         );
 }
 
-window.addEventListener("popstate", _ => getRequest("menu")? openMenu(null): closeMenu());
+renderMenu();
+window.addEventListener("popstate", renderMenu);
 
 $.prevent.event("click", closeMenu);
 $.select("header nav .open").event("click", openMenu);

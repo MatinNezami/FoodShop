@@ -18,7 +18,11 @@ const profilesBox = $.select(".profile-images"),
     reader = new FileReader(),
     page = getRequest("page");
 
-history.replaceState(null, "", `?page=${
+removeQuery("page");
+
+history.replaceState(null, "", `${
+    location.search? `${location.search}&`: '?'
+}page=${
     renderBox(!$[page]? "informations": page, false)
 }`);
 
