@@ -6,15 +6,23 @@ $.select(".back-to-top", "back");
 
 const renderMenu = _ => getRequest("menu") && innerWidth <= 532? openMenu(null): closeMenu();
 
+function getQuery (key) {
+    const query = location.search.match(new RegExp(`${key}=[^&]*&?`));
+
+    return query? query[0]: "";
+}
+
+function locationWithout (key) {
+    const query = location.search.replace(getQuery(key), "");
+    
+    return !query || query == '?'? '?': `${query}&`;
+}
+
 function removeQuery (key) {
-	const query = location.search.match(new RegExp(`${key}=[^&]*&?`));
-
-    if (!query) return null;
-
-	const result = location.search.replaceAll(query[0], "");
+	const result = location.search.replaceAll(getQuery(key), "");
 
 	if (result.length < 2)
-		return history.pushState(null, "", "/");
+		return history.pushState(null, "", location.pathname);
 
     if (result.endsWith("&"))
         return history.pushState(null, "", result.slice(0, -1));
