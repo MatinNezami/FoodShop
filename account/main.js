@@ -103,11 +103,9 @@ $.select("[data-target-box]").event("click", renderBox);
 
 
 function checkChanged (inputs) {
-    let changed;
-
     for (const input of inputs)
         if (input.defaultValue != input.value)
-            changed = true;
+            var changed = true;
 
     return changed;
 }
@@ -138,7 +136,7 @@ function insertInfo (data) {
 }
 
 async function signup () {
-    const validate = new Validate($.signup.select("form"), true, true),
+    const validate = new Validate($.signup.select("form")),
         selected = isExists(".selected");
 
     if (!validate.data)
@@ -276,17 +274,12 @@ function changeInfoForm (selected, inputs) {
 async function changeInfo () {
     const selected = isExists(".selected"),
         password = $["change-info"].select("input[name=password]"),
-        username = $["change-info"].select("input[name=username]");
-
-    let inputs = [$["change-info"].select("[name=firstName]"), username];
+        inputs = [...$["change-info"].select(".input input:not([name=password])")];
 
     if (!(selected || window.uploadSrc || checkChanged(inputs)))
         return Validate.error(inputs[0], "information hasn't changed");
 
-    if (Validate.same(password.value, username.value))
-        return Validate.error(username, "username same with password");
-
-    const validate = new Validate($["change-info"].select("form"), false, true);
+    const validate = new Validate($["change-info"].select("form"));
 
     if (!validate.data)
         return null;
@@ -317,8 +310,8 @@ function cleanInputs (inputs) {
 }
 
 async function changePasswd () {
-    const validate = new Validate($["change-password"].select("form"), false, true);
-    let inputs = [...$["change-password"].select(".input input:not([name=password])")];
+    const validate = new Validate($["change-password"].select("form")),
+        inputs = [...$["change-password"].select(".input input:not([name=password])")];
 
     if (inputs[1].value && inputs[0].value == inputs[1].value)
         return Validate.error(inputs[1], "new password match with old password");
@@ -368,12 +361,6 @@ $["forgot-password"].select(".submit").event("click", forgotPasswd);
 
 (function uploadImage (input, imageElm) {
     function insert () {
-        if (!input.files[0].type.startsWith("image"))
-            return message("your upload file isn't image");
-
-        if (input.files[0].size > 10000000)
-            return message("your upload file is long");
-
         window.uploadSrc = reader.result.slice(reader.result.search(":") + 1, reader.result.search(";")) + ";";
         window.uploadSrc += reader.result.slice(reader.result.search(",") + 1);
 

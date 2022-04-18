@@ -1,151 +1,187 @@
-$.select("#err-tooltip", "errorTooltip");
-$.errorTooltip.select("span", "errorMsg");
+"use strict";
+
+const errorTooltip = document.getElementById("err-tooltip"),
+    errorMsg = errorTooltip.querySelector("span");
+
+function status (status, message) {
+    window.status.prototype.status = status;
+    window.status.prototype.message = message;
+}
 
 class Validate {
-    ok;
-    inputs = {};
     emailRegex = /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/;
-    samePassword;
 
-    simple = input => ({
-        status: new RegExp(`^.{${input.minlen?? 5},${input.maxlen?? 30}}$`).test(input.value)
+    text = input => ({
+        status: new RegExp(`^.{${input.minlen},${input.maxlen}}$`).test(input.val)
     });
 
     email = input => ({
-        status: this.emailRegex.test(input.value)
+        status: this.emailRegex.test(input.val)
     });
 
     username = input => ({
-        status: new RegExp(`^(?=.{${input.minlen?? 5},${input.maxlen?? 30}}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$`)
-            .test(input.value)
+        status: new RegExp(`^(?=.{${input.minlen},${input.maxlen}}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$`)
+            .test(input.val)
     });
 
-    retryPassword = (input, password) => ({
-        status: input.value == password.value,
-        message: "conferm password"
-    });
+    retype = (input, reference = input.getAttribute("retype")) => (new self.status(
+        input.val == this.inputs.find(input => input.name == reference).val,
+        "conferm password"
+    ));
 
     number (input) {
-        if (!(+input.value >= (+input.min?? 5) && +input.value <= (+input.max?? 30)))
-            return {
-                status: false,
-                message: "number out of range"
-            };
-
-        return {
-            status: true
-        };
+        if (!(+input.val >= input.minnum && +input.val <= input.maxnum))
+            return new self.status(false, "number out of range");
     }
 
-    static same (password, username) {
+    same (password, username) {
         for (let item of password.toLowerCase().match(/.{1,3}/g)?? [])
             if (username.toLowerCase().includes(item)) return true;
     }
 
-    password (input, username) {
-        const passwordRegex = new RegExp(`^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{${input.minlen?? 8},${input.maxlen?? 30}}$`);
+    password (input) {
+        const passwordRegex = new RegExp(`^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{${input.minlen},${input.maxlen}}$`);
 
-        if (!passwordRegex.test(input.value))
-            return {
-                status: false,
-                message: this.details? "password isn't strong": "password didn't match"
-            };
+        if (!passwordRegex.test(input.val))
+            return new self.status(false,
+                this.details && !input.hasAttribute("not-details")? "password isn't strong": "value didn't match"
+            );
+    }
 
-        if (this.samePassword && Validate.same(input.value, username.value))
-            return {
-                status: false,
-                message: this.details? "password is same with username": "password didn't match"
-            };
+    *fileSize (...sizes) {
+        for (const size of sizes)
+            yield size.replace("K", "000").replace("M", "000000").replace("G", "000000000");
+    }
 
-        return {
-            status: true
+    file (input) {
+        for (const file of input.files) {
+            const types = input.getAttribute("mime"),
+                size = this.fileSize(input.getAttribute("min")?? "1K", input.getAttribute("max")?? "10G");
+
+            for (const type of types.split(","))
+                if (file.type.includes(type.replaceAll(",", "").replaceAll(" ", "")))
+                    var has = true;
+
+            if (!has) return new self.status(false, "upload file type invalid");
+
+            if (file.size < size.next().value)
+                return new self.status(false, "upload file is small");
+                
+            if (file.size > size.next().value)
+                return new self.status(false, "upload file is big");
         }
     }
 
-    checkData (input) {
-        switch (input.name) {
-            case "username":
-                return this.username(input);
+    url = input => ({
+        status: /^[a-zA-Z0-9.-]{1,50}:\/\/[\w@:%.\+~#=-]{1,253}\.[a-zA-Z]{1,20}.*$/.test(input.val)
+    });
 
-            case "password":
-            case "old-password":
-                return this.password(input, this.inputs.username);
+    tel = input => ({ status: /^\+\d{12}$/.test(input.val) });
 
-            case "retry-password":
-                return this.retryPassword(input, this.inputs.password);
+    check (input) {
+        const check = input.getAttribute("check"),
+            retype = input.getAttribute("retype"),
+            same = input.getAttribute("same-password"),
+            sameTarget = this.form.querySelector(`[name=${same}]`);
+
+        if (sameTarget) this.setLen(sameTarget)
+
+        if (retype) return this.retype(input, retype);
+
+        const validate = this[check](input)?? {status: true};
+
+        if (same && this.same(input.val, sameTarget.val))
+            return validate.status? new self.status(false, "password and username is same"): validate;
+
+        return validate;
+    }
+
+    message = (input, message) => (message?? `value ${this.details && !input.hasAttribute("not-details")? "invalid": "didn't match"}`)
+        .replaceAll("-", " ");
+
+    add (input, type = input.getAttribute("check")) {
+        this.setLen(input);
+        
+        if (!this.ok) return;
+
+        if (input.required && !input.val) {
+            this.ok = false;
+            return Validate.error(input, "input is empty");
         }
 
-        switch (input.type) {
-            case "number":
-            case "range":
-                return this.number(input);
+        if (!input.required && !input.val) return;
 
-            case "text":
-                return this.simple(input);
+        const validate = this[type](input);
 
-            case "email":
-                return this.email(input);
+        if (validate.status)
+            return this.data.append(input.name, input.value);
 
-            default:
-                return {status: true};
-        }
+        this.ok = false;
+        Validate.error(input, this.message(input, validate.message), this.form);
     }
      
-    static error (element, message) {
+    static error (element, message, form = null) {
+        if (element.hasAttribute("label"))
+            element = document.querySelector(`[for=${element.id}]`);
+
         const dimension = element.getBoundingClientRect();
 
-        $.errorMsg.innerText = message;
-        $.errorTooltip.style.left = `${(dimension.x + element.offsetWidth / 2 + scrollX) - ($.errorTooltip.offsetWidth / 2)}px`;
-        $.errorTooltip.style.top = `${dimension.y + element.offsetHeight + scrollY}px`;
+        errorMsg.innerText = message;
+        errorTooltip.style.left = `${(dimension.x + element.offsetWidth / 2 + scrollX) - (errorTooltip.offsetWidth / 2)}px`;
+        errorTooltip.style.top = `${dimension.y + element.offsetHeight + scrollY}px`;
 
-        $.errorTooltip.classList.add("active");
+        errorTooltip.classList.add("active");
 
-        setTimeout(_ => $.errorTooltip.classList.remove("active"), 3000);
+        setTimeout(_ => errorTooltip.classList.remove("active"), 3000);
 
-        scrollTo(0, $.errorTooltip.getBoundingClientRect().y + scrollY / 2);
+        scrollTo(0, errorTooltip.getBoundingClientRect().y + scrollY / 2);
     }
 
     setLen (input) {
-        const lenAttr = {
-            max: input.max,
-            min: input.min,
+        input.val = (input.getAttribute("check")?? "password").includes("password")? input.value: input.value.trim();
+
+        const len = {
+            maxnum: input.max,
+            minnum: input.min,
             maxlen: input.maxLength,
             minlen: input.minLength
         };
 
-        for (const attr in lenAttr)
-            input[attr] = lenAttr[attr] < 0? null: lenAttr[attr];
+        for (const attr in len) {
+            const range = attr.includes("min")? 5: 30;
+            input[attr] = len[attr] < 0 || !len[attr]? range: len[attr];
+        }
     }
 
-    validate (form) {
-        for (let input in this.inputs) {
-            input = this.inputs[input];
+    validate () {
+        for (let input of this.inputs) {
             this.setLen(input);
 
-            if (input.required && !input.value)
+            if (input.required && !input.val) {
+                this.ok = false;
                 return Validate.error(input, "input is empty");
+            }
 
-            if (!input.required && !input.value) continue;
+            if (!input.required && !input.val) continue;
 
-            const validate = this.checkData(input);
+            const validate = this.check(input);
 
-            if (input.value && validate.status) continue;
-                
-            let message = validate.message?? `${input.name} ${this.details? "isn't valid": "didn't match"}`;
-            return Validate.error(input, message.replaceAll("-", " "));
+            if (input.val && validate.status) continue;
+
+            this.ok = false;
+            return Validate.error(input, this.message(input, validate.message), this.form);
         }
 
-        return new FormData(form);
+        this.ok = true;
+        return new FormData(this.form);
     }
 
-    constructor (form, samePassword = true, details = false) {
-        this.samePassword = samePassword;
-        this.details = details;
+    constructor (form) {
+        this.form = form;
+        this.details = form.hasAttribute("details-error");
 
-        form.querySelectorAll(".input input").forEach(
-            input => this.inputs[input.name] = input
-        );
+        this.inputs = [...form.querySelectorAll("input[check], input[retype]")];
 
-        this.data = this.validate(form);
+        this.data = this.validate();
     }
 }

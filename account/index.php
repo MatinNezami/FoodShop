@@ -42,19 +42,19 @@
         <div class="center-item" id="signup">
             <img src="/images/register.svg" loading="lazy" alt="signup picture" draggable="false">
 
-            <form action="" class="center-item">
+            <form action="" class="center-item" details-error>
                 <div class="input">
-                    <input type="text" name="firstName" minlength="4">
+                    <input type="text" name="firstName" check="text" minlength="4">
                     <p class="placeholder">First Name</p>
                 </div>
 
                 <div class="input">
-                    <input type="text" name="username" required>
+                    <input type="text" name="username" check="username" required>
                     <p class="placeholder">Username</p>
                 </div>
 
                 <div class="input">
-                    <input type="email" name="email" required>
+                    <input type="email" name="email" check="email" required>
                     <p class="placeholder">Email</p>
                 </div>
 
@@ -63,16 +63,16 @@
                 </ul>
 
                 <div class="input">
-                    <input type="password" name="password" data-type="password" required>
+                    <input type="password" name="password" check="password" same-password="username" data-type="password" required>
                     <p class="placeholder">Password</p>
                 </div>
 
                 <div class="input">
-                    <input type="password" name="retry-password" data-type="password" required>
+                    <input type="password" name="retype-password" retype="password" data-type="password" required>
                     <p class="placeholder">Re-enter Password</p>
                 </div>
 
-                <input type="file" accept="image/*" id="custom-profile" autocomplete="off">
+                <input type="file" accept="image/*" id="custom-profile" check="file" mime="image" max="10M" label autocomplete="off">
 
                 <input type="hidden" name="type" value="register">
             </form>
@@ -112,12 +112,12 @@
 
             <form action="" class="center-item">
                 <div class="input">
-                    <input type="text" name="username" required>
+                    <input type="text" name="username" check="username" required>
                     <p class="placeholder">Username</p>
                 </div>
 
                 <div class="input">
-                    <input type="password" name="password" data-type="password" required>
+                    <input type="password" name="password" check="password" same-password="username" data-type="password" required>
                     <p class="placeholder">Password</p>
                 </div>
 
@@ -145,12 +145,12 @@
 
             <form action="" class="center-item">
                 <div class="input">
-                    <input type="text" name="username" required>
+                    <input type="text" name="username" check="username" required>
                     <p class="placeholder">Username</p>
                 </div>
 
                 <div class="input">
-                    <input type="email" name="email" required>
+                    <input type="email" name="email" check="email" required>
                     <p class="placeholder">Email</p>
                 </div>
 
@@ -185,19 +185,19 @@
                 </button>
             </div>
 
-            <form action="" class="center-item">
+            <form action="" class="center-item" details-error>
                 <div class="input">
                     <input type="text" name="firstName" value="<?php echo $info["firstName"]?? "client" ?>" minlength="4" required>
                     <p class="placeholder">First Name</p>
                 </div>
 
                 <div class="input">
-                    <input type="text" name="username" value="<?php echo $info["username"] ?>" required>
+                    <input type="text" name="username" check="username" same-password="password" value="<?php echo $info["username"] ?>" required>
                     <p class="placeholder">Username</p>
                 </div>
 
                 <div class="input">
-                    <input type="password" name="password" data-type="password" required>
+                    <input type="password" name="password" check="password" data-type="password" required>
                     <p class="placeholder">Password</p>
                 </div>
             </form>
@@ -219,9 +219,9 @@
         <div class="center-item" id="change-password" data-logined="true">
             <img src="/images/change-password.svg" loading="lazy" alt="change password" draggable="flase">
 
-            <form action="" class="center-item">
+            <form action="" class="center-item" details-error>
                 <div class="input">
-                    <input type="password" name="old-password" data-type="password" required>
+                    <input type="password" name="old-password" check="password" not-details data-type="password" required>
                     <p class="placeholder">Old Password</p>
                 </div>
 
@@ -232,12 +232,12 @@
                 </ul>
 
                 <div class="input">
-                    <input type="password" name="password" data-type="password" required>
+                    <input type="password" name="password" check="password" data-type="password" required>
                     <p class="placeholder">New Password</p>
                 </div>
 
                 <div class="input">
-                    <input type="password" name="retry-password" data-type="password" required>
+                    <input type="password" name="retype-password" retype="password" data-type="password" required>
                     <p class="placeholder">Re-enter Password</p>
                 </div>
 
@@ -255,14 +255,14 @@
         <div class="center-item" id="change-email" data-logined="true">
             <img src="/images/change-email.svg" loading="lazy" alt="change email" draggable="flase">
 
-            <form action="" class="center-item">
+            <form action="" class="center-item" details-error>
                 <div class="input">
-                    <input type="email" name="email" value="<?php echo $info["email"]?? null ?>" required>
+                    <input type="email" name="email" check="email" value="<?php echo $info["email"]?? null ?>" required>
                     <p class="placeholder">Email</p>
                 </div>
 
                 <div class="input">
-                    <input type="password" name="password" data-type="password" required>
+                    <input type="password" name="password" not-details check="password" data-type="password" required>
                     <p class="placeholder">Password</p>
                 </div>
 
