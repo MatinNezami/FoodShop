@@ -15,8 +15,7 @@ function findInput (current, next = 2) {
 }
 
 function next (event) {
-    if (event.which != 13)
-        return null;
+    if (event.which != 13) return;
 
     this.blur();
     const next = findInput(this.parentNode.nextElementSibling);
@@ -53,8 +52,7 @@ $.querySelectorAll(".tiny-inputs input").event("keydown", tinyNext);
 function inputValue (input) {
     const placeholder = input.parentNode.select(".placeholder");
 
-    if (!input.value)
-        return null;
+    if (!input.value) return;
 
     placeholder.classList.add("active");
 
@@ -77,8 +75,7 @@ function focus () {
 }
 
 function blur () {    
-    if (this.value)
-        return null;
+    if (this.value) return;
 
     if (this.required)
         setTimeout (_ => {
@@ -120,8 +117,10 @@ async function ajax (url, data, method) {
         body: data
     }): await fetch(url);
 
-    if (!request.ok)
-        return message("not found");
+    if (!request.ok) {
+        message("not found");
+        return {status: 500};
+    }
 
     const response = await request.json();
 
@@ -138,7 +137,7 @@ function renderBox (targetBox, push = true) {
     if (box.dataset.logined && !client.login)
         box = $.login;
 
-    if (box == active) return null;
+    if (box == active) return;
 
     active?.classList?.remove("active")
     box.classList.add("active");
