@@ -1,152 +1,217 @@
 <?php
-	
-	class Validate {
-		private $data;
-		public $patterns = [];
-		public $valid = false;
-		public $message = NULL;
 
+    namespace Validation;
 
-		function required ($key, $value) {
-			if (!isset($this->patterns[$key]))
-				return true;
+    class Pattern {
+        private $pattern;
 
-			return $this->patterns[$key][2]? $value: NULL;
-		}
+        private function getAttr ($attr) {
+            if (!str_contains($this->pattern, $attr)) return;
 
-		function email ($value) {
-			return [
-				"status" => filter_var($value, FILTER_VALIDATE_EMAIL)
-			];
-		}
+            preg_match("/" . $attr . "=[^\s]*/", $this->pattern, $matches);
 
-		function simple ($key, $value) {
-			$min = in_array($key, $this->patterns)? $this->patterns[$key][0]: 5;
-			$max = in_array($key, $this->patterns)? $this->patterns[$key][1]: 30;
+            return substr($matches[0], strpos($matches[0], "=") + 1);
+        }
 
-			return [
-				"status" => preg_match("/^.{" . $min . "," . $max . "}$/", $value)
-			];
-		}
+        function __construct ($pattern, $name, $value) {
+            $this->value = $value;
+            $this->pattern = $pattern;
+            $this->name = $name;
 
-		function number ($key, $value) {
-			$exists = isset($this->patterns[$key]);
+            $this->required = str_contains($pattern, "required");
 
-			$min = $exists? $this->patterns[$key][0]: 5;
-			$max = $exists? $this->patterns[$key][1]: 30;
+            $max = $this->getAttr("max");
+            $min = $this->getAttr("min");
 
-			if (!($value >= $min && $value <= $max))
-	            return [
-	                "status" => false,
-	                "message" => "$key out of range"
-	            ];
+            $this->min = $min?? 5;
+            $this->max = $max?? 30;
+            $this->retype = $this->getAttr("retype");
+            $this->check = $this->getAttr("check")?? "text";
 
-	        if (!is_numeric($value))
-	        	return [
-	        		"status" => false,
-	        		"message" => "$key isn't number"
-	        	];
+            $this->same = $this->getAttr("same-password");
 
-	        return [
-	        	"status" => true
-	        ];
-		}
+            if ($this->check != "file" && $this->check != "base64") return;
 
-		function username ($key, $value) {
-			$min = in_array($key, $this->patterns)? $this->patterns[$key][0]: 5;
-			$max = in_array($key, $this->patterns)? $this->patterns[$key][1]: 30;
+            $this->max = $max?? "10G";
+            $this->min = $min?? "1K";
+            $this->mime = $this->getAttr("mime");
+        }
 
-			return [
-				"status" => preg_match("/^(?=.{" . $min . "," . $max . "}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$/", $value)
-			];
-		}
+    }
 
-		function password ($key, $value) {
-			$min = in_array($key, $this->patterns)? $this->patterns[$key][0]: 8;
-			$max = in_array($key, $this->patterns)? $this->patterns[$key][1]: 30;
+    class Validate {
+        public $ok, $message;
+        private $patterns = [];
 
-			if (!preg_match("/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{" . $min . "," . $max . "}$/", $value))
-				return [
-					"status" => false,
-					"message" => "password is not strong"
-				];
+        function text ($pattern) {
+            $this->setStatus(
+                preg_match("/^.{" . $pattern->min . "," . $pattern->max . "}$/", $pattern->value),
+                $pattern
+            );
+        }
 
-			foreach (str_split(strtolower($value), 3) as $i)
-				if (str_contains(strtolower($this->data["username"]), $i))
-					return [
-						"status" => false,
-						"message" => "password is same with username"
-					];
+        function email ($pattern) {
+            $this->setStatus(
+                filter_var($pattern->value, FILTER_VALIDATE_EMAIL), $pattern
+            );
+        }
 
-			return [
-				"status" => true
-			];
-		}
+        function number ($pattern) {
+            if (!(+$pattern->value >= $pattern->min && +$pattern->value <= $pattern->max))
+                $this->setStatus(false, "number out of range");
+        }
 
-		function retryPassword ($val) {
-			return [
-				"status" => $this->data["password"] == $val,
-				"message" => "conferm password"
-			];
-		}
+        function username ($pattern) {
+            $this->setStatus(
+                preg_match("/^(?=.{" . $pattern->min . "," . $pattern->max . "}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$/",
+                    $pattern->value
+                ),
 
-		function check ($key, $val) {
-			$required = $this->required($key, $val);
+                $pattern
+            );
+        }
 
-			if ($required === NULL && !$val)
-				return [
-					"status" => true
-				];
+        function password ($pattern) {
+            $this->setStatus(
+                preg_match("/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{" . $pattern->min . "," . $pattern->max . "}$/",
+                    $pattern->value
+                ),
 
-			if (!$required && !$val)
-				return [
-					"status" => false,
-					"message" => "$key is required"
-				];
+                "password isn't strong"
+            );
+        }
 
-			switch ($key) {
-				case "email":
-					return $this->email($val);
+        function same ($password, $username) {
+            foreach (str_split(strtolower($password), 3) as $item)
+                if (str_contains(strtolower($username), $item)) return true;
+        }
 
-				case "number":
-				case "age":
-				case "price":
-					return $this->number($key, $val);
+        function url ($pattern) {
+            $this->setStatus(
+                filter_var($pattern->value, FILTER_VALIDATE_URL), $pattern
+            );
+        }
 
-				case "username":
-					return $this->username($key, $val);
+        function tel ($pattern) {
+            $this->setStatus(
+                preg_match("/^\+\d{12}$/", $pattern->value), $pattern
+            );
+        }
 
-				case "password":
-				case "old-password":
-					return $this->password($key, $val);
+        function retype ($pattern) {
+            $reference = [...array_filter(
+                $this->patterns, fn($item) => $item->name == $pattern->retype
+            )];
 
-				case "retry-password":
-					return $this->retryPassword($val);
+            if (!isset($reference[0])) return;
 
-				default:
-					return $this->simple($key, $val);
-			}
-		}
+            $equal = $pattern->value == $reference[0]->value;
 
-		function pattern ($patterns) {
-			foreach ($patterns as $pattern)
-				$this->patterns[$pattern[0]] = [$pattern[1], $pattern[2], $pattern[3]];
-		}
+            $this->setStatus($equal, $equal? "data is valid": "conferm password");
+        }
 
-		function __construct ($data, ...$patterns) {
-			$this->data = $data;
-			$this->pattern($patterns);
+        function fileSize (...$sizes) {
+            foreach ($sizes as $size)
+                yield str_replace("K", "000", str_replace("M", "000000", str_replace("G", "000000000", $size)));
+        }
 
-			foreach ($data as $key => $val) {
-				$valid = $this->check($key, $val);
+        function file ($pattern) {
+            $has = NULL;
 
-				$this->valid = $valid["status"];
-				$this->message = $valid["message"]?? "$key isn't valid";
+            foreach (explode(",", $pattern->mime) as $mime)
+                if (str_contains($pattern->value["type"], str_replace(",", "", $mime)))
+                    $has = true;
 
-				if (!$this->valid)
-					break;
-			}
-		}
-	}
+            if (!$has) return $this->setStatus(false, "upload file type invalid");
 
-?>
+            $sizes = $this->fileSize($pattern->min, $pattern->max);
+            $min = $sizes->current();
+            $sizes->next();
+
+            if ($pattern->value["size"] < $min)
+                return $this->setStatus(false, "upload file is small");
+
+            if ($pattern->value["size"] > $sizes->current())
+                return $this->setStatus(false, "upload file is big");
+        }
+
+        function base64 ($pattern) {
+            $has = NULL;
+            $bin = base64_decode($pattern->value);
+            $type = finfo_buffer(finfo_open(), $bin, FILEINFO_MIME_TYPE);
+
+            foreach (explode(",", $pattern->mime) as $mime)
+                if (str_contains($type, str_replace(",", "", $mime))) $has = true;
+
+            if (!$has) return $this->setStatus(false, "upload file type invalid");
+
+            $size = strlen($bin);
+            $sizes = $this->fileSize($pattern->min, $pattern->max);
+            $min = $sizes->current();
+            $sizes->next();
+
+            if ($size < $min)
+                return $this->setStatus(false, "upload file is small");
+
+            if ($size > $sizes->current())
+                return $this->setStatus(false, "upload file is big");
+        }
+
+        function setStatus ($status, $message) {
+            $this->ok = $status;
+            $this->message = $message instanceof Pattern? $message->name . " invalid": $message;
+        }
+
+        function add ($value, $pattern) {
+            $this->validate([new Pattern($pattern, $this->getName($pattern), $value)]);
+            $this->isValid();
+        }
+
+        function validate ($patterns) {
+            if (!$this->ok and $this->ok !== NULL)return;
+            
+            foreach ($patterns as $pattern) {
+                if ($pattern->required && !$pattern->value)
+                    return $this->setStatus(false, "input is empty");
+
+                if (!$pattern->required && !$pattern->value) continue;
+
+                if ($pattern->retype)
+                    return $this->retype($pattern);
+
+                $this->{$pattern->check}($pattern);
+
+                if (!$this->ok) break;
+
+                $sameTarget = [...array_filter($this->patterns, fn($item) => $item->name == $pattern->same)];
+                $same = $pattern->same && $sameTarget && $this->same($pattern->value, $sameTarget[0]->value);
+
+                if ($same) return $this->setStatus(false, "password and username is same");
+            }
+        }
+
+        function isValid () {
+            if ($this->ok) $this->message = "data is valid";
+            $this->message = str_replace("-", " ", $this->message);
+        }
+
+        function getName ($pattern) {
+            return substr($pattern, 0, strpos($pattern, " "));
+        }
+
+        function __construct (&$data, $patterns) {
+            foreach ($patterns as $pattern) {
+                $name = $this->getName($pattern);
+
+                if (!isset($data[$name])) continue;
+
+                if (is_string($data[$name]))
+                    $data[$name] = trim($data[$name]);
+
+                array_push($this->patterns, new Pattern($pattern, $name, $data[$name]));
+            }
+
+            $this->validate($this->patterns);
+            $this->isValid();
+        }
+    }

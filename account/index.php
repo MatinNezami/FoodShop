@@ -44,7 +44,7 @@
 
             <form action="" class="center-item" details-error>
                 <div class="input">
-                    <input type="text" name="firstName" check="text" minlength="4">
+                    <input type="text" name="first-name" check="text" minlength="4">
                     <p class="placeholder">First Name</p>
                 </div>
 
@@ -187,7 +187,7 @@
 
             <form action="" class="center-item" details-error>
                 <div class="input">
-                    <input type="text" name="firstName" value="<?php echo $info["firstName"]?? "client" ?>" minlength="4" required>
+                    <input type="text" name="first-name" value="<?php echo $info["firstName"]?? "client" ?>" minlength="4" required>
                     <p class="placeholder">First Name</p>
                 </div>
 

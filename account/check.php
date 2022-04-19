@@ -23,7 +23,7 @@
 		$check->execute() or
 			die($GLOBALS["notExec"]);
 
-		if (!$check->rowCount()) return NULL;
+		if (!$check->rowCount()) return;
 			
 		$data = $check->fetch(PDO::FETCH_ASSOC);
 
@@ -47,16 +47,18 @@
 		# CONFIG SENDMAIL FOR SEND URL TO CLIENT EMAIL
 	}
 
-	function checkValidate ($data) {
-		unset($data["profile"]);
+	function checkValidate () {
+		$check = new \Validation\Validate($_POST, [
+			"first-name min=4 check=text",
+			"username check=username same-password=password required",
+			"password check=password required",
+			"retype-password retype=password required",
+			"profile check=base64 mime=image max=10M required",
+			"email check=email required"
+		]);
 
-		if (!$data)
-			return null;
-
-		$check = new Validate($data, ["firstName", 4, 30, false]);
-
-		if (!$check->valid)
-			die("{\"status\": 500, \"message\": \"" . str_replace("-", " ", $check->message) . "\"}");
+		if (!$check->ok)
+			die("{\"status\": 500, \"message\": \"" . $check->message . "\"}");
 	}
 
 	function generateToken () {
@@ -89,26 +91,9 @@
 		cookie($token);
 	}
 
-	function checkProfile () {
-		if (!isset($_POST["profile"]))
-			die("{\"status\": 500, \"message\": \"profile isn't exists\"}");
-
-		$src = base64_decode(substr($_POST["profile"], strpos($_POST["profile"], ";") + 1, -1));
-
-		if (strlen($src) > 10000000)
-			die("{\"status\": 500, \"message\": \"profile is long\"}");
-	
-		$infoOpen = finfo_open();
-	
-		if (!str_contains(finfo_buffer($infoOpen, $src, FILEINFO_MIME_TYPE), "image"))
-			die("{\"status\": 500, \"message\": \"profile isn't image "  . $type . "\"}");
-	}
-
 	// work on this function CREATE FAVORITE AND SAVE PRODUCTS
 	function register () {
-		checkProfile();
-		checkValidate($_POST);
-
+		checkValidate();
 		existsUser($_POST["username"], $_POST["email"]);
 		insert($_POST);
 
@@ -193,15 +178,9 @@
 		if (isset($_POST["username"]) && existsUser($_POST["username"], ""))
 			die("{\"status\": 500, \"message\": \"this username is exists\"}");
 
+		checkValidate();
 		unset($_POST["type"]);
-		// checkValidate(["username" => $info["username"], ...$_POST]); IF PHP SUPPORT REST OPERATOR (IN MY LINUX) USE THIS CODE
-		$validInfo = $_POST;
-		$validInfo["username"] = $_POST["username"]?? $info["username"];
-		checkValidate($validInfo);
-
-		if (isset($_POST["profile"]))
-			checkProfile();
-
+		
 		$change = $GLOBALS["connection"]->prepare(changeInfoQuery());
 		
 		foreach ($_POST as $key => &$val)
@@ -227,7 +206,7 @@
 
 		$_POST["username"] = $info["username"];
 
-		checkValidate($_POST);
+		checkValidate();
 
 		$update = $GLOBALS["connection"]->prepare("UPDATE `users` SET `password` = ? WHERE `username` = ?");
 		$update->bindValue(1, $_POST["password"]);
@@ -246,7 +225,7 @@
 		if ($_POST["password"] != $info["password"])
 			die("{\"status\": 500, \"message\": \"password didn't match\"}");
 
-		checkValidate($_POST);
+		checkValidate();
 		existsUser("", $_POST["email"]);
 
 		$update = $GLOBALS["connection"]->prepare("UPDATE `users` SET `email` = ?, `accept` = 0 WHERE `username` = ?");
@@ -285,7 +264,7 @@
 	}
 
 	function resetPasswd () {
-		checkValidate($_POST);
+		checkValidate();
 
 		$email = $GLOBALS["connection"]->prepare("SELECT `accept` FROM `users` WHERE `email` = ? AND `username` = ?");
 		$email->bindValue(1, $_POST["email"]);
@@ -309,8 +288,7 @@
 
 
 	(function () {
-		if (!isset($_GET["type"]))
-			return NULL;
+		if (!isset($_GET["type"])) return;
 
 		switch ($_GET["type"]) {
 			case "profiles":
@@ -323,8 +301,7 @@
 		
 
 	(function () {
-		if (!isset($_POST["type"]))
-			return NULL;
+		if (!isset($_POST["type"])) return;
 
 		switch ($_POST["type"]) {
 			case "register":
