@@ -48,6 +48,13 @@
 	}
 
 	function checkValidate () {
+		$profile = NULL;
+
+		if (isset($_POST["profile"])) {
+			$profile = $_POST["profile"];
+			$_POST["profile"] = substr($_POST["profile"], strpos($_POST["profile"], ";") + 1);
+		}
+
 		$check = new \Validation\Validate($_POST, [
 			"first-name min=4 check=text",
 			"username check=username same-password=password required",
@@ -59,6 +66,8 @@
 
 		if (!$check->ok)
 			die("{\"status\": 500, \"message\": \"" . $check->message . "\"}");
+
+		$_POST["profile"] = $profile;
 	}
 
 	function generateToken () {
