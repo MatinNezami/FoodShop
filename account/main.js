@@ -240,9 +240,9 @@ function insertChange (selected, inputs) {
     if (selected || window.uploadSrc)
         $.userProfile.select("img").src = $.detailsProfile.src;
 
-        $["change-info"].select("input[name=password]").value = "";
+    cleanInputs($["change-info"].select("input[name=password]"));
 
-    $.clientName.innerText = $["change-info"].select("input[name=firstName]").value;    
+    $.clientName.innerText = $["change-info"].select("input[name=first-name]").value;    
     renderBox("informations");
 
     resetForm(selected, inputs);
