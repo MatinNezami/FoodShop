@@ -47,8 +47,7 @@ async function createProfiles () {
 }
 
 async function signupProfiles (img, i) {
-    if ($.lastProfile.childElementCount == 2)
-        return null;
+    if ($.lastProfile.childElementCount == 2) return;
 
     profileParent.appendChild(img);
 
@@ -71,8 +70,7 @@ async function profiles () {
 
 
 function headerImage () {
-    if (innerWidth <= 500 || isExists("body > img"))
-        return null;
+    if (innerWidth <= 500 || isExists("body > img")) return;
 
     const img = image("/images/account.webp", "background picture");
     $.body.insertBefore(img, $.header?? $.select("header", "header"));
@@ -139,16 +137,14 @@ async function signup () {
     const validate = new Validate($.signup.select("form")),
         selected = isExists(".selected");
 
-    if (!validate.data)
-        return null;
+    if (!validate.data) return;
 
     if (!(selected || $.profile.files[0]))
         return Validate.error(profilesBox, "Select A Profile");
 
     validate.data.append("profile", window.uploadSrc?? window.src[selected.dataset.name]);
 
-    if ((await ajax("check.php", validate.data, "POST")).status == 500)
-        return null;
+    if ((await ajax("check.php", validate.data, "POST")).status == 500) return;
 
     const data = {};
     validate.data.forEach((val, key) => data[key] = val);
@@ -161,8 +157,7 @@ $.signup.select(".submit").event("click", signup);
 
 
 async function logout () {
-    if ((await ajax("check.php?type=logout")).status == 500)
-        return null;
+    if ((await ajax("check.php?type=logout")).status == 500) return;
     
     client.login = false;
 
@@ -185,13 +180,11 @@ function resetForm (selected, inputs) {
 async function login () {
     const validate = new Validate($.login.select("form"));
 
-    if (!validate.data)
-        return null;
+    if (!validate.data) return;
 
     const response = await ajax("check.php", validate.data, "POST");
 
-    if (response.status == 500)
-        return null;
+    if (response.status == 500) return;
 
     client.login = true;
     
@@ -231,8 +224,7 @@ function closeModal () {
 // IF USE MODAL BOX IN OTHER PAGE MOVE THIS CODE TO SHARE DIRECTORY
 
 function changeProfiles (img, event) {
-    if ($[event.srcElement.dataset.targetModal].childElementCount == 9)
-        return null;
+    if ($[event.srcElement.dataset.targetModal].childElementCount == 9) return;
 
     const reference = $[event.srcElement.dataset.targetModal].querySelector("label");
 
@@ -281,13 +273,11 @@ async function changeInfo () {
 
     const validate = new Validate($["change-info"].select("form"));
 
-    if (!validate.data)
-        return null;
+    if (!validate.data) return;
 
     inputs.push(password);
 
-    if ((await ajax("check.php", changeInfoForm(selected, inputs), "POST")).status == 500)
-        return null;
+    if ((await ajax("check.php", changeInfoForm(selected, inputs), "POST")).status == 500) return;
 
     insertChange(selected, inputs);
     cleanInputs(password);
@@ -316,8 +306,7 @@ async function changePasswd () {
     if (inputs[1].value && inputs[0].value == inputs[1].value)
         return Validate.error(inputs[1], "new password match with old password");
 
-    if (!validate.data || (await ajax("check.php", validate.data, "POST")).status == 500)
-        return null;
+    if (!validate.data || (await ajax("check.php", validate.data, "POST")).status == 500) return;
 
     inputs.push($["change-password"].select("input[name=password]"));
 
@@ -336,8 +325,7 @@ async function changeEmail () {
 
     const validate = new Validate($["change-email"].select("form"), false);
 
-    if (!validate.data || (await ajax("check.php", validate.data, "POST")).status == 500)
-        return null;
+    if (!validate.data || (await ajax("check.php", validate.data, "POST")).status == 500) return;
 
     cleanInputs($["change-email"].select("input[name=password]"));
     renderBox("informations");
@@ -350,8 +338,7 @@ $["change-email"].select(".submit").event("click", changeEmail);
 async function forgotPasswd () {
     const validate = new Validate($["forgot-password"].select("form"));
 
-    if (!validate.data || (await ajax("check.php", validate.data, "POST")).status == 500)
-        return null;
+    if (!validate.data || (await ajax("check.php", validate.data, "POST")).status == 500) return;
 
     renderBox("login");
 }
