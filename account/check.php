@@ -174,7 +174,7 @@
 			die("{\"status\": 500, \"message\": \"password didn't match\"}");
 
 		cookie($info["token"]);
-		unset($info["accept"], $info["token"], $info["password"], $info["acceptCode"]);
+		unset($info["accept"], $info["token"], $info["password"], $info["acceptCode"], $info["oppertunity"]);
 
 		die("{\"status\": 200, \"message\": \"welcome, login successly\", \"info\": " . json_encode($info) ."}");
 	}
