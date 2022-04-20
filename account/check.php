@@ -5,6 +5,17 @@
 
 	$notExec = "{\"status\": 500, \"message\": \"query isn't execute\"}";
 	$lastTime = fn() => time() + (86400 * 3);
+
+	foreach ($_POST as $key => $val) {
+		if (str_contains($key, "password")) continue;
+
+		$_POST[$key] = trim($val);
+	}
+
+	if (isset($_POST["first-name"])) {
+		$_POST["firstName"] = $_POST["first-name"];
+		unset($_POST["first-name"]);
+	}
 		
 	function profiles () {
         $query = $GLOBALS["connection"]->prepare("SELECT * FROM `profile`");
@@ -50,13 +61,15 @@
 	function checkValidate () {
 		$profile = NULL;
 
-		if (isset($_POST["profile"])) {
-			$profile = $_POST["profile"];
-			$_POST["profile"] = substr($_POST["profile"], strpos($_POST["profile"], ";") + 1);
-		}
+		if (isset($_POST["profile"]))
+			$profile = ["profile" => substr($_POST["profile"], strpos($_POST["profile"], ";") + 1)];
 
-		$check = new \Validation\Validate($_POST, [
-			"first-name min=4 check=text",
+		// $data = $profile? [...$_POST, ...$profile]: $_POST; IF SUPPORT REST OPERATOR IN MY LINUX USE THIS CODE
+		$data = $_POST;
+		if ($profile) $data["profile"] = $profile["profile"];
+
+		$check = new \Validation\Validate($data, [
+			"firstName min=4 check=text",
 			"username check=username same-password=password required",
 			"password check=password required",
 			"retype-password retype=password required",
@@ -66,8 +79,6 @@
 
 		if (!$check->ok)
 			die("{\"status\": 500, \"message\": \"" . $check->message . "\"}");
-
-		$_POST["profile"] = $profile;
 	}
 
 	function generateToken () {
@@ -79,14 +90,14 @@
 		return $token;
 	}
 
-	function insert ($data) {
-		unset($data["retry-password"], $data["type"]);
+	function insert () {
+		unset($_POST["retype-password"], $_POST["type"]);
 
 		$query = "INSERT INTO `users` (`username`, `email`, `password`, `firstName`, `profile`, `token`, `oppertunity`)VALUE (:username, :email, :password, :firstName, :profile, :token, :oppertunity)";
 		$insert = $GLOBALS["connection"]->prepare($query);
 		$token = generateToken();
 		
-		foreach ($data as $key => &$val)
+		foreach ($_POST as $key => &$val)
 			$insert->bindParam(":$key", $val);
 
 		$insert->bindParam(":token", $token);
@@ -104,7 +115,7 @@
 	function register () {
 		checkValidate();
 		existsUser($_POST["username"], $_POST["email"]);
-		insert($_POST);
+		insert();
 
 		die("{\"status\": 200, \"message\": \"check your email\"}");
 	}
@@ -188,13 +199,13 @@
 			die("{\"status\": 500, \"message\": \"this username is exists\"}");
 
 		checkValidate();
-		unset($_POST["type"]);
-		
+		unset($_POST["type"], $_POST["password"]);
+
 		$change = $GLOBALS["connection"]->prepare(changeInfoQuery());
-		
+
 		foreach ($_POST as $key => &$val)
 			$change->bindValue(":$key", $val);
-		
+
 		$change->bindValue(":oldUsername", $info["username"]);
 
 		$change->execute() or
@@ -335,5 +346,9 @@
 				resetPasswd();
 		}
 	})();
+
+	$_POST = ["firstName" => "mman", "password" => "Hexi91$", "profile" => "image/jpeg;sjicisooeiciidnnis"];
+
+	checkValidate();
 
 ?>

@@ -112,7 +112,8 @@ function insertInfo (data) {
     const img = image(blobURL(data.profile), "user profile"),
         link = $.createElement("A"),
         changeInputs = $["change-info"].select(".input input:not([name=password])"),
-        email = $["change-email"].select(".input input[name=email]");
+        email = $["change-email"].select(".input input[name=email]"),
+        name = (data.firstName?? data["first-name"]).trim();
 
     $.informations.select("img").src = $.detailsProfile.src = img.src;
 
@@ -122,11 +123,11 @@ function insertInfo (data) {
     $.userProfile.innerHTML = "";
     $.userProfile.appendChild(link);
 
-    $.clientName.innerText = changeInputs[0].value = data.firstName;
-    changeInputs[1].value = data.username;
+    $.clientName.innerText = changeInputs[0].value = name? name: "client";
+    changeInputs[1].value = data.username.trim();
     changeInputs.forEach(input => inputValue(input));
 
-    email.defaultValue = email.value = data.email;
+    email.defaultValue = email.value = data.email.trim();
     inputValue(email);
 
     resetForm(isExists(".selected"), changeInputs);
@@ -242,7 +243,7 @@ function insertChange (selected, inputs) {
 
     cleanInputs($["change-info"].select("input[name=password]"));
 
-    $.clientName.innerText = $["change-info"].select("input[name=first-name]").value;    
+    $.clientName.innerText = $["change-info"].select("input[name=first-name]").value.trim();    
     renderBox("informations");
 
     resetForm(selected, inputs);
