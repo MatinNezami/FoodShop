@@ -19,7 +19,7 @@ const profilesBox = $.select(".profile-images"),
     page = getRequest("page");
 
 history.replaceState(null, "", `${locationWithout("page")}page=${
-    renderBox(!$[page]? "informations": page, false)
+    renderBox($[page]? page: "informations", false)
 }`);
 
 
