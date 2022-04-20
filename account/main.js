@@ -171,7 +171,7 @@ $.select(".logout").event("click", logout);
 
 
 function resetForm (selected, inputs) {
-    inputs.forEach(input => input.defaultValue = input.value);
+    inputs.forEach(input => input.defaultValue = input.value = input.value.trim());
 
     window.uploadSrc = undefined;
     selected?.classList?.remove("selected");
