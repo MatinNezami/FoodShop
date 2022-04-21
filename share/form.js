@@ -111,11 +111,13 @@ $.select("button, label")
     .event("pointerdown", buttonDown, "pointerup", buttonUp, "pointerleave", buttonUp);
 
 
-async function ajax (url, data, method) {
+async function ajax ({url, data, cache = "no-cache", method}) {
     const request = data? await fetch(url, {
         method: method,
         body: data
-    }): await fetch(url);
+    }): await fetch(url, {
+        cache: cache
+    });
 
     if (!request.ok) {
         message("not found");

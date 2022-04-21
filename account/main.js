@@ -34,8 +34,11 @@ function image (src, alt) {
 
 
 async function createProfiles () {
-    return !profileImages && !(await profiles())? null:
-        profileImages.map(profile => {
+    const response = await ajax({url: "check.php?type=profiles", cache: "force-cache"});
+    
+    if (response.status == 500) return;
+    
+    return response.data.map(profile => {
             const img = image(blobURL(profile.img), "profile");
 
             img.dataset.name = profile.key;
@@ -56,16 +59,6 @@ async function signupProfiles (img, i) {
         (i < 4? $.firstProfile: $.lastProfile).appendChild(profileParent);
         profileParent = $.createElement("DIV");
     }
-}
-
-async function profiles () {
-    const response = await ajax("check.php?type=profiles");
-
-    if (response.status == 500)
-        return 0;
-
-    profileImages = response.data;
-    return 1;
 }
 
 
@@ -145,7 +138,7 @@ async function signup () {
 
     validate.data.append("profile", window.uploadSrc?? window.src[selected.dataset.name]);
 
-    if ((await ajax("check.php", validate.data, "POST")).status == 500) return;
+    if ((await ajax({url: "check.php", data: validate.data, method: "POST"})).status == 500) return;
 
     const data = {};
     validate.data.forEach((val, key) => data[key] = val);
@@ -158,7 +151,7 @@ $.signup.select(".submit").event("click", signup);
 
 
 async function logout () {
-    if ((await ajax("check.php?type=logout")).status == 500) return;
+    if ((await ajax({url: "check.php?type=logout"})).status == 500) return;
     
     client.login = false;
 
@@ -183,7 +176,7 @@ async function login () {
 
     if (!validate.data) return;
 
-    const response = await ajax("check.php", validate.data, "POST");
+    const response = await ajax({url: "check.php", data: validate.data, method: "POST"});
 
     if (response.status == 500) return;
 
@@ -277,8 +270,9 @@ async function changeInfo () {
     if (!validate.data) return;
 
     inputs.push(password);
+    const data = {url: "check.php", data: changeInfoForm(selected, inputs), method: "POST"};
 
-    if ((await ajax("check.php", changeInfoForm(selected, inputs), "POST")).status == 500) return;
+    if ((await ajax(data)).status == 500) return;
 
     insertChange(selected, inputs);
     cleanInputs(password);
@@ -307,7 +301,7 @@ async function changePasswd () {
     if (inputs[1].value && inputs[0].value == inputs[1].value)
         return Validate.error(inputs[1], "new password match with old password");
 
-    if (!validate.data || (await ajax("check.php", validate.data, "POST")).status == 500) return;
+    if (!validate.data || (await ajax({url: "check.php", data: validate.data, method: "POST"})).status == 500) return;
 
     inputs.push($["change-password"].select("input[name=password]"));
 
@@ -326,7 +320,7 @@ async function changeEmail () {
 
     const validate = new Validate($["change-email"].select("form"), false);
 
-    if (!validate.data || (await ajax("check.php", validate.data, "POST")).status == 500) return;
+    if (!validate.data || (await ajax({url: "check.php", data: validate.data, method: "POST"})).status == 500) return;
 
     cleanInputs($["change-email"].select("input[name=password]"));
     renderBox("informations");
@@ -339,7 +333,7 @@ $["change-email"].select(".submit").event("click", changeEmail);
 async function forgotPasswd () {
     const validate = new Validate($["forgot-password"].select("form"));
 
-    if (!validate.data || (await ajax("check.php", validate.data, "POST")).status == 500) return;
+    if (!validate.data || (await ajax({url: "check.php", data: validate.data, method: "POST"})).status == 500) return;
 
     renderBox("login");
 }
