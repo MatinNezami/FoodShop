@@ -13,7 +13,7 @@
 	}
 
 	if (isset($_POST["first-name"])) {
-		$_POST["firstName"] = $_POST["first-name"];
+		$_POST["firstName"] = $_POST["first-name"]? $_POST["first-name"]: "client";
 		unset($_POST["first-name"]);
 	}
 		
@@ -96,7 +96,7 @@
 		$query = "INSERT INTO `users` (`username`, `email`, `password`, `firstName`, `profile`, `token`, `oppertunity`)VALUE (:username, :email, :password, :firstName, :profile, :token, :oppertunity)";
 		$insert = $GLOBALS["connection"]->prepare($query);
 		$token = generateToken();
-		
+
 		foreach ($_POST as $key => &$val)
 			$insert->bindParam(":$key", $val);
 
