@@ -89,6 +89,7 @@ header nav svg {
 
 header nav img {
     border-radius: 50%;
+    object-fit: cover;
 }
 
 header nav a::before {
