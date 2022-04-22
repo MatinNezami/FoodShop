@@ -246,11 +246,6 @@ main > div li {
     vertical-align: super;
 }
 
-#error,
-#error::before {
-    background: unset;
-}
-
 .tiny-inputs {
     flex-wrap: nowrap;
     justify-content: space-between;
@@ -280,4 +275,9 @@ main > div li {
 .dark .show-password label,
 .dark input {
     color: #FFF;
+}
+
+.static-box,
+.static-box::before {
+    background: unset !important;
 }

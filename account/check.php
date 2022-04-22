@@ -146,7 +146,7 @@
 
 		accepted($_POST["token"]);
 
-		die("{\"status\": 200, \"message\": \"your password did match\"}");
+		die("{\"status\": 200, \"message\": \"your email is accept\"}");
 	}
 
 

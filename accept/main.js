@@ -1,6 +1,6 @@
-$.select("#accept-account", "accept-account");
-$.select("#accept-code", "accept-code");
-$.select("#error", "error");
+$.select("main > div").forEach(
+    box => $[box.id] = box
+);
 
 (_ => {
 
@@ -15,15 +15,16 @@ $.select("#error", "error");
 })();
 
 async function acceptAccount () {
-    const validate = new Validate($["accept-account"].select("form"), false);
+    const validate = new Validate($["accept-account"].select("form"));
 
-    if (!validate.data)
-        return null;
+    if (!validate.ok) return;
 
     validate.data.append("type", "accept");
     validate.data.append("token", getRequest("token"));
 
-    if ((await ajax("/account/check.php", validate.data, "POST")).status == 200)
+    const data = {url: "/account/check.php", data: validate.data, method: "POST"};
+
+    if ((await ajax(data)).status == 200)
         setTimeout(_ => location.replace("http://localhost/account"), 3000);
 }
 

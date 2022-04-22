@@ -23,9 +23,14 @@
     </header>
 
     <main class="center-item">
-        <div id="error" class="center-item" style="background-color: inherit;">
-            <img src="/images/500.svg" loading="lazy" alt="accept" draggable="false">
-            <h2>token isn't valid</h2>
+        <div id="error" class="center-item static-box">
+            <img src="/images/500.svg" loading="lazy" alt="error" draggable="false">
+            <h2>Token invalid</h2>
+        </div>
+
+        <div id="accepted" class="center-item static-box">
+            <img src="/images/accepted.svg" loading="lazy" alt="accepted" draggable="false">
+            <h2>Account is accepted</h2>
         </div>
 
         <div id="accept-account" class="center-item">
@@ -95,7 +100,14 @@
     <script type="text/javascript" src="/share/form.js"></script>
     <script type="text/javascript" src="./main.js"></script>
 
-    <?php if (!isset($_GET["token"]) || ($_GET["token"] != $info["token"] && !$info["accept"])) { ?>
+    <!-- work on this code -->
+    <?php if ($info["accept"]) { ?>
+        <script>
+            renderBox("accepted", false);
+            history.replaceState(null, "", "?page=accepted");
+        </script>
+
+    <?php } elseif (!isset($_GET["token"]) || $_GET["token"] != $info["token"]) { ?>
         <script>
             renderBox("error", false);
             history.replaceState(null, "", "?page=error");
