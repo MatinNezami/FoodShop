@@ -4,67 +4,26 @@ $.select("#message", "message");
 $.select("#message p", "messageText");
 $.select(".back-to-top", "back");
 
-const renderMenu = _ => getRequest("menu") && innerWidth <= 532? openMenu(null): closeMenu();
+const renderMenu = target => location.get("menu") && innerWidth <= 532? openMenu(target): closeMenu(target);
 
-function getQuery (key) {
-    const query = location.search.match(new RegExp(`${key}=[^&]*&?`));
-
-    return query? query[0]: "";
-}
-
-function locationWithout (key) {
-    const query = location.search.replace(getQuery(key), "");
-    
-    return !query || query == '?'? '?': `${query}&`;
-}
-
-function removeQuery (key) {
-	const result = location.search.replaceAll(getQuery(key), "");
-
-	if (result.length < 2)
-		return history.pushState(null, "", location.pathname);
-
-    if (result.endsWith("&"))
-        return history.pushState(null, "", result.slice(0, -1));
-
-	history.pushState(null, "", result);
-}
-
-function getRequest (key) {
-    const regex = new RegExp(`${key}=.*`),
-        match = location.search.match(regex);
-      
-    if (!match)
-        return null;
-      
-    let end = match[0].search("&");
-    if (end < 0) end = undefined;
-      
-    return match[0].slice(match[0].search("=") + 1, end);
-}
-
-
-function closeMenu () {
+function closeMenu (target) {
     $.menu.style.left = "-260px";
     $.body.style.overflow = "visible";
     $.prevent.style.zIndex = "-1";
 
-    removeQuery("menu");
+    history[target + "State"](null, "", location.remove("menu"));
 }
 
-function openMenu (state) {
+function openMenu (target) {
     $.menu.style.left = 0;
     $.body.style.overflow = "hidden";
     $.prevent.style.zIndex = "2";
 
-    if (state)
-        history.pushState(null, "",
-            `${location.search? `${location.search}&`: '?'}menu=open`
-        );
+    history[target + "State"](null, "", location.append({page: "open"}));
 }
 
-renderMenu();
-window.addEventListener("popstate", renderMenu);
+renderMenu("replace");
+window.addEventListener("popstate", _ => renderMenu("push"));
 
 $.prevent.event("click", closeMenu);
 $.select("header nav .open").event("click", openMenu);
