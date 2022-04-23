@@ -4,26 +4,34 @@ $.select("#message", "message");
 $.select("#message p", "messageText");
 $.select(".back-to-top", "back");
 
-const renderMenu = target => location.get("menu") && innerWidth <= 532? openMenu(target): closeMenu(target);
+const renderMenu = _ => location.get("menu") && innerWidth <= 532? openMenu(): closeMenu();
 
-function closeMenu (target) {
+function closeMenu () {
+    console.log("close");
     $.menu.style.left = "-260px";
     $.body.style.overflow = "visible";
     $.prevent.style.zIndex = "-1";
 
-    history[target + "State"](null, "", location.remove("menu"));
+    history.replaceState(null, "", location.remove("menu"));
 }
 
-function openMenu (target) {
+function openMenu (load) {
     $.menu.style.left = 0;
     $.body.style.overflow = "hidden";
     $.prevent.style.zIndex = "2";
 
-    history[target + "State"](null, "", location.append({page: "open"}));
+
+
+    // if (!load) history.replaceState(null, "", location.search)
+    if (!load) return;
+
+    history.pushState(null, "",
+        location.get("menu")? location.search: location.append({menu: "open"})
+    );
 }
 
-renderMenu("replace");
-window.addEventListener("popstate", _ => renderMenu("push"));
+renderMenu(true);
+window.addEventListener("popstate", renderMenu);
 
 $.prevent.event("click", closeMenu);
 $.select("header nav .open").event("click", openMenu);
