@@ -139,6 +139,7 @@ function renderBox (targetBox, push = true) {
     if (box.dataset.logined && !client.login)
         box = $.login;
 
+        // working
     if (box == active) return;
 
     active?.classList?.remove("active")
@@ -146,5 +147,7 @@ function renderBox (targetBox, push = true) {
 
     if (!push) return box.id;
     
-    history.pushState(null, "", `?page=${box.id}`);
+    location.reference = location.remove("page");
+    history.pushState(null, "", location.append({page: box.id}));
+    location.unset();
 }

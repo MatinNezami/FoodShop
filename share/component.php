@@ -146,6 +146,7 @@
     <link rel="stylesheet" type="text/css" href="/share/style.css">
 
     <script type="text/javascript" src="/share/config.js"></script>
+    <script type="text/javascript" src="/share/location.js"></script>
 
 <?php
 

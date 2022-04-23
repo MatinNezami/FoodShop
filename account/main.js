@@ -16,11 +16,18 @@ $["change-info"].select(".details-profile img", "detailsProfile");
 
 const profilesBox = $.select(".profile-images"),
     reader = new FileReader(),
-    page = getRequest("page");
+    page = location.get("page");
 
-history.replaceState(null, "", `${locationWithout("page")}page=${
-    renderBox($[page]? page: "informations", false)
-}`);
+
+location.reference = location.remove("page");
+
+console.log(location.append({page: "xml"}));
+
+history.replaceState(null, "", location.append({
+    page: renderBox($[page]? page: "informations", false)
+}));
+
+location.unset();
 
 
 function image (src, alt) {
@@ -88,7 +95,7 @@ $.select(".profile").event("click",
 );
 
 
-addEventListener("popstate", _ => renderBox(getRequest("page"), false));
+addEventListener("popstate", _ => renderBox(location.get("page"), false));
 
 $.select("[data-target-box]").event("click", renderBox);
 
@@ -331,11 +338,10 @@ $["change-email"].select(".submit").event("click", changeEmail);
 
 
 async function forgotPasswd () {
-    const validate = new Validate($["forgot-password"].select("form"));
+    const validate = new Validate($["forgot-password"].select("form")),
+        data = {url: "check.php", data: validate.data, method: "POST"};
 
-    if (!validate.data || (await ajax({url: "check.php", data: validate.data, method: "POST"})).status == 500) return;
-
-    renderBox("login");
+    if (!validate.data || (await ajax(data)).status == 200) renderBox("login");
 }
 
 $["forgot-password"].select(".submit").event("click", forgotPasswd);
