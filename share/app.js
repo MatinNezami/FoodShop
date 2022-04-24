@@ -4,36 +4,36 @@ $.select("#message", "message");
 $.select("#message p", "messageText");
 $.select(".back-to-top", "back");
 
-const renderMenu = _ => location.get("menu") && innerWidth <= 532? openMenu(): closeMenu();
+const renderMenu = ev => location.get("menu") && innerWidth <= 532? openMenu(ev): closeMenu();
+
 
 function closeMenu () {
-    console.log("close");
     $.menu.style.left = "-260px";
     $.body.style.overflow = "visible";
     $.prevent.style.zIndex = "-1";
-
-    history.replaceState(null, "", location.remove("menu"));
 }
 
-function openMenu (load) {
+function openMenu ({load}) {
     $.menu.style.left = 0;
     $.body.style.overflow = "hidden";
     $.prevent.style.zIndex = "2";
 
+    if (load) {
+        history.replaceState(null, "", location.remove("menu"));
+        return history.pushState({open: true}, "", location.append({menu: "open"}));
+    }
 
+    if (history.state?.open) return;
 
-    // if (!load) history.replaceState(null, "", location.search)
-    if (!load) return;
-
-    history.pushState(null, "",
+    history.pushState({open: true}, "",
         location.get("menu")? location.search: location.append({menu: "open"})
     );
 }
 
-renderMenu(true);
-window.addEventListener("popstate", renderMenu);
+renderMenu({load: true});
+self.addEventListener("popstate", renderMenu);
 
-$.prevent.event("click", closeMenu);
+$.prevent.event("click", closeMenu, _ => history.back());
 $.select("header nav .open").event("click", openMenu);
 
 

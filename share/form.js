@@ -148,6 +148,6 @@ function renderBox (targetBox, push = true) {
     if (!push) return box.id;
     
     location.reference = location.remove("page");
-    history.pushState(null, "", location.append({page: box.id}));
+    history.pushState(history.state, "", location.append({page: box.id}));
     location.unset();
 }

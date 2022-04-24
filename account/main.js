@@ -21,7 +21,7 @@ const profilesBox = $.select(".profile-images"),
 
 location.reference = location.remove("page");
 
-history.replaceState(null, "", location.append({
+history.replaceState(history.state, "", location.append({
     page: renderBox($[page]? page: "informations", false)
 }));
 
