@@ -4,13 +4,15 @@ $.select("#message", "message");
 $.select("#message p", "messageText");
 $.select(".back-to-top", "back");
 
-const renderMenu = ev => location.get("menu") && innerWidth <= 532? openMenu(ev): closeMenu();
+const menuState = ev => location.get("menu") && innerWidth <= 532? openMenu(ev): closeMenu();
 
 
 function closeMenu () {
     $.menu.style.left = "-260px";
     $.body.style.overflow = "visible";
     $.prevent.style.zIndex = "-1";
+
+    if (history.state?.open) history.back();
 }
 
 function openMenu ({load}) {
@@ -30,10 +32,10 @@ function openMenu ({load}) {
     );
 }
 
-renderMenu({load: true});
-self.addEventListener("popstate", renderMenu);
+menuState({load: true});
+self.addEventListener("popstate", menuState);
 
-$.prevent.event("click", closeMenu, _ => history.back());
+$.prevent.event("click", closeMenu);
 $.select("header nav .open").event("click", openMenu);
 
 
@@ -53,7 +55,5 @@ function message (message) {
         $.message.classList.add("active");
     }
 
-    setTimeout (_ => {
-        $.message.classList.remove("active");
-    }, 3200);
+    setTimeout (_ => $.message.classList.remove("active"), 3200);
 }
