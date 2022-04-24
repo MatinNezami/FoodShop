@@ -1,8 +1,7 @@
 "use strict";
 window.src = {};
 
-let profileImages,
-    profileParent = $.createElement("DIV");
+let profileParent = $.createElement("DIV");
 
 $.firstProfile = $.querySelector(".profile-images > div");
 $.select(".profile-images > div:last-of-type", "lastProfile");
@@ -38,20 +37,27 @@ function image (src, alt) {
 }
 
 
-async function createProfiles () {
-    const response = await ajax({url: "check.php?type=profiles", cache: "force-cache"});
+function createProfiles (profile) {
+    const img = image(blobURL(profile.img), "profile");
+
+    img.dataset.name = profile.key;
+    img.onclick = selectProfile;
     
+    if (!window.src.hasOwnProperty(6))
+        Object.defineProperty(window.src, profile.key, {
+            value: profile.img,
+            writable: false
+        });
+
+    return img;
+}
+
+async function profiles () {
+    const response = await ajax({url: "check.php?type=profiles", cache: "force-cache"});
+
     if (response.status == 500) return;
     
-    return response.data.map(profile => {
-            const img = image(blobURL(profile.img), "profile");
-
-            img.dataset.name = profile.key;
-            img.onclick = selectProfile;
-        
-            window.src[profile.key] = profile.img;
-            return img;
-        });
+    return response.data.map(createProfiles);
 }
 
 async function signupProfiles (img, i) {
@@ -88,7 +94,7 @@ function selectProfile () {
 }
 
 $.select(".profile").event("click",
-    async _ => (await createProfiles())?.forEach(signupProfiles),
+    async _ => (await profiles())?.forEach(signupProfiles),
     _ => profilesBox.classList.add("active")
 );
 
@@ -230,7 +236,7 @@ function changeProfiles (img, event) {
     $[event.srcElement.dataset.targetModal].insertBefore(img, reference);
 }
 
-const changeProfilesHandler = async ev => (await createProfiles())?.forEach(img => changeProfiles(img, ev));
+const changeProfilesHandler = async ev => (await profiles())?.forEach(img => changeProfiles(img, ev));
 
 $.select("#change-profile-btn").event("click", openModal, changeProfilesHandler);
 
