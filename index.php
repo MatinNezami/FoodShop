@@ -237,7 +237,21 @@
     </footer>
 
     <script type="text/javascript" src="/share/app.js"></script>
-    <script type="text/javascript" src="./main.js"></script>
+    
+    <script>
+
+        $.select(".effect a", "effect");
+
+        function animateProducts () {
+            $.effect.forEach(effect => {
+                if (scrollY + innerHeight / 2 >= effect.getBoundingClientRect().y + scrollY)
+                    effect.classList.add("active");
+            });
+        }
+
+        self.addEventListener("scroll", animateProducts);
+
+    </script>
 </body>
 
 </html>
