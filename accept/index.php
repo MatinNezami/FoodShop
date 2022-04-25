@@ -101,7 +101,7 @@
     <script type="text/javascript" src="./main.js"></script>
 
     <!-- work on this code -->
-    <?php if ($info["accept"]) { ?>
+    <?php if ($info["accept"] && $_GET["page"] == "accept-account") { ?>
         <script>
             renderBox("accepted", false);
             history.replaceState(null, "", "?page=accepted");
