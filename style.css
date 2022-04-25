@@ -89,117 +89,7 @@ main .product:hover .image {
     height: 220px;
 }
 
-.effect-products-box {
-    width: 100%;
-}
 
-.desktop,
-.mobile.center-item {
-    width: 100%;
-    height: 100%;
-    flex-direction: column;
-    gap: 20px;
-    overflow: hidden;
-}
-
-.mobile.center-item {
-    display: none;
-    overflow: visible;
-    gap: 30px;
-}
-
-.desktop > div,
-.mobile > div {
-    width: 100%;
-}
-
-.desktop > .left {
-    justify-content: flex-start;
-}
-
-.desktop > .right {
-    justify-content: flex-end;
-}
-
-.aside-product.left {
-    -webkit-mask-image: linear-gradient(to left, #000 60%, #0000);
-    mask-image: linear-gradient(to left, #000 60%, #0000);
-    justify-content: flex-end;
-    transform: translateX(-500px) rotate(-45deg);
-}
-
-.aside-product.right {
-    -webkit-mask-image: linear-gradient(to right, #000 60%, #0000);
-    mask-image: linear-gradient(to right, #000 60%, #0000);
-    justify-content: flex-start;
-    transform: translateX(500px) rotate(45deg);
-}
-
-.aside-product {
-    padding: 5px;
-    gap: 20px;
-    width: 500px;
-    height: 200px;
-    background-color: #FFF;
-    transition: var(--animate);
-    position: relative;
-}
-
-.aside-product.show {
-    transform: unset !important;
-}
-
-.aside-product img {
-    width: 420px;
-    height: 190px;
-    object-fit: cover;
-}
-
-.aside-product .info {
-    position: absolute;
-    z-index: -1;
-}
-
-.aside-product.left .info {
-    right: 20px;
-}
-
-.aside-product.right .info {
-    left: 20px;
-}
-
-.hide-product {
-    transform: translateY(50px);
-    opacity: 0;
-    transition: var(--animate);
-}
-
-.hide-product .image {
-    top: unset;
-    position: relative;
-}
-
-.hide-product .info {
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    bottom: 100%;
-    background-color: #2C8C99;
-    transition: var(--animate);
-    flex-direction: column;
-    gap: 15px;
-    z-index: 2;
-    left: 0;
-}
-
-.hide-product.show {
-    transform: unset;
-    opacity: 1;
-}
-
-.hide-product:hover .info {
-    bottom: 0;
-}
 
 footer {
     bottom: 0;
@@ -215,13 +105,11 @@ footer {
     gap: 30px;
 }
 
-footer .image,
-.aside-product img {
+footer .image {
     transition: var(--animate);
 }
 
-footer .product:hover .image,
-.aside-product:hover img  {
+footer .product:hover .image  {
     filter: brightness(40%);
 }
 
@@ -231,8 +119,7 @@ footer .info {
     position: absolute;
 }
 
-footer .product:hover .info,
-.aside-product:hover .info {
+footer .product:hover .info {
     z-index: 1;
     flex-direction: column;
     color: #FFF;
