@@ -14,7 +14,7 @@
 
 <body>
     <header>
-        <img src="/images/post1.webp" alt="background picture">
+        <img src="/images/food.jpg" alt="background picture">
 
         <?php
             component::navbar();
