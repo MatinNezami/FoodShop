@@ -92,7 +92,7 @@
         </div>
 
 
-        <div class="center-item products-box effect">
+        <div class="center-item effects-box">
             <a href="#" class="product center-item">
                 <div class="image">
                     <img src="/images/product/9.webp" loading="lazy" alt="product picture" draggable="false">
@@ -240,7 +240,7 @@
     
     <script>
 
-        $.select(".effect a", "effect");
+        $.select(".effects-box .product", "effect");
 
         function animateProducts () {
             $.effect.forEach(effect => {

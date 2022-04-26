@@ -31,8 +31,7 @@ footer {
     gap: 50px;
 }
 
-.product,
-.hide-product {
+.product {
     width: 280px;
     height: 280px;
     padding: 5px;
@@ -41,25 +40,23 @@ footer {
     position: relative;
 }
 
-.product .image,
-.hide-product .image {
+.product .image {
     width: 280px;
     height: 280px;
     overflow: hidden;
-    z-index: 1;
+    z-index: 1 !important;
     top: 5px;
 }
 
-.product .image img,
-.hide-product .image img {
+.product .image img {
     object-fit: cover;
     width: 280px;
     height: 280px;
 }
 
-main .product div,
-main .product::before,
-main .product::after {
+main .products-box .product div,
+main .products-box .product::before,
+main .products-box .product::after {
     content: "";
     width: inherit;
     height: inherit;
@@ -69,7 +66,7 @@ main .product::after {
     transition: var(--animate);
 }
 
-main .product .info {
+main .products-box .product .info {
     flex-direction: column;
     width: max-content;
     height: max-content;
@@ -77,15 +74,15 @@ main .product .info {
     bottom: 5px;
 }
 
-main .product:hover::before{
+main .products-box .product:hover::before {
     transform: rotate(10deg);
 }
 
-main .product:hover::after{
+main .products-box .product:hover::after {
     transform: rotate(20deg);
 }
 
-main .product:hover .image {
+main .products-box .product:hover .image {
     height: 220px;
 }
 
@@ -96,10 +93,10 @@ footer {
     margin-top: 50px;
 }
 
-.products-box {
+.products-box,
+.effects-box {
     width: 100%;
     height: 100%;
-    padding-bottom: 50px;
     gap: 30px;
 }
 
@@ -124,13 +121,22 @@ footer .product:hover .info {
     display: flex;
 }
 
-.effect a {
+.effects-box .product {
     visibility: hidden;
     transition: transform 400ms cubic-bezier(1,-0.13, 0.44, 1.61) 0s;
     transform: scale(0);
+    align-content: space-between;
 }
 
-.effect a.active {
+.effects-box .product.active {
     visibility: visible;
     transform: unset;
+}
+
+.effects-box .product {
+    height: 350px;
+}
+
+.effects-box .product .info {
+    flex-direction: column;
 }
