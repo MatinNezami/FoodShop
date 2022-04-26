@@ -1,6 +1,6 @@
 body {
     background: var(--background);
-    padding-top: 320px;
+    padding-top: 20rem;
 }
 
 header {
@@ -27,8 +27,13 @@ header > img {
 main,
 footer {
     width: 100%;
-    padding: 0 70px 0 70px;
+    padding: 0 15px;
     gap: 50px;
+    overflow-x: hidden;
+}
+
+main {
+    padding-top: 2.5rem;
 }
 
 .product {
@@ -121,6 +126,10 @@ footer .product:hover .info {
     display: flex;
 }
 
+footer {
+    padding-bottom: 10px !important;
+}
+
 .effects-box .product {
     visibility: hidden;
     transition: transform .4s cubic-bezier(1,-0.13, 0.44, 1.61) 0s;
@@ -141,4 +150,10 @@ footer .product:hover .info {
 .dark .product {
     background: #393C3E;
     color: #FFF;
+}
+
+@media screen and (max-width: 959px) {
+    body {
+        padding-top: 16rem;
+    }
 }
