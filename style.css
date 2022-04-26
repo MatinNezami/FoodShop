@@ -1,5 +1,5 @@
 body {
-    background-color: #E0E0E0;
+    background: var(--background);
     padding-top: 320px;
 }
 
@@ -36,7 +36,7 @@ footer {
     height: 280px;
     padding: 5px;
     box-sizing: content-box;
-    background-color: #FFF;
+    background: #FFF;
     position: relative;
 }
 
@@ -62,7 +62,7 @@ main .products-box .product::after {
     height: inherit;
     position: absolute;
     z-index: -1;
-    background-color: inherit;
+    background: inherit;
     transition: var(--animate);
 }
 
@@ -123,9 +123,10 @@ footer .product:hover .info {
 
 .effects-box .product {
     visibility: hidden;
-    transition: transform 400ms cubic-bezier(1,-0.13, 0.44, 1.61) 0s;
+    transition: transform .4s cubic-bezier(1,-0.13, 0.44, 1.61) 0s;
     transform: scale(0);
     align-content: space-between;
+    height: 360px;
 }
 
 .effects-box .product.active {
@@ -133,10 +134,11 @@ footer .product:hover .info {
     transform: unset;
 }
 
-.effects-box .product {
-    height: 350px;
-}
-
 .effects-box .product .info {
     flex-direction: column;
+}
+
+.dark .product {
+    background: #393C3E;
+    color: #FFF;
 }
