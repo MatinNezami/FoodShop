@@ -29,6 +29,7 @@ footer {
     width: 100%;
     gap: 50px;
     overflow-x: hidden;
+    overflow-y: hidden !important;
     flex-direction: column;
 }
 

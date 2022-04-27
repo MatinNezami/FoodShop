@@ -9,7 +9,6 @@
     <?php component::headFiles() ?>
 
     <link rel="stylesheet" type="text/css" href="./style.css">
-    <link rel="stylesheet" type="text/css" href="./responsive.css">
 </head>
 
 <body>
@@ -237,21 +236,7 @@
     </footer>
 
     <script type="text/javascript" src="/share/app.js"></script>
-    
-    <script>
-
-        $.select(".effects-box .product", "effect");
-
-        function animateProducts () {
-            $.effect.forEach(effect => {
-                if (scrollY + innerHeight / 2 >= effect.getBoundingClientRect().y + scrollY)
-                    effect.classList.add("active");
-            });
-        }
-
-        self.addEventListener("scroll", animateProducts);
-
-    </script>
+    <script type="text/javascript" src="./main.js"></script>
 </body>
 
 </html>
