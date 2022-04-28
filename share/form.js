@@ -139,9 +139,6 @@ function renderBox (targetBox, push = true) {
     if (box.dataset.logined && !client.login)
         box = $.login;
 
-        // working
-    if (box == active) return;
-
     active?.classList?.remove("active")
     box.classList.add("active");
 

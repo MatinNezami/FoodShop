@@ -43,7 +43,7 @@ function createProfiles (profile) {
     img.dataset.name = profile.key;
     img.onclick = selectProfile;
     
-    if (!window.src.hasOwnProperty(6))
+    if (!window.src.hasOwnProperty(8))
         Object.defineProperty(window.src, profile.key, {
             value: profile.img,
             writable: false

@@ -6,11 +6,10 @@ $.sun = $.select("#sun").content.querySelector("svg");
 
 function blobURL (base64) {
     let point = base64.search(";");
-    const type = base64.slice(0, point);
 
-    const bin = atob(base64.slice(++point));
-
-    let byte = new Array(bin.length);
+    const type = base64.slice(0, point),
+        bin = atob(base64.slice(++point)),
+        byte = new Array(bin.length);
 
     for (let i = 0; i < byte.length; i++)
         byte[i] = bin.charCodeAt(i);
