@@ -1,4 +1,19 @@
-<?php require_once "../share/component.php" ?>
+<?php
+
+    require_once "../share/component.php";
+    
+    $client = ["login" => isset($_COOKIE["token"])];
+
+    if (time() > $info["oppertunity"])
+        $client["box"] = "resend-email";
+
+    elseif ($info["accept"] && $_GET["page"] == "accept-account")
+        $client["box"] = "accepted";
+
+    elseif (!isset($_GET["token"]) || $_GET["token"] != $info["token"])
+        $client["box"] = "error";
+
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -13,7 +28,7 @@
     <link rel="stylesheet" type="text/css" href="/account/responsive.css">
 
     <script>
-        <?php echo "const client = {login: " . (isset($_COOKIE["token"])? "true": "false") . "};" ?>
+        <?php echo "const client = " . json_encode($client) . ";" ?>
     </script>
 </head>
 
@@ -38,7 +53,7 @@
 
             <form action="" class="center-item">
                 <div class="input">
-                    <input type="password" name="password" data-type="password" required>
+                    <input type="password" name="password" check="password" data-type="password" required>
                     <p class="placeholder">Password</p>
                 </div>
             </form>
@@ -60,21 +75,21 @@
                 </ul>
 
                 <div class="tiny-inputs center-item">
-                    <input type="text" name="number" min="0" max="9" maxlength="1">
-                    <input type="text" name="number" min="0" max="9" maxlength="1">
-                    <input type="text" name="number" min="0" max="9" maxlength="1">
-                    <input type="text" name="number" min="0" max="9" maxlength="1">
-                    <input type="text" name="number" min="0" max="9" maxlength="1">
-                    <input type="text" name="number" min="0" max="9" maxlength="1">
+                    <input type="text" check="number" min="0" max="9">
+                    <input type="text" check="number" min="0" max="9">
+                    <input type="text" check="number" min="0" max="9">
+                    <input type="text" check="number" min="0" max="9">
+                    <input type="text" check="number" min="0" max="9">
+                    <input type="text" check="number" min="0" max="9">
                 </div>
 
                 <div class="input">
-                    <input type="password" data-type="password" name="password" required>
+                    <input type="password" data-type="password" check="password" name="password" required>
                     <p class="placeholder">New Password</p>
                 </div>
                 
                 <div class="input">
-                    <input type="password" data-type="password" name="retry-password" required>
+                    <input type="password" data-type="password" name="retry-password" retype="password" required>
                     <p class="placeholder">Re-enter Password</p>
                 </div>
             </form>
@@ -99,20 +114,6 @@
     <script async type="text/javascript" src="/share/validate.js"></script>
     <script type="text/javascript" src="/share/form.js"></script>
     <script type="text/javascript" src="./main.js"></script>
-
-    <!-- work on this code -->
-    <?php if ($info["accept"] && $_GET["page"] == "accept-account") { ?>
-        <script>
-            renderBox("accepted", false);
-            history.replaceState(null, "", "?page=accepted");
-        </script>
-
-    <?php } elseif (!isset($_GET["token"]) || $_GET["token"] != $info["token"]) { ?>
-        <script>
-            renderBox("error", false);
-            history.replaceState(null, "", "?page=error");
-        </script>
-    <?php } ?>
 </body>
 
 </html>

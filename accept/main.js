@@ -4,13 +4,19 @@ $.select("main > div").forEach(
 
 (_ => {
 
-    const page = getRequest("page");
-    
-    if ($[page] && !isExists("main > div.active"))
-        return renderBox(page, false);
+    const page = client.box?? location.get("page");
 
-    renderBox("error", false);
-    history.replaceState(null, "", "?page=error");       
+    location.reference = location.remove("page");
+
+    if ($[page])
+        return history.replaceState(null, "",
+            location.append({page: renderBox(page, false)})
+        );
+
+
+    history.replaceState(null, "", location.append({page: renderBox(page, false)}));
+
+    location.reference = undefined;
 
 })();
 
@@ -20,7 +26,7 @@ async function acceptAccount () {
     if (!validate.ok) return;
 
     validate.data.append("type", "accept");
-    validate.data.append("token", getRequest("token"));
+    validate.data.append("token", location.get("token"));
 
     const data = {url: "/account/check.php", data: validate.data, method: "POST"};
 
