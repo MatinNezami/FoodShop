@@ -5,7 +5,7 @@
     $token = getInfo($_GET["token"]?? 0);
     
     $client = [];
-    $acceptCode = $_GET["page"] == "accept-code" && !$token["acceptCode"];
+    $acceptCode = $_GET["page"] == "reset-password" && !$token["acceptCode"];
 
     if (time() > $token["oppertunity"])
         $client["box"] = "resend-email";
@@ -69,7 +69,7 @@
             <button class="submit">Submit</button>
         </div>
 
-        <div id="accept-code" class="center-item">
+        <div id="reset-password" class="center-item">
             <img src="/images/accept-code.svg" loading="lazy" alt="accept code" draggable="false">
 
             <form action="" class="center-item">
@@ -98,8 +98,8 @@
             </form>
 
             <div class="show-password">
-                <input type="checkbox" id="show-accept-code" autocomplete="off">
-                <label for="show-accept-code">Show Password</label>
+                <input type="checkbox" id="show-reset-password" autocomplete="off">
+                <label for="show-reset-password">Show Password</label>
             </div>
 
             <button class="submit">Submit</button>

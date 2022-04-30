@@ -20,6 +20,8 @@ $.select("main > div").forEach(
 
 })();
 
+const redirect = _ => setTimeout(_ => location.replace("http://localhost/account"), 3000);
+
 async function acceptAccount () {
     const validate = new Validate($["accept-account"].select("form"));
 
@@ -30,8 +32,27 @@ async function acceptAccount () {
 
     const data = {url: "/account/check.php", data: validate.data, method: "POST"};
 
-    if ((await ajax(data)).status == 200)
-        setTimeout(_ => location.replace("http://localhost/account"), 3000);
+    if ((await ajax(data)).status == 200) redirect();
 }
 
 $["accept-account"].select(".submit").event("click", acceptAccount);
+
+
+async function resetPasswd () {
+    const validate = new Validate($["reset-password"].select("form")),
+        acceptCode = "";
+
+    if (!validate.ok) return;
+
+    $["reset-password"].select(".tiny-inputs input").forEach(
+        input => acceptCode.concat(input.value)
+    );
+
+    validate.data.append("accept-code", acceptCode);
+
+    const data = {url: "/account/check.php", data: validate.data, method: "POST"};
+
+    if ((await ajax(data)).status == 200) redirect();
+}
+
+$["reset-password"].select(".submit").event("click", resetPasswd);
