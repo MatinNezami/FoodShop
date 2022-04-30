@@ -72,18 +72,18 @@
         <div id="reset-password" class="center-item">
             <img src="/images/accept-code.svg" loading="lazy" alt="accept code" draggable="false">
 
-            <form action="" class="center-item">
+            <form action="" class="center-item" details-error>
                 <ul>
                     <li>Enter only number</li>
                 </ul>
 
                 <div class="tiny-inputs center-item">
-                    <input type="text" check="number" min="0" max="9">
-                    <input type="text" check="number" min="0" max="9">
-                    <input type="text" check="number" min="0" max="9">
-                    <input type="text" check="number" min="0" max="9">
-                    <input type="text" check="number" min="0" max="9">
-                    <input type="text" check="number" min="0" max="9">
+                    <input type="text" check="number" min="0" max="9" required>
+                    <input type="text" check="number" min="0" max="9" required>
+                    <input type="text" check="number" min="0" max="9" required>
+                    <input type="text" check="number" min="0" max="9" required>
+                    <input type="text" check="number" min="0" max="9" required>
+                    <input type="text" check="number" min="0" max="9" required>
                 </div>
 
                 <div class="input">
@@ -95,6 +95,8 @@
                     <input type="password" data-type="password" name="retry-password" retype="password" required>
                     <p class="placeholder">Re-enter Password</p>
                 </div>
+
+                <input type="hidden" name="type" value="accept-code">
             </form>
 
             <div class="show-password">

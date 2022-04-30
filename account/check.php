@@ -283,7 +283,7 @@
 			die($GLOBALS["notExec"]);
 	}
 
-	function resetPasswd () {
+	function resetPasswdCode () {
 		checkValidate();
 
 		$email = $GLOBALS["connection"]->prepare("SELECT `accept` FROM `users` WHERE `email` = ? AND `username` = ?");
@@ -304,6 +304,32 @@
 		insertCode($code, $_POST["username"]);
 
 		die("{\"status\": 200, \"message\": \"check your email\"}");
+	}
+
+
+	function acceptCode () {
+		$code = $GLOBALS["connection"]->prepare("SELECT `acceptCode` FROM `users` WHERE `token` = ?");
+		$code->bindValue(1, $_POST["token"]);
+
+		$code->execute() or
+			die($GLOBALS["notExec"]);
+
+		if ($code->fetch(PDO::FETCH_ASSOC)["acceptCode"] != $_POST["accept-code"])
+			die("{\"status\": 500, \"message\": \"accept code invalid\"}");
+	}
+
+	function resetPasswd () {
+		acceptCode();
+		checkValidate();
+
+		$update = $GLOBALS["connection"]->prepare("UPDATE `users` SET `password` = ? WHERE `token` = ?");
+		$update->bindValue(1, $_POST["password"]);
+		$update->bindValue(2, $_POST["token"]);
+
+		$update->execute() or
+			die($GLOBALS["notExec"]);
+
+		die("{\"status\": 200, \"message\": \"password successly changed\"}");
 	}
 
 
@@ -343,6 +369,9 @@
 				changeEmail();
 
 			case "reset-password":
+				resetPasswdCode();
+
+			case "accept-code":
 				resetPasswd();
 		}
 	})();
