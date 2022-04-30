@@ -1,26 +1,22 @@
 <?php
 
     $connection = new PDO("mysql:host=127.0.0.1;dbname=shop", "matin", '!@MneZAMi#$2020');
-    $info = [];
+    $info = getInfo($_COOKIE["token"]?? 0);
 
     if (!$connection)
         die("{\"status\": 500, \"message\": \"database isn't connect\"}");
 
-    (function () {
-        if (!isset($_COOKIE["token"]))
-            return 0;
-        
+    function getInfo ($token) {
+        if (!$token) return [];
+
         $info = $GLOBALS["connection"]->prepare("SELECT * FROM `users` WHERE `token` = ?");
         $info->bindValue(1, $_COOKIE["token"]);
     
-        if(!$info->execute())
-            return 0;
+        if(!$info->execute()) return [];
     
         if ($info->rowCount())
-            $GLOBALS["info"] = $info->fetch(PDO::FETCH_ASSOC);
-    
-        return 0;
-    })();
+            return $GLOBALS["info"] = $info->fetch(PDO::FETCH_ASSOC);
+    }
 
     class component {
         static function navbar () {
