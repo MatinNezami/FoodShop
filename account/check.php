@@ -347,8 +347,4 @@
 		}
 	})();
 
-	$_POST = ["firstName" => "mman", "password" => "Hexi91$", "profile" => "image/jpeg;sjicisooeiciidnnis"];
-
-	checkValidate();
-
 ?>

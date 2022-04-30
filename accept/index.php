@@ -3,14 +3,15 @@
     require_once "../share/component.php";
     
     $client = ["login" => isset($_COOKIE["token"])];
+    $acceptCode = $_GET["page"] == "accept-code" && !$info["acceptCode"];
 
     if (time() > $info["oppertunity"])
         $client["box"] = "resend-email";
-
+    
     elseif ($info["accept"] && $_GET["page"] == "accept-account")
         $client["box"] = "accepted";
-
-    elseif (!isset($_GET["token"]) || $_GET["token"] != $info["token"])
+    
+    elseif (!isset($_GET["token"]) || $_GET["token"] != $info["token"] || $acceptCode)
         $client["box"] = "error";
 
 ?>
@@ -71,7 +72,7 @@
 
             <form action="" class="center-item">
                 <ul>
-                    <li>enter only number</li>
+                    <li>Enter only number</li>
                 </ul>
 
                 <div class="tiny-inputs center-item">
