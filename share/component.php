@@ -10,12 +10,12 @@
         if (!$token) return [];
 
         $info = $GLOBALS["connection"]->prepare("SELECT * FROM `users` WHERE `token` = ?");
-        $info->bindValue(1, $_COOKIE["token"]);
+        $info->bindValue(1, $token);
     
         if(!$info->execute()) return [];
     
         if ($info->rowCount())
-            return $GLOBALS["info"] = $info->fetch(PDO::FETCH_ASSOC);
+            return $info->fetch(PDO::FETCH_ASSOC);
     }
 
     class component {

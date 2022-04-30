@@ -1,17 +1,19 @@
 <?php
 
     require_once "../share/component.php";
-    
-    $client = ["login" => isset($_COOKIE["token"])];
-    $acceptCode = $_GET["page"] == "accept-code" && !$info["acceptCode"];
 
-    if (time() > $info["oppertunity"])
+    $token = getInfo($_GET["token"]?? 0);
+    
+    $client = [];
+    $acceptCode = $_GET["page"] == "accept-code" && !$token["acceptCode"];
+
+    if (time() > $token["oppertunity"])
         $client["box"] = "resend-email";
     
-    elseif ($info["accept"] && $_GET["page"] == "accept-account")
+    elseif ($token["accept"] && $_GET["page"] == "accept-account")
         $client["box"] = "accepted";
     
-    elseif (!isset($_GET["token"]) || $_GET["token"] != $info["token"] || $acceptCode)
+    elseif (!isset($_GET["token"]) || $_GET["token"] != $token["token"] || $acceptCode)
         $client["box"] = "error";
 
 ?>
