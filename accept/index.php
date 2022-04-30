@@ -10,7 +10,7 @@
     if (time() > $token["oppertunity"])
         $client["box"] = "resend-email";
     
-    elseif ($token["accept"] && $_GET["page"] == "accept-account")
+    elseif ($token["accept"] && $_GET["page"] == "accept")
         $client["box"] = "accepted";
     
     elseif (!isset($_GET["token"]) || $_GET["token"] != $token["token"] || $acceptCode)
@@ -51,7 +51,7 @@
             <h2>Account is accepted</h2>
         </div>
 
-        <div id="accept-account" class="center-item">
+        <div id="accept" class="center-item">
             <img src="/images/accept.svg" loading="lazy" alt="accept" draggable="false">
 
             <form action="" class="center-item">
@@ -59,11 +59,13 @@
                     <input type="password" name="password" check="password" data-type="password" required>
                     <p class="placeholder">Password</p>
                 </div>
+
+                <input type="hidden" name="type" value="accept">
             </form>
 
             <div class="show-password center-item">
-                <input type="checkbox" id="show-accept-account" autocomplete="off">
-                <label for="show-accept-account">Show Password</p>
+                <input type="checkbox" id="show-accept" autocomplete="off">
+                <label for="show-accept">Show Password</p>
             </div>
 
             <button class="submit">Submit</button>
@@ -78,12 +80,12 @@
                 </ul>
 
                 <div class="tiny-inputs center-item">
-                    <input type="text" check="number" min="0" max="9" required>
-                    <input type="text" check="number" min="0" max="9" required>
-                    <input type="text" check="number" min="0" max="9" required>
-                    <input type="text" check="number" min="0" max="9" required>
-                    <input type="text" check="number" min="0" max="9" required>
-                    <input type="text" check="number" min="0" max="9" required>
+                    <input type="text" check="number" min="0" max="9" required autocomplete="off">
+                    <input type="text" check="number" min="0" max="9" required autocomplete="off">
+                    <input type="text" check="number" min="0" max="9" required autocomplete="off">
+                    <input type="text" check="number" min="0" max="9" required autocomplete="off">
+                    <input type="text" check="number" min="0" max="9" required autocomplete="off">
+                    <input type="text" check="number" min="0" max="9" required autocomplete="off">
                 </div>
 
                 <div class="input">

@@ -24,11 +24,10 @@ const redirect = _ => setTimeout(_ => location.replace("http://localhost/account
     token = location.get("token");
 
 async function acceptAccount () {
-    const validate = new Validate($["accept-account"].select("form"));
+    const validate = new Validate($.accept.select("form"));
 
     if (!validate.ok) return;
 
-    validate.data.append("type", "accept");
     validate.data.append("token", token);
 
     const data = {url: "/account/check.php", data: validate.data, method: "POST"};
@@ -36,7 +35,7 @@ async function acceptAccount () {
     if ((await ajax(data)).status == 200) redirect();
 }
 
-$["accept-account"].select(".submit").event("click", acceptAccount);
+$.accept.select(".submit").event("click", acceptAccount);
 
 
 async function resetPasswd () {
